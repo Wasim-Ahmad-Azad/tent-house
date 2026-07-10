@@ -1,0 +1,2305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>[Luxury] Corporative Tent House — Tents, Decor & Catering on Rent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Marcellus&family=Mulish:wght@400;500;600;700;800;900&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#fdf6f4;--card:#ffffff;--ink:#3d2a2a;--muted:#a58a86;--brand:#b76e79;--brand-2:#d59aa2;--brand-deep:#9a545f;--gold:#c9a15a;--gold-2:#e6cd94;--accent:#7a9e8e;--line:#f2e2df;--surf:#fbe9e6;--surf-2:#f6d9d4;--ok:#2e7d32;--warn:#c62828;--brand-rgb:183,110,121;--brand-deep-rgb:154,84,95;--gold-rgb:201,161,90;--gold2-rgb:230,205,148;--ink-rgb:61,42,42;--bg-rgb:253,246,244;--shadow:0 10px 30px rgba(var(--ink-rgb),.10);--shadow-lg:0 18px 50px rgba(var(--ink-rgb),.18);--radius:20px;--font-head:'Cormorant Garamond',serif;--font-body:'Mulish',sans-serif;--font-ui:'Mulish',sans-serif;--font-brand:'Pinyon Script',cursive;}
+  button{border-radius:999px}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth}
+  body{margin:0;font-family:var(--font-body);background:var(--bg);color:var(--ink);line-height:1.55;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+  img{display:block;max-width:100%}
+  h1,h2,h3,#bizName{font-family:var(--font-head);font-weight:700;letter-spacing:.2px}
+  button{font-family:inherit;cursor:pointer;border:none;border-radius:12px;font-weight:600;touch-action:manipulation;transition:transform .18s ease,box-shadow .18s ease,background .2s ease,color .2s ease}
+  button:active{transform:scale(.96)}
+  /* 16px+ inputs stop iOS Safari from auto-zooming on focus */
+  input,select,textarea{font-size:16px}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 clamp(14px,4vw,20px)}
+  /* gold divider + reveal-on-scroll */
+  .gold-rule{width:64px;height:3px;border:0;border-radius:3px;background:linear-gradient(90deg,var(--gold),var(--gold-2))}
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+  /* scroll progress bar */
+  .scroll-prog{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:linear-gradient(90deg,var(--gold-2),var(--gold),var(--brand));box-shadow:0 0 8px rgba(var(--gold-rgb),.6);transition:width .08s linear}
+  /* back-to-top */
+  .to-top{position:fixed;right:18px;bottom:calc(88px + env(safe-area-inset-bottom));width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;font-size:20px;line-height:1;display:grid;place-items:center;border:1px solid rgba(var(--gold-rgb),.5);box-shadow:0 8px 22px rgba(var(--brand-rgb),.4);z-index:45;cursor:pointer;opacity:0;pointer-events:none;transform:translateY(10px);transition:opacity .25s,transform .25s,box-shadow .2s}
+  .to-top.show{opacity:1;pointer-events:auto;transform:none}
+  .to-top:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(var(--brand-rgb),.5)}
+  /* cart estimated subtotal */
+  .cart-sub{display:flex;align-items:baseline;justify-content:space-between;padding:12px 4px;margin-bottom:6px;border-top:1px dashed var(--line);border-bottom:1px dashed var(--line)}
+  .cart-sub b{font-size:18px;color:var(--brand)}
+  .cart-sub span{font-size:13px;color:var(--muted)}
+  .cart-sub small{display:block;font-size:11px;color:var(--muted);font-weight:500}
+  @media(prefers-reduced-motion:reduce){
+    .scroll-prog,.to-top{transition:none}
+    .reveal{opacity:1;transform:none;transition:none}
+    .hero,.hero-art{animation:none}
+    .hs-slide{transition:none!important}
+    .hs-slide .hs-bg{animation:none!important;transform:none}
+    *{scroll-behavior:auto}
+  }
+
+  /* Header */
+  header{position:sticky;top:0;z-index:40;background:rgba(var(--bg-rgb),.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .bar{display:flex;align-items:center;gap:14px;padding:12px clamp(16px,4vw,40px);max-width:none;width:100%}
+  .logo{display:flex;align-items:center;gap:11px;font-size:21px}
+  #bizName{font-size:22px;font-family:var(--font-ui);font-weight:900;letter-spacing:.3px;white-space:nowrap;background:linear-gradient(92deg,var(--brand-deep),var(--brand) 45%,var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--brand)}
+  .logo .mark{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--surf),var(--surf-2));display:grid;place-items:center;font-size:21px;box-shadow:0 4px 12px rgba(var(--gold-rgb),.2);border:1px solid rgba(var(--gold-rgb),.45)}
+  .logo small{display:block;font-family:var(--font-ui);font-size:10.5px;font-weight:700;color:var(--gold);letter-spacing:1.6px;text-transform:uppercase}
+  .spacer{flex:1}
+  .navbtn{background:transparent;color:var(--ink);padding:9px 14px;border:1px solid transparent;font-weight:600}
+  .navbtn:hover{background:rgba(var(--brand-rgb),.07);color:var(--brand)}
+  .cart-btn{background:linear-gradient(135deg,var(--brand-2),var(--brand));color:#fff;padding:10px 18px;display:flex;align-items:center;gap:8px;box-shadow:0 6px 18px rgba(var(--brand-rgb),.26)}
+  .cart-btn:hover{box-shadow:0 10px 24px rgba(var(--brand-rgb),.36);transform:translateY(-1px)}
+  .cart-btn .count{background:var(--gold-2);color:var(--brand-deep);border-radius:999px;min-width:22px;height:22px;display:grid;place-items:center;font-size:12px;font-weight:700;padding:0 6px}
+  .menu-btn{display:none;font-size:20px;line-height:1;padding:9px 13px;background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .mobile-menu{display:none;flex-direction:column;position:absolute;top:100%;right:clamp(14px,4vw,20px);margin-top:6px;background:var(--card,#fff);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-lg);overflow:hidden;z-index:60;min-width:180px}
+  .mobile-menu.show{display:flex}
+  .mobile-menu a{padding:13px 18px;color:var(--ink);text-decoration:none;font-weight:600;font-size:15px;cursor:pointer;border-bottom:1px solid var(--line)}
+  .mobile-menu a:last-child{border-bottom:none}
+  .mobile-menu a:active{background:var(--surf,#f2f2f2)}
+
+  /* Hero — full-width image slider with overlaid text */
+  .hero{position:relative;overflow:hidden;display:flex;align-items:center;min-height:clamp(460px,76vh,660px);background:var(--brand-deep);border-bottom:3px solid var(--gold)}
+  .hero-art{position:absolute;inset:0}
+  .hero-art img,.hero-art svg{width:100%;height:100%;object-fit:cover}
+  .hero::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(var(--ink-rgb),.34),rgba(var(--ink-rgb),.50));pointer-events:none}
+  .hero-content{position:relative;z-index:2;width:100%;padding:clamp(40px,7vw,80px) clamp(14px,4vw,20px);display:flex;justify-content:center}
+  .hero-glass{max-width:640px;text-align:center}
+  .hero .eyebrow{display:inline-block;font-family:var(--font-ui);font-size:13px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold-2);background:rgba(0,0,0,.28);border:1px solid rgba(var(--gold2-rgb),.5);border-radius:999px;padding:7px 16px;margin-bottom:20px}
+  .hero h1{font-size:clamp(30px,5vw,50px);line-height:1.08;margin:0 0 16px;color:#fff;text-shadow:0 2px 18px rgba(0,0,0,.6)}
+  .hero h1 .accent{color:var(--gold-2);font-style:italic}
+  .hero p{font-size:clamp(16px,2.6vw,20px);color:rgba(255,245,230,.95);margin:0 auto 28px;max-width:480px;text-shadow:0 1px 12px rgba(0,0,0,.5)}
+  .hero .cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+  .btn-primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;padding:14px 26px;font-size:15px;box-shadow:0 8px 22px rgba(var(--brand-rgb),.28);position:relative;overflow:hidden}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(var(--brand-rgb),.38)}
+  .btn-primary::after{content:"";position:absolute;top:0;left:-130%;width:55%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-18deg);transition:left .6s ease;pointer-events:none}
+  .btn-primary:hover::after{left:150%}
+  @media(prefers-reduced-motion:reduce){.btn-primary::after{display:none}}
+  .btn-ghost{background:#fff;color:var(--brand);border:1.5px solid rgba(var(--brand-rgb),.35);padding:14px 26px;font-size:15px}
+  .btn-ghost:hover{background:rgba(var(--brand-rgb),.06);border-color:var(--brand);transform:translateY(-2px)}
+  .hero .btn-primary{background:linear-gradient(135deg,var(--gold-2),var(--gold));color:var(--brand-deep);box-shadow:0 8px 22px rgba(0,0,0,.3)}
+  .hero .btn-ghost{background:rgba(255,255,255,.14);color:#fff;border:1.5px solid rgba(255,255,255,.6)}
+  .hero .btn-ghost:hover{background:rgba(255,255,255,.24);border-color:#fff}
+  /* hero slider — horizontal slide + Taj-style slow zoom (Ken Burns) on the image */
+  .hs-slide{position:absolute;inset:0;opacity:0;transform:translateX(100%);transition:transform 1s cubic-bezier(.45,0,.15,1),opacity 1s ease;z-index:0}
+  .hs-slide.active{opacity:1;transform:translateX(0);z-index:1}
+  .hs-bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.03);will-change:transform}
+  .hs-slide.active .hs-bg{animation:hsKenBurns 8s ease-out forwards}
+  @keyframes hsKenBurns{from{transform:scale(1.03)}to{transform:scale(1.13)}}
+  .hs-cap{position:absolute;right:16px;bottom:50px;z-index:2;background:rgba(var(--brand-deep-rgb),.78);color:var(--gold-2);font-family:var(--font-ui);font-size:12.5px;font-weight:600;letter-spacing:.3px;padding:7px 14px;border-radius:999px;max-width:62%}
+  .hs-dots{position:absolute;left:0;right:0;bottom:16px;display:flex;gap:7px;justify-content:center;z-index:3}
+  .hs-dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.65);box-shadow:0 1px 3px rgba(0,0,0,.3);cursor:pointer;transition:all .3s}
+  .hs-dot.active{background:var(--gold-2);width:22px;border-radius:5px}
+  .hs-arrow{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.85);color:var(--brand);font-size:24px;line-height:1;display:grid;place-items:center;z-index:3;box-shadow:var(--shadow);opacity:0;transition:opacity .25s}
+  .hero:hover .hs-arrow{opacity:1}
+  .hs-prev{left:14px}
+  .hs-next{right:14px}
+  .hs-arrow:hover{background:#fff}
+  @media(hover:none){ .hs-arrow{opacity:.9} }
+  .badges{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap;justify-content:center}
+  .badge{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:12px;padding:10px 14px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px}
+  .badge svg{width:16px;height:16px;flex:none;color:var(--gold-2)}
+
+  /* Catalog */
+  section.catalog{padding:clamp(40px,6vw,72px) clamp(14px,4vw,20px) clamp(48px,7vw,80px)}
+  .sec-head{margin-bottom:24px;text-align:center}
+  .sec-head h2{font-size:clamp(24px,4vw,34px);margin:0}
+  .sec-head p{margin:6px 0 0;color:var(--muted)}
+  .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px;justify-content:center}
+  .chip{background:var(--card);border:1.5px solid var(--line);color:var(--ink);padding:9px 18px;border-radius:999px;font-size:14px;font-weight:600;transition:all .2s}
+  .chip:hover{border-color:var(--gold);color:var(--brand)}
+  .chip.active{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;border-color:transparent;box-shadow:0 6px 16px rgba(var(--brand-rgb),.25)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(248px,1fr));gap:22px}
+  .item{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .28s ease,box-shadow .28s ease}
+  .item::after{content:"";position:absolute;inset:0;border-radius:var(--radius);border:1.5px solid transparent;pointer-events:none;transition:border-color .28s}
+  .item:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg)}
+  .item:hover::after{border-color:rgba(var(--gold-rgb),.55)}
+  .item .thumb{height:180px;background:var(--surf-2);cursor:pointer;position:relative;overflow:hidden}
+  .item .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+  .item:hover .thumb img{transform:scale(1.08)}
+  .item .cat-tag{position:absolute;top:11px;left:11px;background:rgba(var(--brand-deep-rgb),.82);color:var(--gold-2);font-size:11px;padding:5px 11px;border-radius:999px;font-weight:600;letter-spacing:.3px;backdrop-filter:blur(4px)}
+  .item .body{padding:15px 15px 17px;display:flex;flex-direction:column;gap:7px;flex:1}
+  .item h3{margin:0;font-size:18px}
+  .item .desc{font-size:13px;color:var(--muted);flex:1}
+  .item .price{font-weight:700;color:var(--brand);font-size:17px}
+  .item .price small{font-weight:500;color:var(--muted);font-size:12px}
+  .item .row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:6px}
+  .add{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;padding:10px 16px;font-size:14px;box-shadow:0 4px 12px rgba(var(--brand-rgb),.22)}
+  .add:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(var(--brand-rgb),.32)}
+  .add.in{background:var(--surf-2);color:var(--brand);border:1px solid rgba(var(--gold-rgb),.5);box-shadow:none}
+  .soldout{font-size:12px;font-weight:700;color:var(--warn);background:#fdeaea;padding:7px 11px;border-radius:8px}
+  .empty{text-align:center;padding:60px 20px;color:var(--muted)}
+
+  /* Cart drawer */
+  .overlay{position:fixed;inset:0;background:rgba(30,20,10,.45);opacity:0;pointer-events:none;transition:opacity .2s;z-index:50}
+  .overlay.show{opacity:1;pointer-events:auto}
+  .drawer{position:fixed;top:0;right:0;height:100%;width:420px;max-width:92vw;background:var(--bg);box-shadow:-8px 0 30px rgba(0,0,0,.2);z-index:60;transform:translateX(100%);transition:transform .25s;display:flex;flex-direction:column}
+  .drawer.show{transform:translateX(0)}
+  .drawer header{position:static;background:transparent;border-bottom:1px solid var(--line)}
+  .drawer .dhead{display:flex;align-items:center;justify-content:space-between;padding:18px}
+  .drawer .dhead h3{margin:0;font-size:20px}
+  .x{background:var(--surf-2);width:34px;height:34px;border-radius:9px;font-size:18px}
+  .cart-list{flex:1;overflow:auto;padding:6px 18px}
+  .cart-row{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+  .cart-row img{width:60px;height:60px;border-radius:10px;object-fit:cover;background:#eee}
+  .cart-row .info{flex:1}
+  .cart-row .info b{display:block;font-size:14px}
+  .cart-row .info span{font-size:12px;color:var(--muted)}
+  .qty{display:flex;align-items:center;gap:8px;margin-top:6px}
+  .qty button{width:26px;height:26px;background:var(--surf-2);font-size:15px;border-radius:7px}
+  .qty input{width:42px;text-align:center;border:1px solid var(--line);border-radius:7px;padding:4px;font-family:inherit}
+  .rm{background:transparent;color:var(--warn);font-size:12px;padding:4px 0;text-decoration:underline}
+  .cart-proceed{border-top:1px solid var(--line);padding:18px;background:#fff}
+  .proceed-btn{width:100%;padding:14px;font-size:15px;font-weight:800;color:var(--brand-deep);background:linear-gradient(135deg,var(--gold-2),var(--gold));border-radius:11px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 6px 18px rgba(var(--gold-rgb),.35)}
+  .proceed-btn:hover{filter:brightness(1.04);transform:translateY(-1px)}
+  .cart-back{background:transparent;color:var(--brand);font-size:13px;font-weight:700;padding:0 0 12px;margin-bottom:2px}
+  .cart-summary{margin-bottom:14px}
+  .cart-foot{border-top:1px solid var(--line);padding:18px;background:#fff;flex:1;min-height:0;overflow:auto}
+  .cart-foot .form-row{margin-bottom:10px}
+  .cart-foot label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:4px}
+  .cart-foot input,.cart-foot textarea{width:100%;padding:10px;border:1px solid var(--line);border-radius:9px;font-family:inherit;font-size:14px}
+  .cart-foot textarea{min-height:56px;resize:vertical}
+  .loc-btn{width:100%;background:#fff;border:1.5px solid var(--brand);color:var(--brand);padding:11px;border-radius:9px;font-size:14px;font-weight:600}
+  .loc-btn:hover{background:rgba(var(--brand-rgb),.06)}
+  .loc-status{font-size:12px;color:var(--muted);margin-top:6px}
+  .loc-status a{color:var(--brand);font-weight:600}
+  .send-wa{background:#25D366;color:#fff;width:100%;padding:13px;font-size:15px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:8px}
+  .hint{font-size:12px;color:var(--muted);margin-top:10px;text-align:center}
+
+  /* Modal (image view + admin) */
+  .modal{position:fixed;inset:0;z-index:70;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(30,20,10,.55)}
+  .modal.show{display:flex}
+  .modal-card{background:var(--bg);border-radius:var(--radius);max-width:560px;width:100%;max-height:90vh;overflow:auto;box-shadow:var(--shadow)}
+  .modal-card .mc-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg)}
+  .modal-card .mc-head h3{margin:0;font-size:19px}
+  .modal-body{padding:18px}
+  .lightbox img{width:100%;border-radius:12px}
+
+  /* Admin */
+  .admin-wrap{padding:30px clamp(14px,4vw,20px) 70px}
+  .login-box{max-width:380px;margin:60px auto;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow);text-align:center}
+  .login-box input{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:14px 0;font-size:15px;font-family:inherit}
+  .admin-table{width:100%;border-collapse:collapse;background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+  .admin-table th,.admin-table td{padding:11px 12px;text-align:left;border-bottom:1px solid var(--line);font-size:14px;vertical-align:middle}
+  .admin-table th{background:var(--surf);font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)}
+  .admin-table img{width:50px;height:40px;object-fit:cover;border-radius:7px}
+  .mini{padding:6px 10px;font-size:13px}
+  .mini.edit{background:#eef3ff;color:#2a4fb5}
+  .mini.del{background:#fdeaea;color:var(--warn)}
+  .toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:18px}
+  .toolbar .left{display:flex;gap:10px;align-items:center}
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:13px;font-weight:700;margin-bottom:5px}
+  .field input,.field select,.field textarea{width:100%;padding:10px;border:1px solid var(--line);border-radius:9px;font-family:inherit;font-size:14px}
+  .field textarea{min-height:70px;resize:vertical}
+  .field.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .img-preview{height:140px;border:1.5px dashed var(--line);border-radius:12px;display:grid;place-items:center;overflow:hidden;background:var(--surf);color:var(--muted);cursor:pointer;text-align:center}
+  .img-preview img{width:100%;height:100%;object-fit:cover}
+  .save{background:var(--accent);color:#fff;padding:12px 20px;width:100%;font-size:15px}
+  .switch{display:flex;align-items:center;gap:8px;font-size:14px}
+  .toggle{position:relative;width:42px;height:24px;background:#ccc;border-radius:999px;transition:.2s}
+  .toggle.on{background:var(--ok)}
+  .toggle::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;background:#fff;border-radius:50%;transition:.2s}
+  .toggle.on::after{left:21px}
+  /* Contact */
+  section.contact{background:linear-gradient(135deg,var(--surf),var(--bg));border-top:3px solid var(--gold)}
+  section.contact .wrap{padding:clamp(30px,5vw,46px) clamp(14px,4vw,18px)}
+  section.contact h2{font-size:clamp(22px,4vw,28px);margin:0 0 18px}
+  .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+  .contact-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);display:flex;gap:13px;align-items:flex-start}
+  .contact-card .ic{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,var(--surf),var(--surf-2));border:1px solid rgba(var(--gold-rgb),.4);color:var(--brand);display:grid;place-items:center;flex:none}
+  .contact-card .ic svg{width:22px;height:22px}
+  .contact-card b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:4px}
+  .contact-card span,.contact-card a{color:var(--ink);text-decoration:none;font-weight:600;font-size:15px;line-height:1.4;word-break:break-word}
+  .contact-card a:hover{color:var(--brand)}
+  .map-link{display:inline-block;margin-top:6px;font-size:13px;color:var(--brand);font-weight:700;text-decoration:none}
+  .map-label{margin:0 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-weight:700}
+  .contact-bottom{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:stretch;margin-top:24px}
+  .map-block{display:flex;flex-direction:column}
+  .contact-map{display:block;width:100%;flex:1;min-height:300px;border:0;border-radius:var(--radius);box-shadow:var(--shadow)}
+  /* About */
+  section.about-sec{padding:clamp(40px,6vw,64px) 0 clamp(20px,3vw,28px)}
+  .about-inner{max-width:760px;margin:0 auto;text-align:center}
+  .about-inner h2{font-size:clamp(24px,4vw,34px);margin:0}
+  .about-inner p{color:var(--muted);font-size:clamp(15px,2.2vw,17px);line-height:1.75;margin:0}
+  /* Gallery */
+  section.gallery-sec{padding:clamp(42px,6vw,70px) 0;background:linear-gradient(135deg,var(--surf),var(--bg));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+  .g-item{margin:0;position:relative;border-radius:var(--radius);overflow:hidden;cursor:pointer;box-shadow:var(--shadow);aspect-ratio:4/3;background:var(--surf-2);border:1px solid var(--line)}
+  .g-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+  .g-item:hover{box-shadow:var(--shadow-lg)}
+  .g-item:hover img{transform:scale(1.08)}
+  .g-item figcaption{position:absolute;left:0;right:0;bottom:0;padding:22px 12px 11px;background:linear-gradient(transparent,rgba(var(--ink-rgb),.82));color:#fff;font-size:13px;font-weight:600}
+  .gallery-admin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px}
+  .ga-card{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);cursor:grab}
+  .ga-card.dragging{opacity:.4}
+  .ga-card img{width:100%;height:120px;object-fit:cover;pointer-events:none}
+  .ga-card input{width:100%;border:none;border-top:1px solid var(--line);padding:9px;font-size:13px;font-family:inherit}
+  .ga-actions{display:flex;border-top:1px solid var(--line)}
+  .ga-actions .mini{flex:1;border-radius:0;padding:9px 6px;background:#fff;color:var(--ink);font-size:14px}
+  .ga-actions .mini:hover{background:var(--surf)}
+  .ga-actions .mini.del{color:var(--warn);flex:2;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+  /* Reviews */
+  section.reviews-sec{padding:clamp(42px,6vw,70px) 0}
+  .reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+  .review-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);position:relative}
+  .review-card .stars{color:var(--gold);font-size:16px;letter-spacing:2px;margin-bottom:8px}
+  .review-card .stars .off{color:var(--surf-2)}
+  .review-card .quote{font-style:italic;color:var(--ink);line-height:1.6;margin:0 0 14px}
+  .review-card .who{display:flex;align-items:center;gap:10px}
+  .review-card .ava{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;display:grid;place-items:center;font-weight:700;font-family:var(--font-ui)}
+  .review-card .who b{font-size:14px;font-family:var(--font-ui)}
+  /* WhatsApp floating button */
+  .wa-fab{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom));width:58px;height:58px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 8px 24px rgba(37,211,102,.45);z-index:45;transition:transform .2s, box-shadow .2s;animation:waPulse 2.6s ease-in-out infinite}
+  .wa-fab:hover{transform:scale(1.08);box-shadow:0 12px 30px rgba(37,211,102,.6)}
+  @keyframes waPulse{0%,100%{box-shadow:0 8px 24px rgba(37,211,102,.45)}50%{box-shadow:0 8px 24px rgba(37,211,102,.45),0 0 0 12px rgba(37,211,102,.12)}}
+  @media(prefers-reduced-motion:reduce){.wa-fab{animation:none}}
+  .reviews-admin{display:flex;flex-direction:column;gap:10px}
+  .rev-row{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 15px;box-shadow:var(--shadow)}
+  .rev-row .rev-info{flex:1}
+  .rev-actions{display:flex;gap:8px;flex:none}
+  /* Offer banner */
+  .offer-bar{display:flex;align-items:center;justify-content:center;gap:12px;background:linear-gradient(90deg,var(--brand),var(--brand-2));color:#fff;padding:9px 42px 9px 16px;font-size:14px;font-weight:600;text-align:center;position:relative}
+  .offer-bar #offerText{cursor:pointer}
+  .offer-x{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.18);color:#fff;width:26px;height:26px;border-radius:7px;font-size:13px}
+  .offer-x:hover{background:rgba(255,255,255,.32)}
+  /* Why-choose-us strip */
+  .why-strip{background:#fff;border-bottom:1px solid var(--line)}
+  .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:22px clamp(14px,4vw,20px)}
+  .why-item{display:flex;align-items:center;gap:12px}
+  .why-ic{flex:none;width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--surf),var(--surf-2));border:1px solid rgba(var(--gold-rgb),.4);color:var(--brand);display:grid;place-items:center}
+  .why-ic svg{width:24px;height:24px}
+  .why-item b{display:block;font-family:var(--font-ui);font-size:15px}
+  .why-item span{font-size:12.5px;color:var(--muted)}
+  /* Packages */
+  section.packages-sec{padding:clamp(42px,6vw,70px) 0;background:linear-gradient(135deg,var(--surf),var(--bg));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .packages-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+  .pkg-card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:transform .28s,box-shadow .28s}
+  .pkg-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+  .pkg-img{height:150px;background-size:cover;background-position:center;background-color:var(--surf-2);position:relative;transition:transform .5s ease}
+  .pkg-card:hover .pkg-img{transform:scale(1.06)}
+  .pkg-price{position:absolute;bottom:10px;left:10px;background:rgba(var(--brand-deep-rgb),.85);color:var(--gold-2);font-family:var(--font-ui);font-weight:700;font-size:13px;padding:5px 11px;border-radius:999px}
+  .pkg-body{padding:16px;display:flex;flex-direction:column;flex:1}
+  .pkg-body h3{margin:0 0 3px;font-size:19px}
+  .pkg-tag{color:var(--muted);font-size:13px;margin-bottom:10px}
+  .pkg-list{list-style:none;margin:0 0 16px;padding:0;flex:1}
+  .pkg-list li{font-size:13.5px;padding:4px 0 4px 22px;position:relative}
+  .pkg-list li::before{content:"✓";position:absolute;left:0;color:var(--brand);font-weight:700}
+  .pkg-btn{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;padding:12px;font-size:15px;width:100%;box-shadow:0 6px 16px rgba(var(--brand-rgb),.25)}
+  .pkg-btn:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(var(--brand-rgb),.35)}
+  /* Ask on WhatsApp (lightbox) */
+  .ask-wa{background:#fff;border:1.5px solid #25D366;color:#1c8c46;padding:11px 16px;font-size:14px;border-radius:10px}
+  .ask-wa:hover{background:#eafaf0}
+  /* Callback (sits beside the map) */
+  .callback-card{background:linear-gradient(135deg,var(--brand),var(--brand-deep));color:#fff;border:1px solid rgba(var(--gold-rgb),.35);border-top:3px solid var(--gold);border-radius:var(--radius);padding:clamp(22px,3vw,30px);display:flex;flex-direction:column;justify-content:center;gap:16px;box-shadow:var(--shadow-lg)}
+  .callback-text h2{margin:0 0 8px;color:#fff;font-size:clamp(20px,3vw,26px)}
+  .callback-text p{margin:0;color:rgba(255,255,255,.85);font-size:15px}
+  .callback-form .send-wa{background:linear-gradient(135deg,var(--gold-2),var(--gold));color:var(--brand-deep);font-weight:700}
+  .callback-form .send-wa:hover{filter:brightness(1.04);transform:translateY(-1px)}
+  .callback-form{display:flex;flex-direction:column;gap:10px}
+  .callback-form input{width:100%;padding:11px;border:1px solid var(--line);border-radius:9px;font-family:inherit;background:#fff}
+  .callback-form .send-wa{margin:0}
+  footer{background:var(--brand-deep);color:rgba(255,243,224,.8);border-top:3px solid var(--gold)}
+  .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1.2fr;gap:30px;padding:clamp(34px,5vw,52px) clamp(14px,4vw,20px) 26px}
+  .foot-logo{display:flex;align-items:center;gap:10px;font-family:var(--font-ui);font-weight:800;letter-spacing:.2px;font-size:21px;color:#fff;margin-bottom:12px}
+  .foot-mark{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--surf),var(--surf-2));display:grid;place-items:center;flex:none}
+  .foot-mark svg{width:34px;height:34px}
+  .foot-tag{font-size:14px;line-height:1.65;margin:0 0 12px;max-width:340px}
+  #footFounder{font-size:13px;color:var(--gold-2)}
+  .foot-col h4{font-family:var(--font-ui);font-size:12px;text-transform:uppercase;letter-spacing:1.2px;color:var(--gold-2);margin:0 0 12px;font-weight:700}
+  .foot-col a{display:block;color:rgba(255,243,224,.82);text-decoration:none;font-size:14px;padding:5px 0;cursor:pointer;transition:color .2s}
+  .foot-col a:hover{color:#fff}
+  #footAddr{font-size:14px;line-height:1.6}
+  .foot-phone{display:inline-block;color:#fff !important;font-size:15px;font-weight:600;margin-top:2px}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.12);padding:16px clamp(14px,4vw,20px) calc(16px + env(safe-area-inset-bottom));font-size:12.5px;color:rgba(255,243,224,.6);text-align:center}
+  .toast{position:fixed;bottom:calc(24px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:12px 20px;border-radius:10px;opacity:0;pointer-events:none;transition:.25s;z-index:90;font-size:14px;max-width:90vw;text-align:center}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  /* ---------- Tablets & small laptops ---------- */
+  @media(max-width:860px){
+    .hero{min-height:clamp(420px,74vh,560px)}
+    .grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+    .why-grid{grid-template-columns:repeat(2,1fr);gap:16px}
+    .contact-bottom{grid-template-columns:1fr}
+    .foot-grid{grid-template-columns:1fr 1fr;gap:26px}
+  }
+
+  /* ---------- Phones ---------- */
+  @media(max-width:600px){
+    .bar{gap:8px;padding:10px 14px}
+    .logo{font-size:17px}
+    .logo .mark{width:34px;height:34px;font-size:18px}
+    .logo small{font-size:9.5px;letter-spacing:1px}
+    #bizName{font-size:15px;white-space:normal;line-height:1.12}
+    .cart-btn{padding:9px 12px}
+    .navbtn{padding:8px 10px}
+    .sec-nav{display:none}
+    .menu-btn{display:inline-block}
+    .foot-grid{grid-template-columns:1fr;gap:24px;text-align:center}
+    .foot-tag{margin-left:auto;margin-right:auto}
+    .foot-logo{justify-content:center}
+    .wa-fab{width:52px;height:52px}
+    .badges{gap:10px}
+    .badge{font-size:12px;padding:8px 11px}
+    .cta button{flex:1}
+    .grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+    .item .thumb{height:130px}
+    .item h3{font-size:15px}
+    .drawer{width:100%;max-width:100%}
+    .drawer .cart-foot{padding-bottom:calc(18px + env(safe-area-inset-bottom))}
+    /* turn admin table into stacked cards */
+    .admin-table,.admin-table tbody,.admin-table tr,.admin-table td{display:block;width:100%}
+    .admin-table thead{display:none}
+    .admin-table tr{padding:12px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:64px 1fr;gap:6px 12px;align-items:center}
+    .admin-table td{border:none;padding:0;font-size:14px}
+    .admin-table td:first-child{grid-row:span 4}
+    .admin-table img{width:60px;height:60px}
+    .toolbar{align-items:stretch}
+    .toolbar>div{width:100%}
+    .toolbar>div[style]{display:flex;gap:8px}
+    .toolbar>div[style] button{flex:1}
+    .field.two{grid-template-columns:1fr}
+  }
+
+  /* ---------- Touch devices: bigger tap targets ---------- */
+  @media(hover:none){
+    .add,.chip,.navbtn,.cart-btn,.btn-primary,.btn-ghost,.mini{min-height:42px}
+    .qty button{width:34px;height:34px}
+  }
+
+  /* =====================================================================
+     LUXURY THEME (Taj-inspired) — appended last so it overrides the above.
+     Ivory + deep wine + antique gold · editorial serif · quiet, spacious.
+     ===================================================================== */
+  /* Gold Fusion theme — Taj brand #8E744B on a bright, near-white ground */
+  :root{
+    --bg:#fdfcf9;--card:#ffffff;--ink:#2a2520;--muted:#8a7f6f;
+    --brand:#8e744b;--brand-2:#a68c5f;--brand-deep:#6b5434;
+    --gold:#8e744b;--gold-2:#c4aa7a;--accent:#5f7d6f;
+    --line:#efe9dd;--surf:#f8f5ee;--surf-2:#f0e9dc;
+    --brand-rgb:142,116,75;--brand-deep-rgb:107,84,52;--gold-rgb:142,116,75;--gold2-rgb:196,170,122;
+    --ink-rgb:42,37,32;--bg-rgb:253,252,249;
+    --shadow:0 8px 26px rgba(42,37,32,.07);--shadow-lg:0 20px 46px rgba(42,37,32,.12);
+    --radius:10px;--font-display:'Marcellus',serif;
+  }
+  h1,h2,h3{font-weight:600;letter-spacing:.3px}
+  .gold-rule{background:var(--gold)}
+  /* Wordmark — refined engraved serif, no gradient */
+  #bizName{font-family:var(--font-display)!important;font-weight:400!important;letter-spacing:1.6px;text-transform:uppercase;font-size:clamp(15px,4.6vw,23px);background:none!important;-webkit-text-fill-color:currentColor!important;color:var(--brand-deep)}
+  .logo small{font-family:var(--font-display);font-weight:400;letter-spacing:2.6px;color:var(--gold)}
+  .logo .mark{border-radius:10px}
+  /* Header — quiet ivory, uppercase serif nav */
+  header{background:rgba(247,242,234,.9)}
+  .navbtn{font-family:var(--font-display);font-weight:400;letter-spacing:1px;text-transform:uppercase;font-size:13px}
+  /* Buttons — squared, uppercase, letter-spaced */
+  .btn-primary,.btn-ghost,.add,.pkg-btn,.cart-btn,.send-wa,.proceed-btn,.ask-wa,.loc-btn{
+    border-radius:4px;text-transform:uppercase;letter-spacing:1.2px;font-weight:600;font-size:13px}
+  .btn-primary{background:var(--brand);border:1px solid var(--brand);box-shadow:none}
+  .btn-primary::after{display:none}
+  .btn-primary:hover{background:var(--brand-deep);transform:none;box-shadow:0 10px 24px rgba(124,46,59,.24)}
+  .btn-ghost{background:transparent;border:1px solid var(--brand);color:var(--brand)}
+  .btn-ghost:hover{background:var(--brand);color:#fff;transform:none;border-color:var(--brand)}
+  /* Hero — cinematic, restrained */
+  .hero{min-height:clamp(520px,84vh,720px)}
+  .hero::before{background:linear-gradient(180deg,rgba(20,12,14,calc(var(--hero-ov,1)*.46)),rgba(20,12,14,calc(var(--hero-ov,1)*.74)))}
+  .hero .eyebrow{font-family:var(--font-display);background:transparent;border:0;border-top:1px solid rgba(202,168,105,.6);border-bottom:1px solid rgba(202,168,105,.6);border-radius:0;color:var(--gold-2);letter-spacing:4px;padding:8px 6px}
+  .hero h1{font-weight:500;letter-spacing:.5px;font-size:clamp(34px,5.8vw,62px)}
+  .hero h1 .accent{color:var(--gold-2)}
+  .hero .btn-primary{background:var(--gold);color:#2c1b10;border:1px solid var(--gold);box-shadow:0 8px 22px rgba(0,0,0,.28)}
+  .hero .btn-primary:hover{background:var(--gold-2);color:#2c1b10}
+  .hero .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,.85);color:#fff}
+  .hero .btn-ghost:hover{background:rgba(255,255,255,.14);border-color:#fff}
+  /* Filter chips — quiet squared */
+  .chip{border-radius:3px;text-transform:uppercase;letter-spacing:.8px;font-size:12px}
+  .chip.active{background:var(--brand);box-shadow:none}
+  /* Section headings — serif with a fine gold rule */
+  .sec-head h2,.about-inner h2{font-size:clamp(26px,4.4vw,40px);font-weight:600}
+  .sec-head h2::after{content:"";display:block;width:54px;height:1px;background:var(--gold);margin:14px auto 0}
+  /* Cards — flatter, editorial */
+  .item,.pkg-card,.review-card,.contact-card,.g-item{box-shadow:none;border:1px solid var(--line)}
+  .item:hover,.pkg-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+  .item .cat-tag,.pkg-price{border-radius:0;text-transform:uppercase;letter-spacing:1px}
+  .item .price,.review-card .quote{font-family:var(--font-head)}
+  .review-card .quote{font-size:17px}
+  /* Footer wordmark serif */
+  .foot-logo{font-family:var(--font-display);font-weight:400;letter-spacing:1.2px}
+  .foot-col h4{font-family:var(--font-display);font-weight:400}
+  /* Slider arrows — Taj style: thin outlined circle, always visible, fine chevron */
+  .hs-arrow{width:56px;height:56px;background:transparent;border:1px solid rgba(255,255,255,.55);color:#fff;box-shadow:none;opacity:1;display:grid;place-items:center;padding:0;transition:background .3s ease,border-color .3s ease}
+  .hs-arrow svg{width:20px;height:20px;display:block}
+  .hero:hover .hs-arrow{opacity:1}
+  .hs-arrow:hover{background:rgba(255,255,255,.14);border-color:#fff}
+  .hs-prev{left:26px}
+  .hs-next{right:26px}
+  @media(hover:none){.hs-arrow{opacity:1}}
+  @media(max-width:600px){.hs-arrow{width:46px;height:46px}.hs-arrow svg{width:17px;height:17px}.hs-prev{left:12px}.hs-next{right:12px}}
+
+  /* ---------- Stock / availability (storefront) ---------- */
+  .stock-note{font-size:12.5px;font-weight:700;color:var(--brand-deep);letter-spacing:.2px;margin:2px 0 10px}
+  .stock-note.low{color:var(--warn)}
+  .outofstock{display:block;width:100%;font-size:13px;font-weight:700;color:var(--warn);line-height:1.45;background:rgba(var(--brand-rgb),.06);border:1px solid var(--line);border-radius:6px;padding:9px 11px}
+  /* ---------- Event date gate ---------- */
+  .date-gate{margin:0 auto 22px;max-width:640px}
+  .date-gate-inner{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px 16px;background:linear-gradient(135deg,rgba(var(--brand-rgb),.06),rgba(var(--brand-rgb),.02));border:1px solid var(--line);border-radius:10px;padding:16px 20px;text-align:center}
+  .date-gate-inner label{font-family:var(--serif,inherit);font-weight:700;font-size:16px;color:var(--brand-deep);letter-spacing:.3px}
+  .date-gate-inner input[type=date]{padding:9px 12px;border:1px solid var(--brand);border-radius:6px;font:inherit;color:var(--ink);background:#fff;cursor:pointer}
+  .date-gate-inner input[type=date]:focus{outline:none;box-shadow:0 0 0 3px rgba(var(--brand-rgb),.15)}
+  .date-gate-hint{flex-basis:100%;font-size:13px;color:var(--muted)}
+  .date-gate.chosen .date-gate-inner{background:rgba(var(--ok-rgb,142,116,75),.06)}
+  .add[disabled]{opacity:.5;cursor:not-allowed;filter:grayscale(.3)}
+  .need-date{display:block;width:100%;font-size:12.5px;font-weight:700;color:var(--brand-deep);text-align:center;background:rgba(var(--brand-rgb),.05);border:1px dashed var(--brand);border-radius:6px;padding:8px 10px}
+  /* ---------- Admin inventory table ---------- */
+  .inv-datebar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin:6px 0 16px}
+  .inv-datebar input[type=date]{padding:8px 11px;border:1px solid var(--brand);border-radius:6px;font:inherit;color:var(--ink)}
+  .busy-dates{margin-top:26px}
+  .busy-dates h3{font-family:var(--serif,inherit);font-size:17px;margin:0 0 4px;color:var(--brand-deep)}
+  .busy-list{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+  .busy-chip{border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:150px;cursor:pointer;transition:border-color .2s,background .2s}
+  .busy-chip:hover{border-color:var(--brand);background:rgba(var(--brand-rgb),.04)}
+  .busy-chip.busy-full{border-color:var(--warn)}
+  .busy-chip .bc-date{font-weight:700;font-size:14px;color:var(--ink)}
+  .busy-chip .bc-meta{font-size:12.5px;color:var(--muted);margin-top:3px}
+  .busy-chip .bc-out{color:var(--warn);font-weight:700}
+  /* ---------- Admin inventory table ---------- */
+  .inv-table th:not(:first-child),.inv-table td:not(:first-child){text-align:center;width:130px}
+  .inv-inp{width:84px;padding:7px 8px;border:1px solid var(--line);border-radius:6px;font:inherit;text-align:center;color:var(--ink)}
+  .inv-inp:focus{outline:none;border-color:var(--brand)}
+  /* ---------- Gallery folders ---------- */
+  .g-item{position:relative}
+  .g-folder-badge{position:absolute;top:10px;right:10px;z-index:2;background:rgba(var(--ink-rgb),.72);color:#fff;font-size:12px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.3px}
+  .g-count{display:block;font-size:12px;color:var(--muted);font-weight:600;margin-top:3px;text-transform:none;letter-spacing:0}
+  .folder-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+  .folder-grid img{width:100%;height:150px;object-fit:cover;border-radius:8px;cursor:pointer;border:1px solid var(--line);transition:transform .2s ease}
+  .folder-grid img:hover{transform:scale(1.03)}
+  .folder-admin{border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:18px;background:var(--surf)}
+  .folder-admin-head{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+  .folder-name{flex:1;min-width:180px;padding:9px 12px;border:1px solid var(--line);border-radius:8px;font:inherit;font-weight:700;color:var(--ink);background:#fff}
+  .folder-name:focus{outline:none;border-color:var(--brand)}
+  .folder-actions{display:flex;gap:8px}
+  /* ---------- Videos ---------- */
+  .videos-sec{padding:clamp(48px,7vw,88px) 0;background:var(--surf)}
+  .video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px}
+  .video-card{margin:0}
+  .video-frame{position:relative;width:100%;padding-top:56.25%;border-radius:12px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);background:#000}
+  .video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .video-card figcaption{margin-top:10px;font-weight:700;color:var(--ink);font-size:15px}
+  /* ---------- Language switcher ---------- */
+  .lang-wrap{position:relative}
+  .lang-btn{display:inline-flex;align-items:center;gap:5px;background:transparent;border:1px solid var(--line);color:var(--brand-deep);font-family:var(--font-display);letter-spacing:1px;text-transform:uppercase;font-size:12px;padding:8px 12px;border-radius:4px;cursor:pointer;transition:background .2s ease,border-color .2s ease}
+  .lang-btn:hover{background:var(--surf);border-color:var(--brand)}
+  .lang-menu{position:absolute;top:calc(100% + 8px);right:0;min-width:150px;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow-lg);padding:6px;display:none;z-index:60}
+  .lang-menu.show{display:block}
+  .lang-menu button{display:block;width:100%;text-align:left;background:transparent;border:0;padding:10px 12px;border-radius:7px;font:inherit;font-size:14px;color:var(--ink);cursor:pointer}
+  .lang-menu button:hover{background:var(--surf)}
+  .lang-mobile{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:12px 16px;border-top:1px solid var(--line);margin-top:6px}
+  .lang-mobile span{color:var(--muted);font-size:13px;font-weight:700}
+  .lang-mobile button{background:var(--surf);border:1px solid var(--line);border-radius:7px;padding:7px 12px;font:inherit;font-size:13px;font-weight:700;color:var(--brand-deep);cursor:pointer}
+  .lang-mobile button:hover{background:var(--surf-2)}
+  @media(max-width:900px){.lang-wrap{display:none}.sec-nav{display:none}.menu-btn{display:inline-block}}
+</style>
+</head>
+<body>
+<div class="scroll-prog" id="scrollProg"></div>
+
+<div class="offer-bar" id="offerBar" style="display:none">
+  <span id="offerText" onclick="document.getElementById('packages').scrollIntoView({behavior:'smooth'})"></span>
+  <button class="offer-x" onclick="dismissOffer()" aria-label="Dismiss offer">✕</button>
+</div>
+
+<header>
+  <div class="wrap bar">
+    <div class="logo">
+      <div class="mark" id="logoMark">⛺</div>
+      <div><span id="bizName">Corporative Tent House</span><small data-i18n="logo_sub">Tents · Decor · Catering on rent</small></div>
+    </div>
+    <div class="spacer"></div>
+    <button class="navbtn" id="viewToggle" style="display:none" onclick="exitAdmin()">← Back to site</button>
+    <button class="navbtn sec-nav" data-i18n="nav_packages" onclick="document.getElementById('packages').scrollIntoView({behavior:'smooth'})">Packages</button>
+    <button class="navbtn sec-nav" data-i18n="nav_gallery" onclick="document.getElementById('gallery').scrollIntoView({behavior:'smooth'})">Gallery</button>
+    <button class="navbtn sec-nav" data-i18n="nav_videos" onclick="document.getElementById('videos').scrollIntoView({behavior:'smooth'})">Videos</button>
+    <button class="navbtn sec-nav" data-i18n="nav_reviews" onclick="document.getElementById('reviews').scrollIntoView({behavior:'smooth'})">Reviews</button>
+    <button class="navbtn sec-nav" id="contactBtn" data-i18n="nav_contact" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact</button>
+    <div class="lang-wrap">
+      <button class="lang-btn" id="langBtn" onclick="toggleLangMenu(event)" aria-label="Change language">🌐 <span id="curLang">EN</span> ▾</button>
+      <div class="lang-menu" id="langMenu">
+        <button onclick="setLang('en')">English</button>
+        <button onclick="setLang('hi')">हिन्दी</button>
+        <button onclick="setLang('ur')">اردو</button>
+      </div>
+    </div>
+    <button class="cart-btn" onclick="openCart()"><span data-i18n="nav_cart">🛒 Cart</span> <span class="count" id="cartCount">0</span></button>
+    <button class="menu-btn" id="menuBtn" onclick="toggleMenu(event)" aria-label="Menu">☰</button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a data-i18n="nav_packages" onclick="goSec('packages')">Packages</a>
+    <a data-i18n="nav_gallery" onclick="goSec('gallery')">Gallery</a>
+    <a data-i18n="nav_videos" onclick="goSec('videos')">Videos</a>
+    <a data-i18n="nav_reviews" onclick="goSec('reviews')">Reviews</a>
+    <a data-i18n="nav_contact" onclick="goSec('contact')">Contact</a>
+    <div class="lang-mobile">
+      <span data-i18n="lang_label">Language:</span>
+      <button onclick="setLang('en')">EN</button>
+      <button onclick="setLang('hi')">हिन्दी</button>
+      <button onclick="setLang('ur')">اردو</button>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== CUSTOMER VIEW ===================== -->
+<main id="customerView">
+  <div class="hero">
+    <div class="hero-art" id="heroArt"></div>
+    <div class="wrap hero-content">
+      <div class="hero-glass">
+        <span class="eyebrow" data-i18n="hero_eyebrow">✦ Tents · Decor · Catering ✦</span>
+        <h1 data-i18n="hero_h1">Everything you need to host a <span class="accent">beautiful celebration</span></h1>
+        <p data-i18n="hero_p">Browse our tents, seating, lighting, decoration and catering — add what you need and send it to us on WhatsApp.</p>
+        <div class="cta">
+          <button class="btn-primary" data-i18n="hero_browse" onclick="document.getElementById('catalog').scrollIntoView({behavior:'smooth'})">Browse items</button>
+          <button class="btn-ghost" data-i18n="hero_viewlist" onclick="openCart()">View my list</button>
+        </div>
+        <div class="badges">
+          <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span data-i18n="badge_years">12+ years</span></div>
+          <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.7"/><circle cx="17.5" cy="18" r="1.7"/></svg> <span data-i18n="badge_setup">Free setup nearby</span></div>
+          <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 4z"/></svg> <span data-i18n="badge_booking">Quick WhatsApp booking</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="why-strip">
+    <div class="wrap why-grid">
+      <div class="why-item reveal"><div class="why-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5l2.6 6.3 6.8.5-5.2 4.4 1.7 6.6L12 17l-5.9 3.8 1.7-6.6L2.6 9.8l6.8-.5z"/></svg></div><div><b data-i18n="why_years_b">12+ years</b><span data-i18n="why_years_s">of happy events</span></div></div>
+      <div class="why-item reveal" style="transition-delay:80ms"><div class="why-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div><div><b data-i18n="why_ontime_b">On-time setup</b><span data-i18n="why_ontime_s">every single time</span></div></div>
+      <div class="why-item reveal" style="transition-delay:160ms"><div class="why-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 12.5 11 5h5.5l3.5 3.5v5.5l-7.5 7.5z"/><circle cx="9" cy="9" r="1.4"/></svg></div><div><b data-i18n="why_fair_b">Fair pricing</b><span data-i18n="why_fair_s">no hidden charges</span></div></div>
+      <div class="why-item reveal" style="transition-delay:240ms"><div class="why-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.7"/><circle cx="17.5" cy="18" r="1.7"/></svg></div><div><b data-i18n="why_free_b">Free delivery</b><span data-i18n="why_free_s">& setup nearby</span></div></div>
+    </div>
+  </section>
+
+  <section class="about-sec" id="about">
+    <div class="wrap">
+      <div class="about-inner reveal">
+        <h2 data-i18n="about_h">About us</h2>
+        <hr class="gold-rule" style="margin:10px auto 16px"/>
+        <p id="aboutText"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="packages-sec" id="packages">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2 data-i18n="packages_h">Popular packages</h2>
+        <hr class="gold-rule" style="margin:10px auto 8px"/>
+        <p data-i18n="packages_p">Not sure what you need? Pick a ready-made package and book in one tap — we'll fine-tune it with you.</p>
+      </div>
+      <div class="packages-grid" id="packagesGrid"></div>
+    </div>
+  </section>
+
+  <section class="catalog wrap" id="catalog">
+    <div class="sec-head reveal">
+      <h2 data-i18n="catalog_h">Our rental items</h2>
+      <hr class="gold-rule" style="margin:10px auto 8px"/>
+      <p data-i18n="catalog_p">Tap any photo to see it bigger. Add items to build your event list.</p>
+    </div>
+    <div class="date-gate reveal" id="dateGate">
+      <div class="date-gate-inner">
+        <label for="eventDate" data-i18n="date_gate_label">Choose your event date first</label>
+        <input id="eventDate" type="date" onchange="setEventDate(this.value)"/>
+        <span class="date-gate-hint" id="dateGateHint" data-i18n="date_gate_hint">See exactly what's available on your day.</span>
+      </div>
+    </div>
+    <div class="filters" id="filters"></div>
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="emptyState" data-i18n="empty_cat" style="display:none">No items in this category yet.</div>
+  </section>
+
+  <section class="gallery-sec" id="gallery">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2 data-i18n="gallery_h">Our recent work</h2>
+        <hr class="gold-rule" style="margin:10px auto 8px"/>
+        <p data-i18n="gallery_p">A glimpse of events we've set up. Tap a photo to view it larger.</p>
+      </div>
+      <div class="gallery-grid" id="galleryGrid"></div>
+    </div>
+  </section>
+
+  <section class="videos-sec" id="videos">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2 data-i18n="videos_h">Our work in motion</h2>
+        <hr class="gold-rule" style="margin:10px auto 8px"/>
+        <p data-i18n="videos_p">Watch a few of our events come together — from setup to the final decorated look.</p>
+      </div>
+      <div class="video-grid" id="videoGrid"></div>
+    </div>
+  </section>
+
+  <section class="reviews-sec" id="reviews">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2 data-i18n="reviews_h">What our customers say</h2>
+        <hr class="gold-rule" style="margin:10px auto 8px"/>
+        <p data-i18n="reviews_p">A few kind words from families and organisers we've worked with.</p>
+      </div>
+      <div class="reviews-grid" id="reviewsGrid"></div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <h2 class="reveal" data-i18n="contact_h" style="text-align:center">Visit or contact us</h2>
+      <hr class="gold-rule reveal" style="margin:10px auto 20px"/>
+      <div class="contact-grid">
+        <div class="contact-card reveal">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.4 7-11a7 7 0 1 0-14 0c0 4.6 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
+          <div><b data-i18n="c_address">Address</b><span id="cAddr"></span></div>
+        </div>
+        <div class="contact-card reveal" style="transition-delay:80ms">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h3l2 5-2 1.5a11 11 0 0 0 5 5L20 13l2 5v3a2 2 0 0 1-2 2A16 16 0 0 1 4 6a2 2 0 0 1 1-2z"/></svg></div>
+          <div><b data-i18n="c_call">Call</b><a id="cPhoneLink" href="#"></a></div>
+        </div>
+        <div class="contact-card reveal" style="transition-delay:160ms">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 4z"/><path d="M9 10h6M9 13h4"/></svg></div>
+          <div><b data-i18n="c_whatsapp">WhatsApp</b><a id="cWaLink" data-i18n="c_chat" href="#" target="_blank">Chat with us</a></div>
+        </div>
+      </div>
+      <div class="contact-bottom">
+        <div class="map-block reveal">
+          <div class="map-label" data-i18n="map_label">📍 Find us here</div>
+          <iframe id="cMap" class="contact-map" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d224.30025752741963!2d85.6122669264052!3d25.90880904559838!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1781472912071!5m2!1sen!2sin" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Location map"></iframe>
+        </div>
+        <div class="callback-card reveal" id="callback">
+          <div class="callback-text">
+            <h2 data-i18n="cb_h">Not ready to pick items?</h2>
+            <p data-i18n="cb_p">Leave your number and event date — we'll call you back and help you plan everything.</p>
+          </div>
+          <div class="callback-form">
+            <input id="cbName" data-i18n-ph="ph_name" placeholder="Your name"/>
+            <input id="cbPhone" data-i18n-ph="ph_phone" placeholder="Phone number"/>
+            <input id="cbDate" type="date"/>
+            <button class="send-wa" data-i18n="cb_btn" onclick="requestCallback()">💬 Request a callback</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ===================== ADMIN VIEW ===================== -->
+<main id="adminView" style="display:none">
+  <div class="wrap admin-wrap">
+    <!-- login -->
+    <div id="loginBox" class="login-box">
+      <h3>Admin login</h3>
+      <p style="color:var(--muted);font-size:14px;margin:6px 0 0">Log in with your admin email &amp; password to manage items.</p>
+      <input type="email" id="adminEmail" placeholder="Email" autocomplete="username" onkeydown="if(event.key==='Enter')doLogin()" />
+      <input type="password" id="pass" placeholder="Password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()" />
+      <button class="save" onclick="doLogin()">Log in</button>
+      <p class="hint">Use the admin email &amp; password created in Supabase.</p>
+    </div>
+
+    <!-- panel -->
+    <div id="adminPanel" style="display:none">
+      <div class="toolbar">
+        <div class="left">
+          <h2 style="margin:0">Manage items</h2>
+          <span style="color:var(--muted)" id="itemCount"></span>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn-ghost" style="padding:9px 16px" onclick="logout()">Log out</button>
+          <a class="btn-ghost" style="padding:9px 16px;text-decoration:none;display:inline-flex;align-items:center" href="admin/inventory.html" target="_blank" rel="noopener">📦 Manage inventory</a>
+          <a class="btn-ghost" style="padding:9px 16px;text-decoration:none;display:inline-flex;align-items:center" href="admin/booking.html" target="_blank" rel="noopener">📝 Take a booking</a>
+          <a class="btn-ghost" style="padding:9px 16px;text-decoration:none;display:inline-flex;align-items:center" href="admin/analytics.html" target="_blank" rel="noopener">📊 Reports & bookings</a>
+          <button class="btn-ghost" style="padding:9px 16px" onclick="openSettings()">⚙ Settings</button>
+          <button class="btn-primary" style="padding:9px 16px" onclick="openItemForm()">+ Add item</button>
+        </div>
+      </div>
+      <table class="admin-table">
+        <thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Available</th><th>Actions</th></tr></thead>
+        <tbody id="adminRows"></tbody>
+      </table>
+
+      <div class="toolbar" style="margin-top:34px">
+        <div class="left">
+          <h2 style="margin:0">Inventory by date</h2>
+          <span style="color:var(--muted)">Pick a date to see & set how many items are booked for that day. Remaining updates live on the site for customers choosing that date.</span>
+        </div>
+        <div>
+          <a class="btn-primary" style="padding:9px 16px;text-decoration:none;display:inline-flex;align-items:center" href="admin/inventory.html" target="_blank" rel="noopener">📦 Open full inventory manager</a>
+        </div>
+      </div>
+      <div class="inv-datebar">
+        <label style="font-weight:700">Show bookings for:</label>
+        <input id="adminInvDate" type="date" onchange="setAdminInvDate(this.value)"/>
+        <button class="btn-ghost" style="padding:8px 14px" onclick="clearAdminInvDate()">🗑 Clear this date's bookings</button>
+      </div>
+      <table class="admin-table inv-table">
+        <thead><tr><th>Item</th><th>Total I have</th><th>Booked on this date</th><th>Remaining this date</th></tr></thead>
+        <tbody id="invRows"></tbody>
+      </table>
+
+      <div class="busy-dates">
+        <h3>Busy dates at a glance</h3>
+        <span style="color:var(--muted)">Days that already have bookings. Red = one or more items fully out that day. Tap a date to edit it above.</span>
+        <div class="busy-list" id="busyList"></div>
+      </div>
+
+      <div class="toolbar" style="margin-top:34px">
+        <div class="left">
+          <h2 style="margin:0">Hero slider images</h2>
+          <span style="color:var(--muted)" id="heroCount"></span>
+        </div>
+        <div>
+          <button class="btn-primary" style="padding:9px 16px" onclick="document.getElementById('heroSlideFile').click()">+ Add slides</button>
+          <input type="file" id="heroSlideFile" accept="image/*" multiple style="display:none" onchange="addHeroSlides(event)"/>
+        </div>
+      </div>
+      <div class="gallery-admin-grid" id="adminHero"></div>
+
+      <div class="toolbar" style="margin-top:34px">
+        <div class="left">
+          <h2 style="margin:0">Gallery folders</h2>
+          <span style="color:var(--muted)" id="galCount"></span>
+        </div>
+        <div>
+          <button class="btn-primary" style="padding:9px 16px" onclick="addGalleryFolder()">+ New folder</button>
+          <input type="file" id="folderPhotoFile" accept="image/*" multiple style="display:none" onchange="onFolderPhotoPick(event)"/>
+        </div>
+      </div>
+      <div id="adminGallery"></div>
+
+      <div class="toolbar" style="margin-top:34px">
+        <div class="left">
+          <h2 style="margin:0">Videos</h2>
+          <span style="color:var(--muted)" id="vidCount"></span>
+        </div>
+        <div>
+          <button class="btn-primary" style="padding:9px 16px" onclick="openVideoForm()">+ Add video</button>
+        </div>
+      </div>
+      <div id="adminVideos" class="reviews-admin"></div>
+
+      <div class="toolbar" style="margin-top:34px">
+        <div class="left">
+          <h2 style="margin:0">Customer reviews</h2>
+          <span style="color:var(--muted)" id="revCount"></span>
+        </div>
+        <div>
+          <button class="btn-primary" style="padding:9px 16px" onclick="openReviewForm()">+ Add review</button>
+        </div>
+      </div>
+      <div id="adminReviews" class="reviews-admin"></div>
+
+      <div class="toolbar" style="margin-top:34px">
+        <div class="left">
+          <h2 style="margin:0">Packages</h2>
+          <span style="color:var(--muted)" id="pkgCount"></span>
+        </div>
+        <div>
+          <button class="btn-primary" style="padding:9px 16px" onclick="openPackageForm()">+ Add package</button>
+        </div>
+      </div>
+      <div id="adminPackages" class="reviews-admin"></div>
+    </div>
+  </div>
+</main>
+
+<!-- Cart drawer -->
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+<aside class="drawer" id="drawer">
+  <div class="dhead">
+    <h3 id="cartTitle" data-i18n="cart_title_list">Your event list</h3>
+    <button class="x" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-list" id="cartList"></div>
+  <div class="cart-proceed" id="cartProceed">
+    <button class="proceed-btn" data-i18n="cart_proceed" onclick="goToDetails()">Proceed to details →</button>
+    <p class="hint" data-i18n="cart_proceed_hint">Review your list, then add your details on the next step.</p>
+  </div>
+  <div class="cart-foot" id="cartFoot">
+    <button type="button" class="cart-back" data-i18n="cart_back" onclick="backToList()">← Back to list</button>
+    <div class="cart-summary" id="cartSummary"></div>
+    <div class="form-row"><label data-i18n="f_name">Your name</label><input id="cName" data-i18n-ph="ph_cName" placeholder="e.g. Ramesh Kumar" /></div>
+    <div class="form-row"><label data-i18n="f_phone">Phone number</label><input id="cPhone" data-i18n-ph="ph_cPhone" placeholder="10-digit mobile" /></div>
+    <div class="form-row"><label data-i18n="f_date">Event date</label><input id="cDate" type="date" onchange="setEventDate(this.value)" /></div>
+    <div class="form-row"><label data-i18n="f_address">Full address (with landmark)</label><textarea id="cAddress" data-i18n-ph="ph_cAddress" placeholder="House / village, nearest landmark, area, PIN"></textarea></div>
+    <div class="form-row">
+      <label data-i18n="f_loc">Pin current location (optional)</label>
+      <button type="button" class="loc-btn" id="locBtn" data-i18n="loc_btn" onclick="captureLocation()">📍 Use my current location</button>
+      <div class="loc-status" id="locStatus"></div>
+    </div>
+    <button class="send-wa" data-i18n="send_wa" onclick="sendWhatsApp()">💬 Send list on WhatsApp</button>
+    <p class="hint" data-i18n="send_wa_hint">This sends your selected items, address and location to us on WhatsApp. No payment is taken here.</p>
+  </div>
+</aside>
+
+<!-- Generic modal (lightbox + item form + settings) -->
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-card">
+    <div class="mc-head"><h3 id="modalTitle"></h3><button class="x" onclick="closeModal()">✕</button></div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<a class="wa-fab" id="waFab" href="#" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp" title="Chat on WhatsApp">
+  <svg viewBox="0 0 32 32" width="30" height="30" fill="#fff" aria-hidden="true"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.2 1.6 6L4 29l8.2-1.6c1.7.9 3.7 1.4 5.8 1.4 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-4.9 1 1-4.8-.2-.4c-1-1.6-1.5-3.4-1.5-5.3C5 9.5 9.9 4.8 16 4.8c5.6 0 10.2 4.6 10.2 10.2S21.6 24.8 16 24.8zm5.6-7.6c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.5-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.2-.6-.4z"/></svg>
+</a>
+<button class="to-top" id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top" title="Back to top">↑</button>
+<div class="toast" id="toast"></div>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <div class="foot-logo">
+        <span class="foot-mark" id="footMark"></span>
+        <span id="footName">Corporative Tent House</span>
+      </div>
+      <p class="foot-tag" data-i18n="foot_tag">Tents, decoration &amp; catering on rent for weddings, parties and functions — everything for your event under one roof.</p>
+      <div id="footFounder">Founded by Md Mobin Ahmad</div>
+    </div>
+    <div class="foot-col">
+      <h4 data-i18n="foot_explore">Explore</h4>
+      <a data-i18n="foot_about" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">About us</a>
+      <a data-i18n="foot_packages" onclick="document.getElementById('packages').scrollIntoView({behavior:'smooth'})">Packages</a>
+      <a data-i18n="foot_gallery" onclick="document.getElementById('gallery').scrollIntoView({behavior:'smooth'})">Gallery</a>
+      <a data-i18n="foot_reviews" onclick="document.getElementById('reviews').scrollIntoView({behavior:'smooth'})">Reviews</a>
+    </div>
+    <div class="foot-col">
+      <h4 data-i18n="foot_reach">Reach us</h4>
+      <div id="footAddr"></div>
+      <div style="margin-top:8px" data-i18n="foot_callwa">Call / WhatsApp</div>
+      <a id="footPhone" class="foot-phone"></a>
+    </div>
+  </div>
+  <div class="foot-bottom">© <span id="footYear"></span> Corporative Tent House · Built as a prototype — data is saved in this browser.</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* ============================================================
+   SUPABASE — shared online database (every visitor sees the same catalog)
+   ============================================================ */
+const SUPABASE_URL = "https://npjarvohefrghtopqoms.supabase.co";
+const SUPABASE_KEY = "sb_publishable_orNht7_tJzXje7yRzJiUOw_HhKgHvAp";
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+let dbRowExists = false;
+
+/* ============================================================
+   DATA LAYER — Supabase holds the master copy of the catalog
+   ============================================================ */
+const CART_KEY = "tentHouseCart_v1";
+// topical royalty-free placeholder photos (LoremFlickr) — swap with real photos via admin
+const px=(w,h,kw,lock)=>`https://loremflickr.com/${w}/${h}/${kw}?lock=${lock}`;
+
+// placeholder image generator (SVG data URI) so seed items look filled
+function ph(label,c1,c2){
+  const svg=`<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'>
+    <defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>
+    <stop offset='0' stop-color='${c1}'/><stop offset='1' stop-color='${c2}'/></linearGradient></defs>
+    <rect width='400' height='300' fill='url(#g)'/>
+    <text x='200' y='160' font-family='Segoe UI,sans-serif' font-size='26' fill='rgba(255,255,255,.9)'
+    text-anchor='middle' font-weight='700'>${label}</text></svg>`;
+  return "data:image/svg+xml;utf8,"+encodeURIComponent(svg);
+}
+
+const CATEGORIES = ["Tents & canopies","Seating & tables","Lighting & decor","Catering & utensils"];
+
+const SEED = {
+  settings:{ bizName:"Corporative Tent House", founder:"Md Mobin Ahmad", phone:"918285955760", address:"Village - Tenda, near Chiknauta Chawk, NH-28", email:"booking@example.com", passcode:"admin123", logoImg:"", heroImg:px(1200,700,"indian,wedding,tent,decoration",20), offerOn:true, offerText:"✨ Festive offer — 10% off all bookings confirmed this week. Limited dates available!", aboutText:"Run by Md Mobin Ahmad, Corporative Tent House helps families in and around Tenda host beautiful weddings, functions and festivals. From tents and seating to lighting, decoration and catering — we provide everything under one roof, with reliable setup and friendly service you can count on.", hero:{ eyebrow:"", title:"", subtitle:"", eyebrowColor:"", titleColor:"", subColor:"", bgColor:"", overlay:50 } },
+  items:[
+    {id:1,name:"Shamiana Tent (20x20)",cat:"Tents & canopies",price:"2500",unit:"per day",desc:"Classic decorated shamiana, seats ~50 guests.",img:px(600,450,"shamiana,tent,wedding",1),available:true},
+    {id:2,name:"German Hangar Pandal",cat:"Tents & canopies",price:"8000",unit:"per day",desc:"Large waterproof pandal for big weddings & functions.",img:px(600,450,"marquee,tent,event",2),available:true},
+    {id:3,name:"Garden Canopy (10x10)",cat:"Tents & canopies",price:"900",unit:"per day",desc:"Small canopy, ideal for entrance or food stalls.",img:px(600,450,"canopy,gazebo,garden",3),available:true},
+    {id:4,name:"Plastic Chairs (set of 50)",cat:"Seating & tables",price:"500",unit:"per day",desc:"Sturdy moulded chairs with optional covers.",img:px(600,450,"event,chairs,banquet",4),available:true,stock:10,booked:6},
+    {id:5,name:"Cushioned Sofa Set",cat:"Seating & tables",price:"1500",unit:"per set/day",desc:"Premium sofa set for stage / VIP seating.",img:px(600,450,"sofa,stage,wedding",5),available:true},
+    {id:6,name:"Round Banquet Tables",cat:"Seating & tables",price:"150",unit:"per table/day",desc:"Round tables with covers, seats 8–10.",img:px(600,450,"banquet,table,dining",6),available:false},
+    {id:7,name:"LED String Lights",cat:"Lighting & decor",price:"300",unit:"per 50m",desc:"Warm white & multicolour fairy lighting.",img:px(600,450,"string,lights,fairy",7),available:true,stock:8,booked:8},
+    {id:8,name:"Stage Flower Decoration",cat:"Lighting & decor",price:"4000",unit:"per stage",desc:"Fresh + artificial flower stage backdrop.",img:px(600,450,"wedding,stage,flowers",8),available:true},
+    {id:9,name:"Entrance Gate Decor",cat:"Lighting & decor",price:"2000",unit:"per gate",desc:"Decorated welcome gate with lights & drapes.",img:px(600,450,"wedding,entrance,gate",9),available:true},
+    {id:10,name:"Cooking Vessels (large)",cat:"Catering & utensils",price:"800",unit:"per set/day",desc:"Big degh & patila set for bulk cooking.",img:px(600,450,"cooking,pot,catering",10),available:true},
+    {id:11,name:"Steel Crockery (100 plates)",cat:"Catering & utensils",price:"600",unit:"per day",desc:"Plates, glasses, spoons — full dinner set.",img:px(600,450,"plates,crockery,dinner",11),available:true,stock:5,booked:2},
+    {id:12,name:"Gas Burner & Cylinder",cat:"Catering & utensils",price:"700",unit:"per day",desc:"Commercial bhatti with cylinder for catering.",img:px(600,450,"stove,cooking,gas",12),available:false}
+  ],
+  galleryFolders:[
+    {id:501,name:"Mandap & stage setup",photos:[
+      {id:5011,img:px(700,520,"wedding,mandap,decoration",101)},
+      {id:5012,img:px(700,520,"stage,decoration,flowers",102)},
+      {id:5013,img:px(700,520,"wedding,stage,backdrop",112)}
+    ]},
+    {id:502,name:"Lighting & decoration",photos:[
+      {id:5021,img:px(700,520,"festival,string,lights",106)},
+      {id:5022,img:px(700,520,"tent,event,night,lights",105)},
+      {id:5023,img:px(700,520,"wedding,entrance,gate",104)}
+    ]},
+    {id:503,name:"Dining & seating",photos:[
+      {id:5031,img:px(700,520,"banquet,dining,event",103)},
+      {id:5032,img:px(700,520,"catering,buffet,event",113)}
+    ]}
+  ],
+  videos:[
+    {id:601,url:"https://www.youtube.com/watch?v=aqz-KE-bpKQ",title:"Wedding setup highlights"},
+    {id:602,url:"https://www.youtube.com/watch?v=aqz-KE-bpKQ",title:"Stage & lighting decoration"}
+  ],
+  testimonials:[
+    {id:201,name:"Ramesh Kumar",text:"Booked the full setup for my daughter's wedding. Tent, lighting and catering were all on time and beautifully done. Highly recommended!",rating:5},
+    {id:202,name:"Sunita Devi",text:"Very reasonable rates and the stage decoration was lovely. The team handled everything so we could relax and enjoy the function.",rating:5},
+    {id:203,name:"Imran Ali",text:"Used them for a community event. Good quality chairs and a strong pandal. Setup was quick and the staff were polite.",rating:4}
+  ],
+  packages:[
+    {id:301,name:"Wedding Package",tagline:"Everything for a grand wedding",guests:"150–300 guests",price:"From ₹35,000",img:px(700,520,"indian,wedding,mandap",301),includes:["Decorated shamiana / pandal","Stage with flower decoration","200+ chairs & round tables","Entrance gate & lighting","Catering vessels & crockery"]},
+    {id:302,name:"Birthday / Party Package",tagline:"Perfect for birthdays & small functions",guests:"50–100 guests",price:"From ₹12,000",img:px(700,520,"birthday,party,decoration",302),includes:["Canopy tent","Themed stage decoration","60 chairs & tables","String & LED lighting","Sound & basic setup"]},
+    {id:303,name:"Budget Package",tagline:"Essentials at a friendly price",guests:"Up to 50 guests",price:"From ₹6,000",img:px(700,520,"event,tent,setup",303),includes:["Shamiana tent (20x20)","50 chairs","Basic lighting","2 tables with covers"]}
+  ],
+  heroSlides:[
+    {id:401,img:px(1200,760,"indian,wedding,tent",401),caption:"Grand wedding mandap"},
+    {id:402,img:px(1200,760,"wedding,stage,decoration",402),caption:"Stage flower decoration"},
+    {id:403,img:px(1200,760,"marquee,event,lights",403),caption:"Marquee with festive lighting"},
+    {id:404,img:px(1200,760,"banquet,dining,setup",404),caption:"Banquet dining arrangement"},
+    {id:405,img:px(1200,760,"festival,decoration,flowers",405),caption:"Floral entrance decor"},
+    {id:406,img:px(1200,760,"reception,tent,night",406),caption:"Reception tent at night"}
+  ]
+};
+
+// bring older saved data up to the current shape/branding
+function migrate(d){
+  if(d.settings.bizName==="Shri Balaji Tent House") d.settings.bizName="Corporative Tent House";
+  if(!d.settings.founder) d.settings.founder="Md Mobin Ahmad";
+  if(d.settings.phone==="919876543210") d.settings.phone="918285955760";
+  if(!d.settings.address) d.settings.address="Village - Tenda, near Chiknauta Chawk, NH-28";
+  // stock / inventory defaults per item (empty stock = not tracked)
+  (d.items||[]).forEach(it=>{
+    if(!('stock' in it)) it.stock="";
+    if(!it.bookedByDate || typeof it.bookedByDate!=="object"){
+      it.bookedByDate={};
+      // carry any old single "booked today" count onto today's date so nothing is lost
+      const legacy=parseInt(it.booked)||0;
+      if(legacy>0) it.bookedByDate[todayISO()]=legacy;
+    }
+    delete it.booked;
+  });
+  // gallery folders: convert old flat gallery to a single folder, else seed
+  if(!d.galleryFolders){
+    if(Array.isArray(d.gallery) && d.gallery.length){
+      d.galleryFolders=[{id:Date.now(),name:"Our recent work",photos:d.gallery.map(g=>({id:g.id||(Date.now()+Math.floor(Math.random()*10000)),img:g.img}))}];
+    } else {
+      d.galleryFolders=JSON.parse(JSON.stringify(SEED.galleryFolders));
+    }
+  }
+  if(!d.videos) d.videos=JSON.parse(JSON.stringify(SEED.videos));
+  if(!d.testimonials) d.testimonials=JSON.parse(JSON.stringify(SEED.testimonials));
+  if(!d.packages) d.packages=JSON.parse(JSON.stringify(SEED.packages));
+  if(!d.heroSlides) d.heroSlides=JSON.parse(JSON.stringify(SEED.heroSlides));
+  else d.heroSlides.forEach((s,i)=>{ if(s.caption==null) s.caption=(SEED.heroSlides[i]&&SEED.heroSlides[i].caption)||""; });
+  if(!d.settings.aboutText) d.settings.aboutText=SEED.settings.aboutText;
+  if(!d.settings.hero || typeof d.settings.hero!=="object") d.settings.hero={};
+  { const h=d.settings.hero, def=SEED.settings.hero;
+    for(const k in def) if(!(k in h)) h[k]=def[k]; }
+  if(!('offerOn' in d.settings)){ d.settings.offerOn=true; d.settings.offerText=SEED.settings.offerText; }
+  return d;
+}
+
+// Read the catalog from Supabase. Falls back to the starter catalog if nothing is saved yet.
+async function loadDB(){
+  try{
+    const { data, error } = await sb.from("site").select("data").eq("id",1).maybeSingle();
+    if(error) throw error;
+    if(data && data.data && data.data.items){
+      dbRowExists = true;
+      return migrate(data.data);
+    }
+  }catch(e){ console.warn("Could not load from Supabase, showing starter catalog:", e.message); }
+  dbRowExists = false;
+  return JSON.parse(JSON.stringify(SEED));
+}
+
+// Save the catalog to Supabase so every visitor sees the change. Requires admin login.
+async function saveDB(){
+  try{
+    const { error } = await sb.from("site").upsert({ id:1, data:DB, updated_at:new Date().toISOString() });
+    if(error) throw error;
+    dbRowExists = true;
+  }catch(e){
+    toast("Could not save — please log in again");
+    console.error("Save failed:", e.message);
+  }
+}
+let DB = JSON.parse(JSON.stringify(SEED));
+
+let cart = (()=>{ try{return JSON.parse(localStorage.getItem(CART_KEY))||{};}catch(e){return {};} })();
+function saveCart(){ localStorage.setItem(CART_KEY,JSON.stringify(cart)); }
+
+let activeCat = "All";
+let isAdmin = false;
+let selectedDate = (()=>{ try{return localStorage.getItem("tentHouseEventDate")||todayISO();}catch(e){return todayISO();} })();
+
+// Customer picks their event date; availability + cart all key off this date.
+function setEventDate(v){
+  selectedDate = v || "";
+  try{ localStorage.setItem("tentHouseEventDate", selectedDate); }catch(e){}
+  const cd=document.getElementById("cDate"); if(cd) cd.value=selectedDate;
+  const gate=document.getElementById("dateGate"); if(gate) gate.classList.toggle("chosen", !!selectedDate);
+  const ed=document.getElementById("eventDate"); if(ed && ed.value!==selectedDate) ed.value=selectedDate;
+  renderGrid();
+}
+
+/* ============================================================
+   CUSTOMER VIEW
+   ============================================================ */
+function applySettings(){
+  document.getElementById("bizName").textContent = DB.settings.bizName;
+  document.getElementById("footName").textContent = DB.settings.bizName;
+  document.getElementById("footFounder").textContent = DB.settings.founder ? "Founded by "+DB.settings.founder : "";
+  const fp=document.getElementById("footPhone"); fp.textContent="+"+DB.settings.phone; fp.href="tel:+"+DB.settings.phone;
+  document.getElementById("footAddr").textContent = DB.settings.address || "";
+  document.getElementById("footYear").textContent = new Date().getFullYear();
+  document.title = DB.settings.bizName + " — Tents, Decor & Catering on Rent";
+  // contact section
+  document.getElementById("cAddr").textContent = DB.settings.address || "";
+  const pl=document.getElementById("cPhoneLink"); pl.textContent="+"+DB.settings.phone; pl.href="tel:+"+DB.settings.phone;
+  document.getElementById("cWaLink").href="https://wa.me/"+DB.settings.phone;
+  document.getElementById("waFab").href="https://wa.me/"+DB.settings.phone;
+  document.getElementById("aboutText").textContent = DB.settings.aboutText || "";
+  // logo
+  document.getElementById("logoMark").innerHTML = DB.settings.logoImg
+    ? `<img src="${DB.settings.logoImg}" alt="logo" style="width:100%;height:100%;object-fit:cover;border-radius:11px"/>`
+    : defaultLogoSVG();
+  const fm=document.getElementById("footMark");
+  if(fm) fm.innerHTML = DB.settings.logoImg
+    ? `<img src="${DB.settings.logoImg}" alt="logo" style="width:100%;height:100%;object-fit:cover;border-radius:9px"/>`
+    : defaultLogoSVG();
+}
+function defaultLogoSVG(){
+  // festive multi-colour palette
+  const mag="#c1396f", teal="#1f9e8f", marig="#e0a12e", purple="#8b4fd0";
+  return `<svg viewBox="0 0 72 86" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+    <path d="M36 10 V5" fill="none" style="stroke:var(--gold)" stroke-width="1.6" stroke-linecap="round"/>
+    <circle cx="36" cy="4" r="2" style="fill:var(--gold)"/>
+    <path d="M8 30 C8 16 22 10 36 10 C50 10 64 16 64 30 q-4.66 6 -9.33 0 q-4.66 6 -9.33 0 q-4.66 6 -9.33 0 q-4.66 6 -9.33 0 q-4.66 6 -9.33 0 q-4.66 6 -9.33 0 Z" style="fill:var(--brand)"/>
+    <path d="M36 12 L15 28 M36 12 L25.5 28 M36 12 L36 29 M36 12 L46.5 28 M36 12 L57 28" fill="none" stroke="rgba(255,255,255,.5)" stroke-width=".9" opacity=".45"/>
+    <g stroke-width=".7">
+      <path d="M12.7 34 V37" fill="none" stroke="${mag}"/><circle cx="12.7" cy="38" r="1.6" fill="${mag}"/>
+      <path d="M22 35.5 V38.5" fill="none" stroke="${teal}"/><circle cx="22" cy="39.5" r="1.6" fill="${teal}"/>
+      <path d="M31.3 36 V39" fill="none" stroke="${marig}"/><circle cx="31.3" cy="40" r="1.6" fill="${marig}"/>
+      <path d="M40.7 36 V39" fill="none" stroke="${purple}"/><circle cx="40.7" cy="40" r="1.6" fill="${purple}"/>
+      <path d="M50 35.5 V38.5" fill="none" stroke="${mag}"/><circle cx="50" cy="39.5" r="1.6" fill="${mag}"/>
+      <path d="M59.3 34 V37" fill="none" stroke="${teal}"/><circle cx="59.3" cy="38" r="1.6" fill="${teal}"/>
+    </g>
+    <path d="M31 47 A9.5 9.5 0 1 0 31 62" fill="none" stroke="${mag}" stroke-width="4.4" stroke-linecap="round"/>
+    <rect x="39.5" y="45" width="3.6" height="19" rx="1" fill="${teal}"/>
+    <rect x="35" y="45" width="14.5" height="3.4" rx="1" fill="${teal}"/>
+    <rect x="52" y="48.5" width="3.6" height="15.5" rx="1" fill="${marig}"/>
+    <rect x="43.1" y="53.6" width="9" height="3.2" fill="${marig}"/>
+    <path d="M22 79 V70 M22 74 H26 M26 74 V79" fill="none" style="stroke:var(--brand)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M50 79 V70 M50 74 H46 M46 74 V79" fill="none" style="stroke:var(--brand)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <ellipse cx="36" cy="70" rx="8.5" ry="2.2" style="fill:var(--brand)"/>
+    <path d="M28.5 70 L27 80 q9 2.4 18 0 L44 70 Z" style="fill:var(--brand)"/>
+    <path d="M27 80 q4.5 1.6 9 0 q4.5 1.6 9 0" fill="none" style="stroke:var(--gold)" stroke-width="1.4"/>
+  </svg>`;
+}
+
+function renderFilters(){
+  const f=document.getElementById("filters"); f.innerHTML="";
+  ["All",...CATEGORIES].forEach(c=>{
+    const b=document.createElement("button");
+    b.className="chip"+(c===activeCat?" active":"");
+    b.textContent=c;
+    b.onclick=()=>{activeCat=c;renderFilters();renderGrid();};
+    f.appendChild(b);
+  });
+}
+
+// ---- stock helpers (empty stock = not tracked / unlimited) ----
+function todayISO(){ const d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+function itemStock(i){ return (i.stock===""||i.stock==null)?null:(parseInt(i.stock)||0); }
+function itemBooked(i,date){ if(!date||!i.bookedByDate) return 0; return parseInt(i.bookedByDate[date])||0; }
+function itemRemaining(i,date){ const s=itemStock(i); return s==null?null:Math.max(0,s-itemBooked(i,date)); }
+
+function renderGrid(){
+  const g=document.getElementById("grid"); g.innerHTML="";
+  const items=DB.items.filter(i=>activeCat==="All"||i.cat===activeCat);
+  document.getElementById("emptyState").style.display=items.length?"none":"block";
+  items.forEach((i,idx)=>{
+    const inCart=cart[i.id];
+    const rem=itemRemaining(i,selectedDate);
+    const el=document.createElement("div"); el.className="item reveal";
+    el.style.transitionDelay=(Math.min(idx,8)*55)+"ms";
+    let action;
+    if(!i.available) action=`<span class="soldout">${t("not_available")}</span>`;
+    else if(!selectedDate) action=`<button class="add" disabled onclick="promptPickDate()">${t("add_to_list")}</button>`;
+    else if(rem!=null && rem<=0) action=`<span class="outofstock">${t("out_of_stock")}</span>`;
+    else action=`<button class="add ${inCart?'in':''}" onclick="addToCart(${i.id})">${inCart?t("added")+' ('+cart[i.id].qty+')':t("add_to_list")}</button>`;
+    const note=!selectedDate
+      ? `<div class="need-date">${t("need_date")}</div>`
+      : ((i.available && rem!=null && rem>0) ? `<div class="stock-note${rem<=3?' low':''}">${t("only_left",{n:rem})}</div>` : "");
+    el.innerHTML=`
+      <div class="thumb" onclick="lightbox(${i.id})">
+        <div class="cat-tag">${i.cat}</div>
+        <img src="${i.img}" alt="${esc(i.name)}"/>
+      </div>
+      <div class="body">
+        <h3>${esc(i.name)}</h3>
+        <div class="desc">${esc(i.desc||"")}</div>
+        <div class="price">₹${esc(i.price)} <small>${esc(i.unit||"")}</small></div>
+        ${note}
+        <div class="row">${action}</div>
+      </div>`;
+    g.appendChild(el);
+  });
+  revealObserve();
+}
+
+function promptPickDate(){
+  toast(t("toast_pick_date"));
+  const ed=document.getElementById("eventDate");
+  if(ed){ ed.scrollIntoView({behavior:"smooth",block:"center"}); try{ed.focus();}catch(e){} }
+}
+function addToCart(id){
+  const item=DB.items.find(i=>i.id===id); if(!item||!item.available)return;
+  if(!selectedDate){ promptPickDate(); return; }
+  const rem=itemRemaining(item,selectedDate), cur=cart[id]?cart[id].qty:0;
+  if(rem!=null){
+    if(rem<=0){ toast(t("toast_oos")); return; }
+    if(cur>=rem){ toast(t("toast_only",{n:rem})); return; }
+  }
+  if(cart[id]) cart[id].qty++;
+  else cart[id]={id,name:item.name,price:item.price,unit:item.unit,img:item.img,qty:1};
+  saveCart(); updateCount(); renderGrid(); renderCart(); toast(item.name+" added");
+}
+function removeFromCart(id){ delete cart[id]; saveCart(); updateCount(); renderCart(); renderGrid(); }
+function setQty(id,q){
+  q=Math.max(1,parseInt(q)||1);
+  const item=DB.items.find(i=>i.id===id);
+  if(item){ const rem=itemRemaining(item,selectedDate); if(rem!=null && q>rem){ q=Math.max(1,rem); toast(t("toast_only",{n:rem})); } }
+  if(cart[id]){cart[id].qty=q;saveCart();updateCount();renderCart();renderGrid();}
+}
+function updateCount(){
+  const n=Object.values(cart).reduce((s,c)=>s+c.qty,0);
+  document.getElementById("cartCount").textContent=n;
+}
+
+let cartStep=1;
+function renderCart(){
+  const list=document.getElementById("cartList");
+  const items=Object.values(cart);
+  if(!items.length){
+    list.innerHTML=`<div class="empty">${t("list_empty_line1")}<br>${t("list_empty_line2")}</div>`;
+    cartStep=1; updateCartStep(); return;
+  }
+  document.getElementById("cartSummary").innerHTML=cartSubtotalHTML(items);
+  list.innerHTML=items.map(c=>`
+    <div class="cart-row">
+      <img src="${c.img}" alt=""/>
+      <div class="info">
+        <b>${esc(c.name)}</b>
+        <span>₹${esc(c.price)} ${esc(c.unit||"")}</span>
+        <div class="qty">
+          <button onclick="setQty(${c.id},${c.qty-1})">−</button>
+          <input value="${c.qty}" onchange="setQty(${c.id},this.value)"/>
+          <button onclick="setQty(${c.id},${c.qty+1})">+</button>
+        </div>
+        <button class="rm" onclick="removeFromCart(${c.id})">${t("remove")}</button>
+      </div>
+    </div>`).join("")
+    + cartSubtotalHTML(items);
+  updateCartStep();
+}
+function updateCartStep(){
+  const items=Object.values(cart);
+  const list=document.getElementById("cartList");
+  const proceed=document.getElementById("cartProceed");
+  const foot=document.getElementById("cartFoot");
+  const title=document.getElementById("cartTitle");
+  if(!items.length){
+    list.style.display="block"; proceed.style.display="none"; foot.style.display="none";
+    title.textContent=t("cart_title_list"); return;
+  }
+  if(cartStep===2){
+    list.style.display="none"; proceed.style.display="none"; foot.style.display="block";
+    title.textContent=t("cart_title_details");
+  }else{
+    list.style.display="block"; proceed.style.display="block"; foot.style.display="none";
+    title.textContent=t("cart_title_list");
+  }
+}
+function goToDetails(){
+  if(!Object.values(cart).length){toast(t("toast_list_empty"));return;}
+  cartStep=2; updateCartStep();
+  const f=document.getElementById("cartFoot"); if(f) f.scrollTop=0;
+}
+function backToList(){ cartStep=1; updateCartStep(); }
+function cartSubtotal(items){
+  return items.reduce((s,c)=>{ const p=parseFloat(String(c.price).replace(/[^0-9.]/g,"")); return s+(isNaN(p)?0:p*c.qty); },0);
+}
+function cartSubtotalHTML(items){
+  const total=cartSubtotal(items);
+  if(!total) return "";
+  const n=items.reduce((s,c)=>s+c.qty,0);
+  return `<div class="cart-sub"><span>${t("subtotal")}<small>${n} item${n>1?"s":""} · ${t("subtotal_note")}</small></span><b>₹${total.toLocaleString("en-IN")}</b></div>`;
+}
+
+function openCart(){cartStep=1;document.getElementById("overlay").classList.add("show");document.getElementById("drawer").classList.add("show");renderCart();}
+function closeCart(){document.getElementById("overlay").classList.remove("show");document.getElementById("drawer").classList.remove("show");}
+
+function toggleMenu(e){ if(e) e.stopPropagation(); document.getElementById("mobileMenu").classList.toggle("show"); }
+function goSec(id){ document.getElementById("mobileMenu").classList.remove("show"); const el=document.getElementById(id); if(el) el.scrollIntoView({behavior:"smooth"}); }
+document.addEventListener("click",function(e){ const m=document.getElementById("mobileMenu"); if(m&&m.classList.contains("show")&&!m.contains(e.target)&&e.target.id!=="menuBtn"){ m.classList.remove("show"); } });
+
+function lightbox(id){
+  const i=DB.items.find(x=>x.id===id); if(!i)return;
+  document.getElementById("modalTitle").textContent=i.name;
+  document.getElementById("modalBody").innerHTML=`
+    <div class="lightbox"><img src="${i.img}" alt=""/></div>
+    <p style="color:var(--muted)">${esc(i.desc||"")}</p>
+    <p class="price" style="font-size:18px;font-weight:800;color:var(--brand)">₹${esc(i.price)} <small style="color:var(--muted);font-size:13px">${esc(i.unit||"")}</small></p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      ${!i.available?`<span class="soldout">${t("currently_na")}</span>`:(!selectedDate?`<button class="add" style="flex:1;min-width:150px" onclick="closeModal();promptPickDate();">${t("add_to_list")}</button>`:((itemRemaining(i,selectedDate)==null||itemRemaining(i,selectedDate)>0)?`<button class="add" style="flex:1;min-width:150px" onclick="addToCart(${i.id});closeModal();openCart();">${t("add_to_list")}</button>`:`<span class="soldout">${t("out_of_stock")}</span>`))}
+      <button class="ask-wa" onclick="enquireItem(${i.id})">${t("ask_wa")}</button>
+    </div>`;
+  openModal();
+}
+
+/* ============================================================
+   SUBMIT — WhatsApp & Email
+   ============================================================ */
+let currentLoc=null;
+function captureLocation(){
+  const status=document.getElementById("locStatus");
+  const btn=document.getElementById("locBtn");
+  if(!navigator.geolocation){ status.textContent="Location isn't supported on this device — please type your address."; return; }
+  status.textContent="Getting your location…";
+  navigator.geolocation.getCurrentPosition(
+    pos=>{
+      currentLoc={lat:pos.coords.latitude.toFixed(6),lng:pos.coords.longitude.toFixed(6)};
+      btn.textContent="📍 Location captured ✓";
+      status.innerHTML=`✓ Captured — <a href="https://maps.google.com/?q=${currentLoc.lat},${currentLoc.lng}" target="_blank" rel="noopener">view on map</a>`;
+    },
+    err=>{ status.textContent = err.code===1
+      ? "Location permission denied — please type your full address above."
+      : "Couldn't get location — please type your full address above."; },
+    {enableHighAccuracy:true,timeout:10000,maximumAge:0}
+  );
+}
+function buildMessage(){
+  const items=Object.values(cart);
+  const name=document.getElementById("cName").value.trim();
+  const phone=document.getElementById("cPhone").value.trim();
+  const date=document.getElementById("cDate").value;
+  const address=document.getElementById("cAddress").value.trim().replace(/\s*\n\s*/g,", ");
+  if(!items.length){toast(t("toast_list_empty"));return null;}
+  if(!name||!phone){toast("Please enter your name and phone");return null;}
+  if(!address){toast("Please enter your full address with landmark");return null;}
+  let msg=`*New booking enquiry — ${DB.settings.bizName}*%0A%0A`;
+  msg+=`*Name:* ${name}%0A*Phone:* ${phone}%0A*Event date:* ${date||"to be confirmed"}%0A`;
+  msg+=`*Address:* ${address}%0A`;
+  if(currentLoc) msg+=`*Live location:* https://maps.google.com/?q=${currentLoc.lat},${currentLoc.lng}%0A`;
+  msg+=`%0A*Items requested:*%0A`;
+  items.forEach((c,n)=>{ msg+=`${n+1}. ${c.name} — qty ${c.qty} (₹${c.price} ${c.unit||""})%0A`; });
+  const est=cartSubtotal(items);
+  if(est) msg+=`%0A*Estimated subtotal:* ₹${est.toLocaleString("en-IN")} (final price to be confirmed)%0A`;
+  msg+=`%0APlease confirm availability and total price. Thank you!`;
+  return {msg,name,phone,date,address,items};
+}
+function sendWhatsApp(){
+  const d=buildMessage(); if(!d)return;
+  window.open(`https://wa.me/${DB.settings.phone}?text=${d.msg}`,"_blank");
+}
+function sendEmail(){
+  const d=buildMessage(); if(!d)return;
+  const subject=encodeURIComponent(`Booking enquiry from ${d.name}`);
+  const body=d.msg.replace(/%0A/g,"\n").replace(/\*/g,"");
+  window.location.href=`mailto:${DB.settings.email}?subject=${subject}&body=${encodeURIComponent(body)}`;
+}
+
+/* ============================================================
+   ADMIN VIEW
+   ============================================================ */
+// Admin is hidden from regular visitors. To open it, add #admin to the URL
+// (e.g. yoursite.com/#admin) or press Ctrl+Shift+A. Email + password login is required.
+async function enterAdmin(){
+  isAdmin=true;
+  document.getElementById("customerView").style.display="none";
+  document.getElementById("adminView").style.display="block";
+  document.getElementById("viewToggle").style.display="inline-block";
+  document.getElementById("waFab").style.display="none";
+  // Already logged in on this device? Skip straight to the panel.
+  const { data:{ session } } = await sb.auth.getSession();
+  if(session){
+    document.getElementById("loginBox").style.display="none";
+    await showAdminPanel();
+  } else {
+    document.getElementById("loginBox").style.display="block";
+    document.getElementById("adminPanel").style.display="none";
+    document.getElementById("pass").value="";
+  }
+}
+function exitAdmin(){
+  isAdmin=false;
+  document.getElementById("customerView").style.display="block";
+  document.getElementById("adminView").style.display="none";
+  document.getElementById("viewToggle").style.display="none";
+  document.getElementById("waFab").style.display="grid";
+  if(location.hash==="#admin"){ history.replaceState(null,"",location.pathname+location.search); }
+}
+function checkAdminHash(){ if(location.hash==="#admin") enterAdmin(); }
+window.addEventListener("hashchange",checkAdminHash);
+window.addEventListener("keydown",e=>{ if(e.ctrlKey&&e.shiftKey&&(e.key==="A"||e.key==="a")) enterAdmin(); });
+async function doLogin(){
+  const email=document.getElementById("adminEmail").value.trim();
+  const password=document.getElementById("pass").value;
+  if(!email||!password){ toast("Enter email and password"); return; }
+  const { error } = await sb.auth.signInWithPassword({ email, password });
+  if(error){ toast("Login failed — check email & password"); return; }
+  document.getElementById("loginBox").style.display="none";
+  await showAdminPanel();
+}
+async function showAdminPanel(){
+  document.getElementById("adminPanel").style.display="block";
+  // First admin login on a fresh database: publish the starter catalog so visitors see it.
+  if(!dbRowExists){ await saveDB(); }
+  renderAdmin();
+}
+async function logout(){
+  await sb.auth.signOut();
+  exitAdmin();
+  toast("Logged out");
+}
+function renderAdmin(){
+  document.getElementById("itemCount").textContent=`(${DB.items.length} items)`;
+  document.getElementById("adminRows").innerHTML=DB.items.map(i=>`
+    <tr>
+      <td><img src="${i.img}" alt=""/></td>
+      <td>${esc(i.name)}</td>
+      <td>${esc(i.cat)}</td>
+      <td>₹${esc(i.price)}<br><small style="color:var(--muted)">${esc(i.unit||"")}</small></td>
+      <td>${i.available?'<span style="color:var(--ok);font-weight:700">Yes</span>':'<span style="color:var(--warn);font-weight:700">No</span>'}</td>
+      <td>
+        <button class="mini edit" onclick="openItemForm(${i.id})">Edit</button>
+        <button class="mini del" onclick="deleteItem(${i.id})">Delete</button>
+      </td>
+    </tr>`).join("");
+  renderInventory();
+  renderHeroAdmin();
+  renderGalleryAdmin();
+  renderVideosAdmin();
+  renderReviewsAdmin();
+  renderPackagesAdmin();
+}
+let adminInvDate = "";
+function setAdminInvDate(v){ adminInvDate=v||""; renderInventory(); }
+function renderInventory(){
+  const tb=document.getElementById("invRows"); if(!tb)return;
+  const di=document.getElementById("adminInvDate");
+  if(di && !adminInvDate){ adminInvDate=todayISO(); di.value=adminInvDate; }
+  else if(di && di.value!==adminInvDate){ di.value=adminInvDate; }
+  const d=adminInvDate;
+  tb.innerHTML=DB.items.map(i=>{
+    const s=itemStock(i), r=itemRemaining(i,d);
+    const remTxt = s==null
+      ? '<span style="color:var(--muted)">Not tracked</span>'
+      : (r<=0 ? '<b style="color:var(--warn)">0 — out</b>' : `<b style="color:var(--ok)">${r}</b>`);
+    return `<tr>
+      <td>${esc(i.name)}</td>
+      <td><input class="inv-inp" type="number" min="0" value="${s==null?'':s}" placeholder="—" onchange="setItemStock(${i.id},this.value)"/></td>
+      <td><input class="inv-inp" type="number" min="0" value="${itemBooked(i,d)}" onchange="setItemBooked(${i.id},this.value)"/></td>
+      <td>${remTxt}</td>
+    </tr>`;
+  }).join("");
+  renderBusyDates();
+}
+function renderBusyDates(){
+  const box=document.getElementById("busyList"); if(!box)return;
+  const dates={};
+  DB.items.forEach(i=>{
+    if(!i.bookedByDate) return;
+    for(const dt in i.bookedByDate){
+      const b=parseInt(i.bookedByDate[dt])||0; if(b<=0) continue;
+      if(!dates[dt]) dates[dt]={items:0,out:0};
+      dates[dt].items++;
+      const s=itemStock(i); if(s!=null && (s-b)<=0) dates[dt].out++;
+    }
+  });
+  const keys=Object.keys(dates).sort();
+  if(!keys.length){ box.innerHTML='<span style="color:var(--muted)">No bookings recorded yet.</span>'; return; }
+  box.innerHTML=keys.map(dt=>{
+    const info=dates[dt];
+    const nice=new Date(dt+"T00:00:00").toLocaleDateString("en-IN",{weekday:"short",day:"numeric",month:"short",year:"numeric"});
+    const meta = info.out>0
+      ? `<span class="bc-out">${info.out} item${info.out>1?'s':''} fully out</span> · ${info.items} booked`
+      : `${info.items} item${info.items>1?'s':''} booked`;
+    return `<div class="busy-chip${info.out>0?' busy-full':''}" onclick="setAdminInvDate('${dt}')">
+      <div class="bc-date">${nice}</div><div class="bc-meta">${meta}</div></div>`;
+  }).join("");
+}
+function setItemStock(id,v){ const i=DB.items.find(x=>x.id===id); if(!i)return; v=(v||"").toString().trim(); i.stock=(v==="")?"":Math.max(0,parseInt(v)||0); saveDB(); renderInventory(); renderGrid(); }
+function setItemBooked(id,v){
+  const i=DB.items.find(x=>x.id===id); if(!i)return;
+  if(!adminInvDate){ toast("Pick a date first"); return; }
+  if(!i.bookedByDate) i.bookedByDate={};
+  const n=Math.max(0,parseInt(v)||0);
+  if(n===0) delete i.bookedByDate[adminInvDate]; else i.bookedByDate[adminInvDate]=n;
+  saveDB(); renderInventory(); renderGrid();
+}
+function clearAdminInvDate(){
+  if(!adminInvDate){ toast("Pick a date first"); return; }
+  if(!confirm("Clear all bookings for "+adminInvDate+"? Every item goes back to fully available on that day."))return;
+  DB.items.forEach(i=>{ if(i.bookedByDate) delete i.bookedByDate[adminInvDate]; });
+  saveDB(); renderInventory(); renderGrid(); toast("Bookings cleared for "+adminInvDate);
+}
+function deleteItem(id){
+  if(!confirm("Delete this item?"))return;
+  DB.items=DB.items.filter(i=>i.id!==id); saveDB(); renderAdmin(); renderGrid(); toast("Item deleted");
+}
+
+/* ---------- Gallery (folders) ---------- */
+function renderGallery(){
+  const sec=document.getElementById("gallery");
+  const grid=document.getElementById("galleryGrid");
+  const folders=(DB.galleryFolders||[]).filter(f=>f.photos&&f.photos.length);
+  if(!folders.length){ sec.style.display="none"; return; }
+  sec.style.display="block";
+  grid.innerHTML=folders.map((f,idx)=>`
+    <figure class="g-item reveal" style="transition-delay:${Math.min(idx,8)*55}ms" onclick="openFolder(${f.id})">
+      <div class="g-folder-badge">📁 ${f.photos.length}</div>
+      <img src="${f.photos[0].img}" alt="${esc(f.name)}" loading="lazy"/>
+      <figcaption>${esc(f.name)}<span class="g-count">${t(f.photos.length>1?"photos_view":"photo_view",{n:f.photos.length})}</span></figcaption>
+    </figure>`).join("");
+  revealObserve();
+}
+function openFolder(id){
+  const f=(DB.galleryFolders||[]).find(x=>x.id===id); if(!f)return;
+  document.getElementById("modalTitle").textContent=f.name;
+  document.getElementById("modalBody").innerHTML=`<div class="folder-grid">${f.photos.map(p=>`<img src="${p.img}" alt="" loading="lazy" onclick="folderPhoto(${f.id},${p.id})"/>`).join("")}</div>`;
+  openModal();
+}
+function folderPhoto(fid,pid){
+  const f=(DB.galleryFolders||[]).find(x=>x.id===fid); if(!f)return;
+  const p=f.photos.find(x=>x.id===pid); if(!p)return;
+  document.getElementById("modalTitle").textContent=f.name;
+  document.getElementById("modalBody").innerHTML=`<button class="cart-back" onclick="openFolder(${fid})">${t("back_to",{name:esc(f.name)})}</button><div class="lightbox"><img src="${p.img}" alt=""/></div>`;
+}
+function renderGalleryAdmin(){
+  const folders=DB.galleryFolders||[];
+  const total=folders.reduce((s,f)=>s+((f.photos||[]).length),0);
+  document.getElementById("galCount").textContent=`(${folders.length} folder${folders.length!==1?'s':''}, ${total} photo${total!==1?'s':''})`;
+  document.getElementById("adminGallery").innerHTML=folders.length
+    ? folders.map(f=>`
+      <div class="folder-admin">
+        <div class="folder-admin-head">
+          <input class="folder-name" value="${esc(f.name)}" placeholder="Folder name (e.g. Mandap setup)" onchange="renameFolder(${f.id},this.value)"/>
+          <div class="folder-actions">
+            <button class="mini edit" onclick="addFolderPhotos(${f.id})">+ Add photos</button>
+            <button class="mini del" onclick="deleteFolder(${f.id})">Delete folder</button>
+          </div>
+        </div>
+        <div class="gallery-admin-grid">
+          ${(f.photos||[]).length
+            ? f.photos.map(p=>`<div class="ga-card"><img src="${p.img}" alt=""/><div class="ga-actions"><button class="mini del" onclick="deleteFolderPhoto(${f.id},${p.id})">Remove</button></div></div>`).join("")
+            : `<p style="color:var(--muted);grid-column:1/-1;margin:0">No photos in this folder yet — click "Add photos".</p>`}
+        </div>
+      </div>`).join("")
+    : `<p style="color:var(--muted)">No folders yet. Click "New folder" to create one (e.g. Mandap setup, Decoration).</p>`;
+}
+function addGalleryFolder(){
+  const name=prompt("Folder name (e.g. Mandap setup, Decoration):"); if(name==null)return;
+  if(!DB.galleryFolders)DB.galleryFolders=[];
+  DB.galleryFolders.push({id:Date.now(),name:(name.trim()||"New folder"),photos:[]});
+  saveDB(); renderGalleryAdmin(); renderGallery(); toast("Folder added");
+}
+function renameFolder(id,val){ const f=(DB.galleryFolders||[]).find(x=>x.id===id); if(f){ f.name=val.trim()||"Untitled folder"; saveDB(); renderGallery(); } }
+function deleteFolder(id){ if(!confirm("Delete this folder and all its photos?"))return; DB.galleryFolders=(DB.galleryFolders||[]).filter(x=>x.id!==id); saveDB(); renderGalleryAdmin(); renderGallery(); toast("Folder deleted"); }
+function deleteFolderPhoto(fid,pid){ const f=(DB.galleryFolders||[]).find(x=>x.id===fid); if(!f)return; f.photos=f.photos.filter(p=>p.id!==pid); saveDB(); renderGalleryAdmin(); renderGallery(); toast("Photo removed"); }
+let _folderTarget=null;
+function addFolderPhotos(fid){ _folderTarget=fid; document.getElementById("folderPhotoFile").click(); }
+function onFolderPhotoPick(e){
+  const files=[...e.target.files]; const f=(DB.galleryFolders||[]).find(x=>x.id===_folderTarget);
+  if(!files.length||!f){ e.target.value=""; return; }
+  let pending=files.length;
+  files.forEach(file=>{ const r=new FileReader(); r.onload=ev=>{ f.photos.push({id:Date.now()+Math.floor(Math.random()*10000),img:ev.target.result}); if(--pending===0){ saveDB(); renderGalleryAdmin(); renderGallery(); toast("Photos added"); } }; r.readAsDataURL(file); });
+  e.target.value="";
+}
+
+/* ---------- Videos ---------- */
+function ytId(u){ if(!u)return null; const m=String(u).match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/|v\/))([\w-]{11})/); return m?m[1]:null; }
+function videoEmbed(url){ const id=ytId(url); return id?`https://www.youtube.com/embed/${id}`:url; }
+function renderVideos(){
+  const sec=document.getElementById("videos"), grid=document.getElementById("videoGrid");
+  const vids=DB.videos||[];
+  if(!vids.length){ sec.style.display="none"; return; }
+  sec.style.display="block";
+  grid.innerHTML=vids.map((v,idx)=>`
+    <figure class="video-card reveal" style="transition-delay:${Math.min(idx,8)*55}ms">
+      <div class="video-frame"><iframe src="${esc(videoEmbed(v.url))}" title="${esc(v.title||'Video')}" allowfullscreen loading="lazy" frameborder="0" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+      ${v.title?`<figcaption>${esc(v.title)}</figcaption>`:""}
+    </figure>`).join("");
+  revealObserve();
+}
+function renderVideosAdmin(){
+  const vids=DB.videos||[];
+  document.getElementById("vidCount").textContent=`(${vids.length})`;
+  document.getElementById("adminVideos").innerHTML=vids.length
+    ? vids.map(v=>`
+      <div class="rev-row">
+        <div class="rev-info"><b>${esc(v.title||"Untitled video")}</b><br><span style="color:var(--muted);font-size:13px;word-break:break-all">${esc(v.url)}</span></div>
+        <div class="rev-actions">
+          <button class="mini edit" onclick="openVideoForm(${v.id})">Edit</button>
+          <button class="mini del" onclick="deleteVideo(${v.id})">Delete</button>
+        </div>
+      </div>`).join("")
+    : `<p style="color:var(--muted)">No videos yet. Click "Add video" and paste a YouTube link.</p>`;
+}
+function openVideoForm(id){
+  const v=id?(DB.videos||[]).find(x=>x.id===id):null;
+  document.getElementById("modalTitle").textContent=v?"Edit video":"Add video";
+  document.getElementById("modalBody").innerHTML=`
+    <div class="field"><label>Video title</label><input id="vdTitle" value="${v?esc(v.title||''):''}" placeholder="e.g. Wedding setup highlights"/></div>
+    <div class="field"><label>YouTube link</label><input id="vdUrl" value="${v?esc(v.url||''):''}" placeholder="https://www.youtube.com/watch?v=..."/></div>
+    <p class="hint" style="margin-top:0">Paste a normal YouTube link — youtu.be and Shorts links work too.</p>
+    <button class="save" onclick="saveVideo(${id||0})">${v?'Save changes':'Add video'}</button>`;
+  openModal();
+}
+function saveVideo(id){
+  const url=document.getElementById("vdUrl").value.trim();
+  if(!url){ toast("Please paste a video link"); return; }
+  const data={ title:document.getElementById("vdTitle").value.trim(), url };
+  if(!DB.videos)DB.videos=[];
+  if(id){ Object.assign(DB.videos.find(x=>x.id===id),data); } else { data.id=Date.now(); DB.videos.push(data); }
+  saveDB(); renderVideosAdmin(); renderVideos(); closeModal(); toast(id?"Video updated":"Video added");
+}
+function deleteVideo(id){ if(!confirm("Delete this video?"))return; DB.videos=(DB.videos||[]).filter(x=>x.id!==id); saveDB(); renderVideosAdmin(); renderVideos(); toast("Video deleted"); }
+
+/* ---------- Testimonials ---------- */
+function stars(n){ n=Math.max(0,Math.min(5,n|0)); return "★".repeat(n)+`<span class="off">${"★".repeat(5-n)}</span>`; }
+function renderTestimonials(){
+  const sec=document.getElementById("reviews"), grid=document.getElementById("reviewsGrid");
+  const items=DB.testimonials||[];
+  if(!items.length){ sec.style.display="none"; return; }
+  sec.style.display="block";
+  grid.innerHTML=items.map((t,idx)=>`
+    <div class="review-card reveal" style="transition-delay:${Math.min(idx,8)*55}ms">
+      <div class="stars">${stars(t.rating)}</div>
+      <p class="quote">“${esc(t.text)}”</p>
+      <div class="who"><div class="ava">${esc((t.name||"?").trim().charAt(0).toUpperCase())}</div><b>${esc(t.name)}</b></div>
+    </div>`).join("");
+  revealObserve();
+}
+function renderReviewsAdmin(){
+  const items=DB.testimonials||[];
+  document.getElementById("revCount").textContent=`(${items.length})`;
+  document.getElementById("adminReviews").innerHTML=items.length
+    ? items.map(t=>`
+      <div class="rev-row">
+        <div class="rev-info"><b>${esc(t.name)}</b> <span class="stars" style="color:var(--gold)">${stars(t.rating)}</span><br><span style="color:var(--muted);font-size:13px">${esc(t.text)}</span></div>
+        <div class="rev-actions">
+          <button class="mini edit" onclick="openReviewForm(${t.id})">Edit</button>
+          <button class="mini del" onclick="deleteReview(${t.id})">Delete</button>
+        </div>
+      </div>`).join("")
+    : `<p style="color:var(--muted)">No reviews yet. Click "Add review" to add one.</p>`;
+}
+let revFormRating=5;
+function setRevStar(n){ revFormRating=n; document.getElementById("revStars").innerHTML=[1,2,3,4,5].map(i=>`<span onclick="setRevStar(${i})" style="cursor:pointer;color:${i<=n?'var(--gold)':'#e0d4c0'}">★</span>`).join(""); }
+function openReviewForm(id){
+  const t=id?(DB.testimonials||[]).find(x=>x.id===id):null;
+  revFormRating=t?t.rating:5;
+  document.getElementById("modalTitle").textContent=t?"Edit review":"Add review";
+  document.getElementById("modalBody").innerHTML=`
+    <div class="field"><label>Customer name</label><input id="rvName" value="${t?esc(t.name):''}" placeholder="e.g. Ramesh Kumar"/></div>
+    <div class="field"><label>Rating</label><div id="revStars" style="font-size:28px;letter-spacing:4px"></div></div>
+    <div class="field"><label>Review</label><textarea id="rvText" style="min-height:90px" placeholder="What did they say?">${t?esc(t.text):''}</textarea></div>
+    <button class="save" onclick="saveReview(${id||0})">${t?'Save changes':'Add review'}</button>`;
+  openModal(); setRevStar(revFormRating);
+}
+function saveReview(id){
+  const name=document.getElementById("rvName").value.trim();
+  const text=document.getElementById("rvText").value.trim();
+  if(!name||!text){ toast("Please add a name and review"); return; }
+  if(!DB.testimonials)DB.testimonials=[];
+  const data={name,text,rating:revFormRating};
+  if(id){ Object.assign(DB.testimonials.find(x=>x.id===id),data); }
+  else { data.id=Date.now(); DB.testimonials.push(data); }
+  saveDB(); renderReviewsAdmin(); renderTestimonials(); closeModal(); toast(id?"Review updated":"Review added");
+}
+function deleteReview(id){
+  if(!confirm("Delete this review?"))return;
+  DB.testimonials=(DB.testimonials||[]).filter(x=>x.id!==id); saveDB(); renderReviewsAdmin(); renderTestimonials(); toast("Review deleted");
+}
+
+/* ---------- Offer banner ---------- */
+function renderOffer(){
+  const bar=document.getElementById("offerBar");
+  let dismissed=false; try{ dismissed=sessionStorage.getItem("offerDismissed")==="1"; }catch(e){}
+  if(DB.settings.offerOn && (DB.settings.offerText||"").trim() && !dismissed){
+    document.getElementById("offerText").textContent=DB.settings.offerText;
+    bar.style.display="flex";
+  } else bar.style.display="none";
+}
+function dismissOffer(){ try{ sessionStorage.setItem("offerDismissed","1"); }catch(e){} document.getElementById("offerBar").style.display="none"; }
+
+/* ---------- One-tap WhatsApp actions ---------- */
+function enquireItem(id){
+  const i=DB.items.find(x=>x.id===id); if(!i)return;
+  const msg=`*Enquiry — ${DB.settings.bizName}*%0A%0AI'd like to know about *${i.name}* (₹${i.price} ${i.unit||""}).%0AIs it available for my event date? Thank you!`;
+  window.open(`https://wa.me/${DB.settings.phone}?text=${msg}`,"_blank");
+}
+function requestCallback(){
+  const name=document.getElementById("cbName").value.trim();
+  const phone=document.getElementById("cbPhone").value.trim();
+  const date=document.getElementById("cbDate").value;
+  if(!name||!phone){ toast("Please enter your name and phone"); return; }
+  const msg=`*Callback request — ${DB.settings.bizName}*%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Event date:* ${date||"to be confirmed"}%0A%0APlease call me back to help plan my event. Thank you!`;
+  window.open(`https://wa.me/${DB.settings.phone}?text=${msg}`,"_blank");
+}
+
+/* ---------- Packages ---------- */
+function renderPackages(){
+  const sec=document.getElementById("packages"), grid=document.getElementById("packagesGrid");
+  const items=DB.packages||[];
+  if(!items.length){ sec.style.display="none"; return; }
+  sec.style.display="block";
+  grid.innerHTML=items.map((p,idx)=>`
+    <div class="pkg-card reveal" style="transition-delay:${Math.min(idx,6)*60}ms">
+      <div class="pkg-img" style="background-image:url('${(p.img||'').replace(/'/g,"%27")}')">${p.price?`<span class="pkg-price">${esc(p.price)}</span>`:""}</div>
+      <div class="pkg-body">
+        <h3>${esc(p.name)}</h3>
+        <div class="pkg-tag">${esc(p.tagline||"")}${p.guests?` · ${esc(p.guests)}`:""}</div>
+        <ul class="pkg-list">${(p.includes||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
+        <button class="pkg-btn" onclick="bookPackage(${p.id})">${t("book_package")}</button>
+      </div>
+    </div>`).join("");
+  revealObserve();
+}
+function bookPackage(id){
+  const p=(DB.packages||[]).find(x=>x.id===id); if(!p)return;
+  let msg=`*Booking enquiry — ${DB.settings.bizName}*%0A%0AI'm interested in the *${p.name}*${p.price?` (${p.price})`:""}.%0A`;
+  if(p.includes&&p.includes.length) msg+=`Includes: ${p.includes.join(", ")}.%0A`;
+  msg+=`%0AMy event date is: ____%0APlease share availability and final price. Thank you!`;
+  window.open(`https://wa.me/${DB.settings.phone}?text=${msg}`,"_blank");
+}
+function renderPackagesAdmin(){
+  const items=DB.packages||[];
+  document.getElementById("pkgCount").textContent=`(${items.length})`;
+  document.getElementById("adminPackages").innerHTML=items.length
+    ? items.map(p=>`
+      <div class="rev-row">
+        <div class="rev-info"><b>${esc(p.name)}</b> <span style="color:var(--muted)">${esc(p.price||"")}</span><br><span style="color:var(--muted);font-size:13px">${esc(p.tagline||"")}${p.includes&&p.includes.length?" — "+esc(p.includes.join(", ")):""}</span></div>
+        <div class="rev-actions">
+          <button class="mini edit" onclick="openPackageForm(${p.id})">Edit</button>
+          <button class="mini del" onclick="deletePackage(${p.id})">Delete</button>
+        </div>
+      </div>`).join("")
+    : `<p style="color:var(--muted)">No packages yet. Click "Add package".</p>`;
+}
+let pkgFormImg=null;
+function pickPkgImage(e){ const f=e.target.files[0]; if(!f)return; const r=new FileReader(); r.onload=ev=>{ pkgFormImg=ev.target.result; document.getElementById("pkgPrev").innerHTML=`<img src="${pkgFormImg}"/>`; }; r.readAsDataURL(f); }
+function openPackageForm(id){
+  const p=id?(DB.packages||[]).find(x=>x.id===id):null;
+  pkgFormImg=p?p.img:null;
+  document.getElementById("modalTitle").textContent=p?"Edit package":"Add package";
+  document.getElementById("modalBody").innerHTML=`
+    <div class="field"><label>Photo</label>
+      <div class="img-preview" id="pkgPrev" onclick="document.getElementById('pkgFile').click()">${pkgFormImg?`<img src="${esc(pkgFormImg)}"/>`:"📷 Click to upload an image"}</div>
+      <input type="file" id="pkgFile" accept="image/*" style="display:none" onchange="pickPkgImage(event)"/>
+    </div>
+    <div class="field"><label>Package name</label><input id="pkName" value="${p?esc(p.name):''}" placeholder="e.g. Wedding Package"/></div>
+    <div class="field two">
+      <div><label>Price label</label><input id="pkPrice" value="${p?esc(p.price||''):''}" placeholder="From ₹35,000"/></div>
+      <div><label>Guest range</label><input id="pkGuests" value="${p?esc(p.guests||''):''}" placeholder="150–300 guests"/></div>
+    </div>
+    <div class="field"><label>Tagline</label><input id="pkTag" value="${p?esc(p.tagline||''):''}" placeholder="Everything for a grand wedding"/></div>
+    <div class="field"><label>What's included (one per line)</label><textarea id="pkInc" style="min-height:110px" placeholder="Decorated shamiana&#10;200 chairs &amp; tables&#10;Stage decoration">${p?esc((p.includes||[]).join("\n")):''}</textarea></div>
+    <button class="save" onclick="savePackage(${id||0})">${p?'Save changes':'Add package'}</button>`;
+  openModal();
+}
+function savePackage(id){
+  const name=document.getElementById("pkName").value.trim();
+  if(!name){ toast("Please enter a package name"); return; }
+  const data={ name,
+    price:document.getElementById("pkPrice").value.trim(),
+    guests:document.getElementById("pkGuests").value.trim(),
+    tagline:document.getElementById("pkTag").value.trim(),
+    includes:document.getElementById("pkInc").value.split("\n").map(s=>s.trim()).filter(Boolean),
+    img:pkgFormImg||px(700,520,"event,tent,decoration",Math.floor(Math.random()*900)+1) };
+  if(!DB.packages)DB.packages=[];
+  if(id){ Object.assign(DB.packages.find(x=>x.id===id),data); } else { data.id=Date.now(); DB.packages.push(data); }
+  saveDB(); renderPackagesAdmin(); renderPackages(); closeModal(); toast(id?"Package updated":"Package added");
+}
+function deletePackage(id){ if(!confirm("Delete this package?"))return; DB.packages=(DB.packages||[]).filter(x=>x.id!==id); saveDB(); renderPackagesAdmin(); renderPackages(); toast("Package deleted"); }
+
+/* ---------- Hero slider admin ---------- */
+function renderHeroAdmin(){
+  const items=DB.heroSlides||[];
+  document.getElementById("heroCount").textContent=`(${items.length})`;
+  document.getElementById("adminHero").innerHTML=items.length
+    ? items.map(p=>`
+      <div class="ga-card">
+        <img src="${p.img}" alt=""/>
+        <input value="${esc(p.caption||'')}" placeholder="Caption (optional)" onchange="setHeroCaption(${p.id},this.value)"/>
+        <div class="ga-actions">
+          <button class="mini" title="Move left" onclick="moveHeroSlide(${p.id},-1)">←</button>
+          <button class="mini del" onclick="deleteHeroSlide(${p.id})">Remove</button>
+          <button class="mini" title="Move right" onclick="moveHeroSlide(${p.id},1)">→</button>
+        </div>
+      </div>`).join("")
+    : `<p style="color:var(--muted)">No slides yet. Click "Add slides" to upload hero photos.</p>`;
+}
+function addHeroSlides(e){
+  const files=[...e.target.files]; if(!files.length)return;
+  if(!DB.heroSlides)DB.heroSlides=[];
+  let pending=files.length;
+  files.forEach(f=>{ const r=new FileReader(); r.onload=ev=>{ DB.heroSlides.push({id:Date.now()+Math.floor(Math.random()*10000),img:ev.target.result,caption:""}); if(--pending===0){ saveDB(); renderHeroAdmin(); renderHero(); toast("Slides added"); } }; r.readAsDataURL(f); });
+  e.target.value="";
+}
+function deleteHeroSlide(id){ if(!confirm("Remove this slide?"))return; DB.heroSlides=(DB.heroSlides||[]).filter(x=>x.id!==id); saveDB(); renderHeroAdmin(); renderHero(); toast("Slide removed"); }
+function moveHeroSlide(id,dir){ const arr=DB.heroSlides,i=arr.findIndex(x=>x.id===id),j=i+dir; if(j<0||j>=arr.length)return; [arr[i],arr[j]]=[arr[j],arr[i]]; saveDB(); renderHeroAdmin(); renderHero(); }
+function setHeroCaption(id,val){ const s=(DB.heroSlides||[]).find(x=>x.id===id); if(s){ s.caption=val.trim(); saveDB(); renderHero(); } }
+let formImg=null;
+function openItemForm(id){
+  const it=id?DB.items.find(i=>i.id===id):null;
+  formImg=it?it.img:null;
+  document.getElementById("modalTitle").textContent=it?"Edit item":"Add new item";
+  document.getElementById("modalBody").innerHTML=`
+    <div class="field">
+      <label>Photo</label>
+      <div class="img-preview" id="imgPrev" onclick="document.getElementById('imgFile').click()">
+        ${formImg?`<img src="${formImg}"/>`:"📷 Click to upload an image"}
+      </div>
+      <input type="file" id="imgFile" accept="image/*" style="display:none" onchange="pickImage(event)"/>
+    </div>
+    <div class="field"><label>Item name</label><input id="fName" value="${it?esc(it.name):''}" placeholder="e.g. Shamiana Tent"/></div>
+    <div class="field"><label>Category</label>
+      <select id="fCat">${CATEGORIES.map(c=>`<option ${it&&it.cat===c?'selected':''}>${c}</option>`).join("")}</select>
+    </div>
+    <div class="field two">
+      <div><label>Price (₹)</label><input id="fPrice" value="${it?esc(it.price):''}" placeholder="2500"/></div>
+      <div><label>Unit</label><input id="fUnit" value="${it?esc(it.unit||''):''}" placeholder="per day"/></div>
+    </div>
+    <div class="field"><label>Description</label><textarea id="fDesc" placeholder="Short description...">${it?esc(it.desc||''):''}</textarea></div>
+    <div class="field"><label class="switch">Available for booking
+      <span class="toggle ${(!it||it.available)?'on':''}" id="fAvail" onclick="this.classList.toggle('on')"></span>
+    </label></div>
+    <button class="save" onclick="saveItem(${id||0})">${it?'Save changes':'Add item'}</button>`;
+  openModal();
+}
+function pickImage(e){
+  const file=e.target.files[0]; if(!file)return;
+  const r=new FileReader();
+  r.onload=ev=>{ formImg=ev.target.result; document.getElementById("imgPrev").innerHTML=`<img src="${formImg}"/>`; };
+  r.readAsDataURL(file);
+}
+function saveItem(id){
+  const name=document.getElementById("fName").value.trim();
+  if(!name){toast("Please enter a name");return;}
+  const data={
+    name, cat:document.getElementById("fCat").value,
+    price:document.getElementById("fPrice").value.trim()||"0",
+    unit:document.getElementById("fUnit").value.trim(),
+    desc:document.getElementById("fDesc").value.trim(),
+    available:document.getElementById("fAvail").classList.contains("on"),
+    img:formImg||ph(name,"#b8451f","#e08a2e")
+  };
+  if(id){ Object.assign(DB.items.find(i=>i.id===id),data); }
+  else { data.id=Date.now(); DB.items.push(data); }
+  saveDB(); renderAdmin(); renderGrid(); renderFilters(); closeModal();
+  toast(id?"Item updated":"Item added");
+}
+
+let settingsHeroImg=null, settingsLogoImg=null;
+function pickSettingsHero(e){
+  const f=e.target.files[0]; if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{ settingsHeroImg=ev.target.result; document.getElementById("heroPrev").innerHTML=`<img src="${settingsHeroImg}"/>`; document.getElementById("heroRemove").style.display="inline-block"; };
+  r.readAsDataURL(f);
+}
+function clearHeroImg(){ settingsHeroImg=null; document.getElementById("heroPrev").innerHTML="📷 Click to upload a hero photo (optional)"; document.getElementById("heroRemove").style.display="none"; }
+function pickSettingsLogo(e){
+  const f=e.target.files[0]; if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{ settingsLogoImg=ev.target.result; document.getElementById("logoPrev").innerHTML=`<img src="${settingsLogoImg}"/>`; document.getElementById("logoRemove").style.display="inline-block"; };
+  r.readAsDataURL(f);
+}
+function clearLogoImg(){ settingsLogoImg=null; document.getElementById("logoPrev").innerHTML="🏷️ Click to upload a logo (optional)"; document.getElementById("logoRemove").style.display="none"; }
+function openSettings(){
+  document.getElementById("modalTitle").textContent="Settings";
+  const s=DB.settings;
+  const hh=s.hero||{};
+  settingsHeroImg=s.heroImg||null;
+  settingsLogoImg=s.logoImg||null;
+  document.getElementById("modalBody").innerHTML=`
+    <div class="field">
+      <label>Logo (shown in the top bar)</label>
+      <div class="img-preview" id="logoPrev" style="height:100px;width:100px;border-radius:14px" onclick="document.getElementById('logoFile').click()">
+        ${s.logoImg?`<img src="${esc(s.logoImg)}"/>`:"🏷️ Click to upload a logo (optional)"}
+      </div>
+      <input type="file" id="logoFile" accept="image/*" style="display:none" onchange="pickSettingsLogo(event)"/>
+      <button class="mini del" id="logoRemove" style="margin-top:8px;display:${s.logoImg?'inline-block':'none'}" onclick="clearLogoImg()">Remove logo (use tent icon)</button>
+    </div>
+    <div class="field">
+      <label>Hero image (top banner photo)</label>
+      <div class="img-preview" id="heroPrev" onclick="document.getElementById('heroFile').click()">
+        ${s.heroImg?`<img src="${esc(s.heroImg)}"/>`:"📷 Click to upload a hero photo (optional)"}
+      </div>
+      <input type="file" id="heroFile" accept="image/*" style="display:none" onchange="pickSettingsHero(event)"/>
+      <button class="mini del" id="heroRemove" style="margin-top:8px;display:${s.heroImg?'inline-block':'none'}" onclick="clearHeroImg()">Remove photo (use illustration)</button>
+    </div>
+    <div class="field" style="border:1px solid var(--line);border-radius:12px;padding:14px;background:rgba(var(--brand-rgb),.03)">
+      <label style="font-weight:700;margin-bottom:10px">Hero banner text & colours</label>
+      <p class="hint" style="margin:-4px 0 12px">Leave a text box empty to use the default wording. Leave a colour as-is to use the theme colour.</p>
+
+      <label style="font-size:13px">Small line (eyebrow)</label>
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px">
+        <input id="sHeroEyebrow" style="flex:1" value="${esc(hh.eyebrow||'')}" placeholder="✦ Tents · Decor · Catering ✦"/>
+        <input type="color" id="sHeroEyebrowColor" value="${esc(hh.eyebrowColor||'#c4aa7a')}" title="Eyebrow colour" style="width:44px;height:40px;padding:2px;border:1px solid var(--line);border-radius:8px;cursor:pointer"/>
+      </div>
+
+      <label style="font-size:13px">Headline</label>
+      <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:12px">
+        <textarea id="sHeroTitle" style="flex:1;min-height:60px" placeholder="Everything you need to host a beautiful celebration">${esc(hh.title||'')}</textarea>
+        <input type="color" id="sHeroTitleColor" value="${esc(hh.titleColor||'#ffffff')}" title="Headline colour" style="width:44px;height:40px;padding:2px;border:1px solid var(--line);border-radius:8px;cursor:pointer"/>
+      </div>
+
+      <label style="font-size:13px">Sub-text</label>
+      <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:12px">
+        <textarea id="sHeroSub" style="flex:1;min-height:60px" placeholder="Browse our tents, seating, lighting, decoration and catering…">${esc(hh.subtitle||'')}</textarea>
+        <input type="color" id="sHeroSubColor" value="${esc(hh.subColor||'#fff5e6')}" title="Sub-text colour" style="width:44px;height:40px;padding:2px;border:1px solid var(--line);border-radius:8px;cursor:pointer"/>
+      </div>
+
+      <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center">
+        <label style="font-size:13px;display:flex;align-items:center;gap:8px;margin:0">Banner background
+          <input type="color" id="sHeroBg" value="${esc(hh.bgColor||'#6b5434')}" title="Background colour" style="width:44px;height:40px;padding:2px;border:1px solid var(--line);border-radius:8px;cursor:pointer"/>
+        </label>
+        <label style="font-size:13px;display:flex;align-items:center;gap:8px;margin:0;flex:1;min-width:180px">Photo darkness
+          <input type="range" id="sHeroOverlay" min="0" max="100" value="${Number(hh.overlay==null?50:hh.overlay)}" style="flex:1"/>
+        </label>
+      </div>
+      <p class="hint" style="margin:8px 0 0">“Photo darkness” dims the background photo so the text stays readable.</p>
+    </div>
+    <div class="field"><label>Business name</label><input id="sName" value="${esc(s.bizName)}"/></div>
+    <div class="field"><label>Founder name</label><input id="sFounder" value="${esc(s.founder||'')}"/></div>
+    <div class="field"><label>About us text</label><textarea id="sAbout" style="min-height:110px">${esc(s.aboutText||'')}</textarea></div>
+    <div class="field"><label>Address</label><textarea id="sAddr">${esc(s.address||'')}</textarea></div>
+    <div class="field"><label>WhatsApp / contact number (with country code, no +)</label><input id="sPhone" value="${esc(s.phone)}" placeholder="919876543210"/></div>
+    <div class="field"><label class="switch">Show offer banner at top <span class="toggle ${s.offerOn?'on':''}" id="sOfferOn" onclick="this.classList.toggle('on')"></span></label></div>
+    <div class="field"><label>Offer banner text</label><input id="sOffer" value="${esc(s.offerText||'')}" placeholder="e.g. 10% off bookings this week!"/></div>
+    <button class="save" onclick="saveSettings()">Save settings</button>
+    <p class="hint">Tip: the WhatsApp number is where customer booking lists are sent.</p>`;
+  openModal();
+}
+function saveSettings(){
+  DB.settings.bizName=document.getElementById("sName").value.trim()||DB.settings.bizName;
+  DB.settings.founder=document.getElementById("sFounder").value.trim();
+  DB.settings.aboutText=document.getElementById("sAbout").value.trim();
+  DB.settings.address=document.getElementById("sAddr").value.trim();
+  DB.settings.phone=document.getElementById("sPhone").value.replace(/\D/g,"")||DB.settings.phone;
+  DB.settings.heroImg=settingsHeroImg||"";
+  DB.settings.logoImg=settingsLogoImg||"";
+  DB.settings.offerOn=document.getElementById("sOfferOn").classList.contains("on");
+  DB.settings.offerText=document.getElementById("sOffer").value.trim();
+  DB.settings.hero={
+    eyebrow:document.getElementById("sHeroEyebrow").value.trim(),
+    title:document.getElementById("sHeroTitle").value.trim(),
+    subtitle:document.getElementById("sHeroSub").value.trim(),
+    eyebrowColor:document.getElementById("sHeroEyebrowColor").value,
+    titleColor:document.getElementById("sHeroTitleColor").value,
+    subColor:document.getElementById("sHeroSubColor").value,
+    bgColor:document.getElementById("sHeroBg").value,
+    overlay:Number(document.getElementById("sHeroOverlay").value)
+  };
+  saveDB(); applySettings(); renderHero(); applyHero(); renderOffer(); closeModal(); toast("Settings saved");
+}
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+function openModal(){document.getElementById("modal").classList.add("show");}
+function closeModal(){document.getElementById("modal").classList.remove("show");}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+let toastT;
+function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("show"),2200);}
+
+function heroArt(){
+  document.getElementById("heroArt").innerHTML=`
+  <svg viewBox="0 0 500 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6ea"/><stop offset=".6" stop-color="#ffe9d3"/><stop offset="1" stop-color="#fbdcc0"/></linearGradient>
+      <linearGradient id="tentA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--brand-2)"/><stop offset="1" style="stop-color:var(--brand)"/></linearGradient>
+      <linearGradient id="tentB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--gold)"/><stop offset="1" style="stop-color:var(--brand-deep)"/></linearGradient>
+      <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--gold-2)"/><stop offset="1" style="stop-color:var(--gold)"/></linearGradient>
+      <radialGradient id="glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff3c8" stop-opacity=".9"/><stop offset="1" stop-color="#fff3c8" stop-opacity="0"/></radialGradient>
+    </defs>
+    <rect width="500" height="320" fill="url(#sky)"/>
+    <!-- sun glow -->
+    <circle cx="400" cy="70" r="90" fill="url(#glow)"/>
+    <circle cx="400" cy="70" r="30" fill="#f6d98a"/>
+    <!-- marigold garland swag -->
+    <path d="M0,52 Q120,112 250,58 Q380,112 500,52" fill="none" stroke="#e08a2e" stroke-width="2" opacity=".45"/>
+    <g>${[[20,60],[55,78],[95,92],[140,100],[190,94],[230,72],[250,60],[270,72],[310,94],[360,100],[405,92],[445,78],[480,60]].map(([x,y],k)=>`<circle cx="${x}" cy="${y}" r="4.5" fill="${k%2?'#e08a2e':'#f0a93a'}"/>`).join('')}</g>
+    <!-- string lights -->
+    <path d="M20,40 Q250,12 480,40" style="stroke:var(--gold)" stroke-width="1.6" fill="none" opacity=".7"/>
+    ${[60,130,200,270,340,410,460].map((x,k)=>`<circle cx="${x}" cy="${30+Math.abs(Math.sin(k))*10}" r="4.5" fill="${k%2?'#b5293f':'#e7c667'}"/>`).join('')}
+    <!-- back tent (gold, smaller) -->
+    <polygon points="330,250 410,150 490,250" fill="url(#tentB)"/>
+    <path d="M330,250 q40,-18 80,0 q40,18 80,0" fill="none" stroke="#fff3e3" stroke-width="3" opacity=".7"/>
+    <!-- main shamiana tent -->
+    <polygon points="70,250 220,108 370,250" fill="url(#tentA)"/>
+    <polygon points="220,108 220,250 370,250" style="fill:var(--brand-deep)"/>
+    <!-- canopy stripes -->
+    <path d="M150,167 L220,108 L220,160 Z" style="fill:var(--brand-2)" opacity=".6"/>
+    <path d="M290,167 L220,108 L220,160 Z" style="fill:var(--brand)" opacity=".5"/>
+    <!-- scalloped gold valance -->
+    <path d="M70,250 q37.5,-22 75,0 q37.5,22 75,0 q37.5,-22 75,0" fill="none" stroke="url(#gold)" stroke-width="6"/>
+    <!-- finial flag -->
+    <line x1="220" y1="108" x2="220" y2="92" style="stroke:var(--gold)" stroke-width="2"/>
+    <path d="M220,92 h14 l-4,5 4,5 h-14 z" style="fill:var(--gold)"/>
+    <!-- doorway with drape -->
+    <path d="M220,180 L262,250 H178 Z" fill="url(#gold)" opacity=".9"/>
+    <path d="M220,180 L220,250" stroke="#8c1c2f" stroke-width="2"/>
+    <!-- side poles -->
+    <line x1="70" y1="250" x2="70" y2="288" stroke="#a8791a" stroke-width="4"/>
+    <line x1="370" y1="250" x2="370" y2="288" stroke="#a8791a" stroke-width="4"/>
+    <!-- ground -->
+    <rect y="284" width="500" height="36" fill="#1c6b54" opacity=".22"/>
+    <ellipse cx="220" cy="288" rx="170" ry="9" style="fill:var(--brand)" opacity=".12"/>
+    <!-- little potted plants flanking entrance -->
+    <g fill="#1c6b54" opacity=".55"><circle cx="150" cy="276" r="9"/><circle cx="290" cy="276" r="9"/></g>
+    <rect x="146" y="282" width="8" height="8" fill="#a8791a" opacity=".6"/>
+    <rect x="286" y="282" width="8" height="8" fill="#a8791a" opacity=".6"/>
+  </svg>`;
+}
+
+// hero image — uses admin-uploaded photo if set, else the illustration
+let heroTimer=null, heroIdx=0;
+function renderHero(){
+  const art=document.getElementById("heroArt");
+  if(heroTimer){ clearInterval(heroTimer); heroTimer=null; }
+  const slides=(DB.heroSlides||[]).filter(s=>s&&s.img);
+  if(slides.length){
+    art.innerHTML=
+      slides.map((s,i)=>`<div class="hs-slide ${i===0?'active':''}"><div class="hs-bg" style="background-image:url('${(s.img||'').replace(/'/g,"%27")}')"></div>${s.caption?`<span class="hs-cap">${esc(s.caption)}</span>`:""}</div>`).join("")+
+      (slides.length>1?`
+      <button type="button" class="hs-arrow hs-prev" onmousedown="event.preventDefault()" onclick="heroStep(-1)" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button type="button" class="hs-arrow hs-next" onmousedown="event.preventDefault()" onclick="heroStep(1)" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+      <div class="hs-dots">${slides.map((s,i)=>`<span class="hs-dot ${i===0?'active':''}" onclick="heroGo(${i})"></span>`).join("")}</div>`:"");
+    startHeroSlider();
+  } else if(DB.settings.heroImg){
+    art.innerHTML=`<img src="${DB.settings.heroImg}" alt="${esc(DB.settings.bizName)}"/>`;
+  } else heroArt();
+}
+function setHeroText(el,key,val){
+  if(!el) return;
+  if(val && String(val).trim()){
+    if(!el.hasAttribute("data-orig-i18n")) el.setAttribute("data-orig-i18n", el.getAttribute("data-i18n")||key);
+    el.removeAttribute("data-i18n");
+    el.textContent=val;
+  } else {
+    const k=el.getAttribute("data-orig-i18n")||key;
+    el.setAttribute("data-i18n",k);
+    el.removeAttribute("data-orig-i18n");
+    el.innerHTML=t(k);
+  }
+}
+function applyHero(){
+  const h=(DB.settings&&DB.settings.hero)||{};
+  const hero=document.querySelector(".hero");
+  const eb=document.querySelector(".hero .eyebrow");
+  const h1=document.querySelector(".hero h1");
+  const p=document.querySelector(".hero p");
+  setHeroText(eb,"hero_eyebrow",h.eyebrow);
+  setHeroText(h1,"hero_h1",h.title);
+  setHeroText(p,"hero_p",h.subtitle);
+  if(eb) eb.style.color=h.eyebrowColor||"";
+  if(h1) h1.style.color=h.titleColor||"";
+  if(p)  p.style.color=h.subColor||"";
+  if(hero){
+    hero.style.backgroundColor=h.bgColor||"";
+    const ov=(h.overlay==null||h.overlay==="")?50:Number(h.overlay);
+    hero.style.setProperty("--hero-ov",(ov/50).toFixed(3));
+  }
+}
+function heroShow(target, dir){
+  const slides=document.querySelectorAll("#heroArt .hs-slide");
+  const dots=document.querySelectorAll("#heroArt .hs-dot");
+  const n=slides.length;
+  if(!n) return;
+  target=((target%n)+n)%n;
+  if(typeof dir!=="number") dir = target===heroIdx ? 1 : (target>heroIdx?1:-1);
+  dots.forEach((d,k)=>d.classList.toggle("active",k===target));
+  const cur=slides[heroIdx], inc=slides[target];
+  if(inc===cur){ heroIdx=target; return; }
+  // place the incoming slide just off-screen on the side we're sliding from
+  inc.style.transition="none";
+  inc.style.transform="translateX("+(dir>0?100:-100)+"%)";
+  inc.classList.add("active");
+  void inc.offsetWidth; // force reflow so the next change animates
+  inc.style.transition="";
+  inc.style.transform="translateX(0)";
+  // slide the current one out to the opposite side and fade it
+  cur.style.transform="translateX("+(dir>0?-100:100)+"%)";
+  cur.classList.remove("active");
+  heroIdx=target;
+}
+function heroReset(){
+  if(heroTimer){ clearInterval(heroTimer); heroTimer=null; }
+  const reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(!reduce && document.querySelectorAll("#heroArt .hs-slide").length>1) heroTimer=setInterval(()=>heroShow(heroIdx+1,1),6000);
+}
+function heroStep(d){ heroShow(heroIdx+d, d); heroReset(); }
+function heroGo(i){ heroShow(i, i>heroIdx?1:-1); heroReset(); }
+function startHeroSlider(){
+  heroIdx=0;
+  const dots=document.querySelectorAll("#heroArt .hs-dot");
+  dots.forEach((d,k)=>d.classList.toggle("active",k===0));
+  heroReset();
+  const art=document.getElementById("heroArt");
+  art.onmouseenter=()=>{ if(heroTimer){ clearInterval(heroTimer); heroTimer=null; } };
+  art.onmouseleave=heroReset;
+}
+
+// reveal-on-scroll
+let _io;
+function revealObserve(){
+  if(!("IntersectionObserver" in window)){ document.querySelectorAll(".reveal").forEach(el=>el.classList.add("in")); return; }
+  if(!_io) _io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); _io.unobserve(e.target); } }),{threshold:.12,rootMargin:"0px 0px -40px 0px"});
+  document.querySelectorAll(".reveal:not(.in)").forEach(el=>_io.observe(el));
+}
+
+// scroll progress bar + back-to-top
+function onScroll(){
+  const se=document.scrollingElement||document.documentElement;
+  const sc=se.scrollTop||window.pageYOffset||0;
+  const max=se.scrollHeight-se.clientHeight;
+  const pct=max>0?Math.min(100,(sc/max)*100):0;
+  const bar=document.getElementById("scrollProg"); if(bar) bar.style.width=pct+"%";
+  const tt=document.getElementById("toTop"); if(tt) tt.classList.toggle("show",sc>500);
+}
+window.addEventListener("scroll",onScroll,{passive:true});
+window.addEventListener("resize",onScroll,{passive:true});
+
+/* ---------- Language (built-in dictionary, EN default) ---------- */
+const LANG_LABELS={en:"EN",hi:"हिन्दी",ur:"اردو"};
+let LANG="en";
+const I18N={
+  en:{
+    logo_sub:"Tents · Decor · Catering on rent",
+    nav_packages:"Packages", nav_gallery:"Gallery", nav_videos:"Videos", nav_reviews:"Reviews", nav_contact:"Contact", nav_cart:"🛒 Cart",
+    lang_label:"Language:",
+    hero_eyebrow:"✦ Tents · Decor · Catering ✦",
+    hero_h1:'Everything you need to host a <span class="accent">beautiful celebration</span>',
+    hero_p:"Browse our tents, seating, lighting, decoration and catering — add what you need and send it to us on WhatsApp.",
+    hero_browse:"Browse items", hero_viewlist:"View my list",
+    badge_years:"12+ years", badge_setup:"Free setup nearby", badge_booking:"Quick WhatsApp booking",
+    why_years_b:"12+ years", why_years_s:"of happy events",
+    why_ontime_b:"On-time setup", why_ontime_s:"every single time",
+    why_fair_b:"Fair pricing", why_fair_s:"no hidden charges",
+    why_free_b:"Free delivery", why_free_s:"& setup nearby",
+    about_h:"About us",
+    packages_h:"Popular packages",
+    packages_p:"Not sure what you need? Pick a ready-made package and book in one tap — we'll fine-tune it with you.",
+    catalog_h:"Our rental items",
+    catalog_p:"Tap any photo to see it bigger. Add items to build your event list.",
+    empty_cat:"No items in this category yet.",
+    gallery_h:"Our recent work",
+    gallery_p:"A glimpse of events we've set up. Tap a photo to view it larger.",
+    videos_h:"Our work in motion",
+    videos_p:"Watch a few of our events come together — from setup to the final decorated look.",
+    reviews_h:"What our customers say",
+    reviews_p:"A few kind words from families and organisers we've worked with.",
+    contact_h:"Visit or contact us",
+    c_address:"Address", c_call:"Call", c_whatsapp:"WhatsApp", c_chat:"Chat with us",
+    map_label:"📍 Find us here",
+    cb_h:"Not ready to pick items?",
+    cb_p:"Leave your number and event date — we'll call you back and help you plan everything.",
+    ph_name:"Your name", ph_phone:"Phone number",
+    cb_btn:"💬 Request a callback",
+    cart_title_list:"Your event list", cart_title_details:"Your details",
+    cart_proceed:"Proceed to details →",
+    cart_proceed_hint:"Review your list, then add your details on the next step.",
+    cart_back:"← Back to list",
+    f_name:"Your name", f_phone:"Phone number", f_date:"Event date", f_address:"Full address (with landmark)",
+    ph_cName:"e.g. Ramesh Kumar", ph_cPhone:"10-digit mobile", ph_cAddress:"House / village, nearest landmark, area, PIN",
+    f_loc:"Pin current location (optional)", loc_btn:"📍 Use my current location",
+    send_wa:"💬 Send list on WhatsApp",
+    send_wa_hint:"This sends your selected items, address and location to us on WhatsApp. No payment is taken here.",
+    foot_tag:"Tents, decoration & catering on rent for weddings, parties and functions — everything for your event under one roof.",
+    foot_explore:"Explore", foot_about:"About us", foot_packages:"Packages", foot_gallery:"Gallery", foot_reviews:"Reviews",
+    foot_reach:"Reach us", foot_callwa:"Call / WhatsApp",
+    add_to_list:"+ Add to list", added:"✓ Added", not_available:"Not available",
+    out_of_stock:"📅 Out of stock for this date — please check another day",
+    only_left:"Only {n} left for your date",
+    date_gate_label:"Choose your event date first", date_gate_hint:"See exactly what's available on your day.",
+    need_date:"Pick your event date above", toast_pick_date:"Please choose your event date first",
+    ask_wa:"💬 Ask on WhatsApp", currently_na:"Currently not available",
+    book_package:"Book this package",
+    photos_view:"{n} photos — tap to view", photo_view:"{n} photo — tap to view",
+    back_to:"← Back to {name}",
+    subtotal:"Estimated subtotal", subtotal_note:"final price confirmed on WhatsApp",
+    list_empty_line1:"Your list is empty.", list_empty_line2:"Add items from the catalog.",
+    toast_list_empty:"Your list is empty", toast_oos:"Out of stock for this date", toast_only:"Only {n} available for this date",
+    remove:"Remove"
+  },
+  hi:{
+    logo_sub:"टेंट · सजावट · कैटरिंग किराए पर",
+    nav_packages:"पैकेज", nav_gallery:"गैलरी", nav_videos:"वीडियो", nav_reviews:"समीक्षाएँ", nav_contact:"संपर्क", nav_cart:"🛒 सूची",
+    lang_label:"भाषा:",
+    hero_eyebrow:"✦ टेंट · सजावट · कैटरिंग ✦",
+    hero_h1:'एक <span class="accent">सुंदर आयोजन</span> के लिए आपको जो चाहिए, सब कुछ',
+    hero_p:"हमारे टेंट, बैठने की व्यवस्था, लाइटिंग, सजावट और कैटरिंग देखें — जो चाहिए उसे जोड़ें और WhatsApp पर हमें भेजें।",
+    hero_browse:"आइटम देखें", hero_viewlist:"मेरी सूची देखें",
+    badge_years:"12+ वर्ष", badge_setup:"पास में मुफ्त सेटअप", badge_booking:"तुरंत WhatsApp बुकिंग",
+    why_years_b:"12+ वर्ष", why_years_s:"खुशहाल आयोजनों के",
+    why_ontime_b:"समय पर सेटअप", why_ontime_s:"हर बार",
+    why_fair_b:"उचित मूल्य", why_fair_s:"कोई छिपा शुल्क नहीं",
+    why_free_b:"मुफ्त डिलीवरी", why_free_s:"और पास में सेटअप",
+    about_h:"हमारे बारे में",
+    packages_h:"लोकप्रिय पैकेज",
+    packages_p:"समझ नहीं आ रहा क्या चाहिए? एक तैयार पैकेज चुनें और एक टैप में बुक करें — हम आपके साथ इसे ठीक कर देंगे।",
+    catalog_h:"हमारे किराए के आइटम",
+    catalog_p:"किसी भी फोटो को बड़ा देखने के लिए टैप करें। अपनी आयोजन सूची बनाने के लिए आइटम जोड़ें।",
+    empty_cat:"इस श्रेणी में अभी कोई आइटम नहीं है।",
+    gallery_h:"हमारा हालिया काम",
+    gallery_p:"हमारे द्वारा सजाए गए आयोजनों की एक झलक। बड़ा देखने के लिए फोटो पर टैप करें।",
+    videos_h:"हमारा काम, चलचित्र में",
+    videos_p:"हमारे कुछ आयोजनों को बनते देखें — सेटअप से लेकर अंतिम सजावट तक।",
+    reviews_h:"हमारे ग्राहक क्या कहते हैं",
+    reviews_p:"जिन परिवारों और आयोजकों के साथ हमने काम किया, उनके कुछ प्यारे शब्द।",
+    contact_h:"हमसे मिलें या संपर्क करें",
+    c_address:"पता", c_call:"कॉल", c_whatsapp:"WhatsApp", c_chat:"हमसे चैट करें",
+    map_label:"📍 हमें यहाँ खोजें",
+    cb_h:"आइटम चुनने के लिए तैयार नहीं?",
+    cb_p:"अपना नंबर और आयोजन की तारीख छोड़ें — हम आपको वापस कॉल करेंगे और सब कुछ योजना बनाने में मदद करेंगे।",
+    ph_name:"आपका नाम", ph_phone:"फोन नंबर",
+    cb_btn:"💬 कॉलबैक का अनुरोध करें",
+    cart_title_list:"आपकी आयोजन सूची", cart_title_details:"आपकी जानकारी",
+    cart_proceed:"जानकारी की ओर बढ़ें →",
+    cart_proceed_hint:"अपनी सूची देखें, फिर अगले चरण में अपनी जानकारी जोड़ें।",
+    cart_back:"← सूची पर वापस जाएँ",
+    f_name:"आपका नाम", f_phone:"फोन नंबर", f_date:"आयोजन की तारीख", f_address:"पूरा पता (लैंडमार्क सहित)",
+    ph_cName:"जैसे रमेश कुमार", ph_cPhone:"10 अंकों का मोबाइल", ph_cAddress:"घर / गाँव, निकटतम लैंडमार्क, क्षेत्र, पिन",
+    f_loc:"वर्तमान स्थान पिन करें (वैकल्पिक)", loc_btn:"📍 मेरा वर्तमान स्थान उपयोग करें",
+    send_wa:"💬 WhatsApp पर सूची भेजें",
+    send_wa_hint:"यह आपके चुने आइटम, पता और स्थान WhatsApp पर हमें भेजता है। यहाँ कोई भुगतान नहीं लिया जाता।",
+    foot_tag:"शादियों, पार्टियों और आयोजनों के लिए टेंट, सजावट और कैटरिंग किराए पर — आपके आयोजन का सब कुछ एक ही छत के नीचे।",
+    foot_explore:"एक्सप्लोर करें", foot_about:"हमारे बारे में", foot_packages:"पैकेज", foot_gallery:"गैलरी", foot_reviews:"समीक्षाएँ",
+    foot_reach:"हम तक पहुँचें", foot_callwa:"कॉल / WhatsApp",
+    add_to_list:"+ सूची में जोड़ें", added:"✓ जोड़ा गया", not_available:"उपलब्ध नहीं",
+    out_of_stock:"📅 इस तारीख के लिए स्टॉक खत्म — कृपया कोई और दिन देखें",
+    only_left:"इस तारीख के लिए केवल {n} बचे हैं",
+    date_gate_label:"पहले अपनी आयोजन की तारीख चुनें", date_gate_hint:"देखें कि आपके दिन क्या-क्या उपलब्ध है।",
+    need_date:"ऊपर अपनी तारीख चुनें", toast_pick_date:"कृपया पहले आयोजन की तारीख चुनें",
+    ask_wa:"💬 WhatsApp पर पूछें", currently_na:"अभी उपलब्ध नहीं",
+    book_package:"यह पैकेज बुक करें",
+    photos_view:"{n} फोटो — देखने के लिए टैप करें", photo_view:"{n} फोटो — देखने के लिए टैप करें",
+    back_to:"← {name} पर वापस",
+    subtotal:"अनुमानित उप-योग", subtotal_note:"अंतिम कीमत WhatsApp पर तय होगी",
+    list_empty_line1:"आपकी सूची खाली है।", list_empty_line2:"कैटलॉग से आइटम जोड़ें।",
+    toast_list_empty:"आपकी सूची खाली है", toast_oos:"इस तारीख के लिए स्टॉक खत्म", toast_only:"इस तारीख के लिए केवल {n} उपलब्ध",
+    remove:"हटाएँ"
+  },
+  ur:{
+    logo_sub:"ٹینٹ · سجاوٹ · کیٹرنگ کرائے پر",
+    nav_packages:"پیکجز", nav_gallery:"گیلری", nav_videos:"ویڈیوز", nav_reviews:"آراء", nav_contact:"رابطہ", nav_cart:"🛒 فہرست",
+    lang_label:"زبان:",
+    hero_eyebrow:"✦ ٹینٹ · سجاوٹ · کیٹرنگ ✦",
+    hero_h1:'ایک <span class="accent">خوبصورت تقریب</span> منعقد کرنے کے لیے آپ کو جو کچھ درکار ہے',
+    hero_p:"ہمارے ٹینٹ، نشست، لائٹنگ، سجاوٹ اور کیٹرنگ دیکھیں — جو چاہیے شامل کریں اور WhatsApp پر ہمیں بھیجیں۔",
+    hero_browse:"آئٹمز دیکھیں", hero_viewlist:"میری فہرست دیکھیں",
+    badge_years:"12+ سال", badge_setup:"قریب مفت سیٹ اپ", badge_booking:"فوری WhatsApp بکنگ",
+    why_years_b:"12+ سال", why_years_s:"خوشگوار تقریبات کے",
+    why_ontime_b:"وقت پر سیٹ اپ", why_ontime_s:"ہر بار",
+    why_fair_b:"مناسب قیمت", why_fair_s:"کوئی چھپا چارج نہیں",
+    why_free_b:"مفت ترسیل", why_free_s:"اور قریب سیٹ اپ",
+    about_h:"ہمارے بارے میں",
+    packages_h:"مقبول پیکجز",
+    packages_p:"سمجھ نہیں آ رہا کیا چاہیے؟ ایک تیار پیکج منتخب کریں اور ایک ٹیپ میں بک کریں — ہم آپ کے ساتھ اسے بہتر بنائیں گے۔",
+    catalog_h:"ہمارے کرائے کے آئٹمز",
+    catalog_p:"کسی بھی تصویر کو بڑا دیکھنے کے لیے ٹیپ کریں۔ اپنی تقریب کی فہرست بنانے کے لیے آئٹمز شامل کریں۔",
+    empty_cat:"اس زمرے میں ابھی کوئی آئٹم نہیں۔",
+    gallery_h:"ہمارا حالیہ کام",
+    gallery_p:"ہماری سجائی گئی تقریبات کی ایک جھلک۔ بڑا دیکھنے کے لیے تصویر پر ٹیپ کریں۔",
+    videos_h:"ہمارا کام، حرکت میں",
+    videos_p:"ہماری چند تقریبات کو بنتے دیکھیں — سیٹ اپ سے آخری سجاوٹ تک۔",
+    reviews_h:"ہمارے گاہک کیا کہتے ہیں",
+    reviews_p:"جن خاندانوں اور منتظمین کے ساتھ ہم نے کام کیا، ان کے چند پیارے الفاظ۔",
+    contact_h:"ہم سے ملیں یا رابطہ کریں",
+    c_address:"پتہ", c_call:"کال", c_whatsapp:"WhatsApp", c_chat:"ہم سے چیٹ کریں",
+    map_label:"📍 ہمیں یہاں تلاش کریں",
+    cb_h:"آئٹمز منتخب کرنے کے لیے تیار نہیں؟",
+    cb_p:"اپنا نمبر اور تقریب کی تاریخ چھوڑیں — ہم آپ کو واپس کال کریں گے اور سب کچھ منصوبہ بندی میں مدد کریں گے۔",
+    ph_name:"آپ کا نام", ph_phone:"فون نمبر",
+    cb_btn:"💬 کال بیک کی درخواست کریں",
+    cart_title_list:"آپ کی تقریب کی فہرست", cart_title_details:"آپ کی تفصیلات",
+    cart_proceed:"تفصیلات کی طرف بڑھیں →",
+    cart_proceed_hint:"اپنی فہرست دیکھیں، پھر اگلے مرحلے میں اپنی تفصیلات شامل کریں۔",
+    cart_back:"← فہرست پر واپس",
+    f_name:"آپ کا نام", f_phone:"فون نمبر", f_date:"تقریب کی تاریخ", f_address:"مکمل پتہ (لینڈ مارک کے ساتھ)",
+    ph_cName:"مثلاً رمیش کمار", ph_cPhone:"10 ہندسوں کا موبائل", ph_cAddress:"گھر / گاؤں، قریبی لینڈ مارک، علاقہ، پن",
+    f_loc:"موجودہ مقام پن کریں (اختیاری)", loc_btn:"📍 میرا موجودہ مقام استعمال کریں",
+    send_wa:"💬 WhatsApp پر فہرست بھیجیں",
+    send_wa_hint:"یہ آپ کے منتخب آئٹمز، پتہ اور مقام WhatsApp پر ہمیں بھیجتا ہے۔ یہاں کوئی ادائیگی نہیں لی جاتی۔",
+    foot_tag:"شادیوں، تقریبات اور فنکشنز کے لیے ٹینٹ، سجاوٹ اور کیٹرنگ کرائے پر — آپ کی تقریب کا سب کچھ ایک چھت کے نیچے۔",
+    foot_explore:"دریافت کریں", foot_about:"ہمارے بارے میں", foot_packages:"پیکجز", foot_gallery:"گیلری", foot_reviews:"آراء",
+    foot_reach:"ہم تک پہنچیں", foot_callwa:"کال / WhatsApp",
+    add_to_list:"+ فہرست میں شامل کریں", added:"✓ شامل کیا", not_available:"دستیاب نہیں",
+    out_of_stock:"📅 اس تاریخ کے لیے اسٹاک ختم — براہ کرم کوئی اور دن دیکھیں",
+    only_left:"اس تاریخ کے لیے صرف {n} باقی ہیں",
+    date_gate_label:"پہلے اپنی تقریب کی تاریخ منتخب کریں", date_gate_hint:"دیکھیں کہ آپ کے دن کیا دستیاب ہے۔",
+    need_date:"اوپر اپنی تاریخ منتخب کریں", toast_pick_date:"براہ کرم پہلے تقریب کی تاریخ منتخب کریں",
+    ask_wa:"💬 WhatsApp پر پوچھیں", currently_na:"فی الحال دستیاب نہیں",
+    book_package:"یہ پیکج بک کریں",
+    photos_view:"{n} تصاویر — دیکھنے کے لیے ٹیپ کریں", photo_view:"{n} تصویر — دیکھنے کے لیے ٹیپ کریں",
+    back_to:"← {name} پر واپس",
+    subtotal:"تخمینی ذیلی رقم", subtotal_note:"حتمی قیمت WhatsApp پر طے ہوگی",
+    list_empty_line1:"آپ کی فہرست خالی ہے۔", list_empty_line2:"کیٹلاگ سے آئٹمز شامل کریں۔",
+    toast_list_empty:"آپ کی فہرست خالی ہے", toast_oos:"اس تاریخ کے لیے اسٹاک ختم", toast_only:"اس تاریخ کے لیے صرف {n} دستیاب",
+    remove:"ہٹائیں"
+  }
+};
+function t(key,vars){ let s=(I18N[LANG]&&I18N[LANG][key])||I18N.en[key]||key; if(vars) for(const k in vars) s=s.replace("{"+k+"}",vars[k]); return s; }
+function applyLang(){
+  document.querySelectorAll("[data-i18n]").forEach(el=>{ el.innerHTML=t(el.getAttribute("data-i18n")); });
+  document.querySelectorAll("[data-i18n-ph]").forEach(el=>{ el.setAttribute("placeholder",t(el.getAttribute("data-i18n-ph"))); });
+  const lbl=document.getElementById("curLang"); if(lbl) lbl.textContent=LANG_LABELS[LANG]||"EN";
+  document.documentElement.setAttribute("dir", LANG==="ur"?"rtl":"ltr");
+  document.documentElement.setAttribute("lang", LANG);
+}
+function toggleLangMenu(e){ if(e)e.stopPropagation(); document.getElementById("langMenu").classList.toggle("show"); }
+function closeLangMenu(){ const m=document.getElementById("langMenu"); if(m)m.classList.remove("show"); }
+document.addEventListener("click",e=>{ const w=document.querySelector(".lang-wrap"); if(w&&!w.contains(e.target)) closeLangMenu(); });
+function setLang(code){
+  LANG=code; localStorage.setItem("siteLang",code);
+  closeLangMenu();
+  document.getElementById("mobileMenu").classList.remove("show");
+  applyLang();
+  applyHero();
+  renderGrid(); renderPackages(); renderGallery(); renderVideos(); renderCart();
+}
+
+/* INIT */
+function initEventDate(){
+  const ed=document.getElementById("eventDate");
+  if(ed){ ed.min=todayISO(); ed.value=selectedDate||""; }
+  const cd=document.getElementById("cDate"); if(cd){ cd.min=todayISO(); if(selectedDate) cd.value=selectedDate; }
+  const gate=document.getElementById("dateGate"); if(gate) gate.classList.toggle("chosen", !!selectedDate);
+  const cb=document.getElementById("cbDate"); if(cb){ cb.min=todayISO(); if(!cb.value) cb.value=todayISO(); }
+}
+async function boot(){
+  DB = await loadDB();
+  applySettings(); renderHero(); renderFilters(); renderGrid(); renderPackages(); renderGallery(); renderVideos(); renderTestimonials(); renderOffer(); updateCount(); revealObserve();
+  initEventDate();
+  LANG=localStorage.getItem("siteLang")||"en";
+  applyLang();
+  applyHero();
+  await checkAdminHash();
+}
+boot();
+</script>
+</body>
+</html>

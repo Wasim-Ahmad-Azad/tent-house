@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
+<title>Inventory Manager — Corporative Tent House</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Marcellus&family=Mulish:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="theme.css">
+<style>
+body{padding-bottom:90px}
+
+/* ---------- Top bar ---------- */
+.topbar{background:var(--card);border-bottom:1px solid var(--line);padding:14px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:11px;min-width:0}
+.brand .logo{width:40px;height:40px;border-radius:11px;background:linear-gradient(150deg,rgba(var(--brand-rgb),.14),rgba(var(--brand-rgb),.04));display:grid;place-items:center;flex:none}
+.brand .logo svg{width:26px;height:26px}
+.brand h1{font-family:var(--display);font-size:18px;margin:0;letter-spacing:.3px;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand .sub{font-size:11px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase}
+.topbar .spacer{flex:1}
+.auth-pill{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+.btn{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:9px 15px;font-size:14px;font-weight:700;transition:all .18s}
+.btn:hover{border-color:var(--brand)}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
+.btn.primary:hover{background:var(--brand-deep);border-color:var(--brand-deep)}
+.btn.ghost{background:transparent}
+.btn.sm{padding:6px 11px;font-size:12.5px}
+
+/* ---------- Date bar (sticky) ---------- */
+.datebar{position:sticky;top:0;z-index:40;background:rgba(253,252,249,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:14px 18px}
+.date-nav{display:flex;align-items:center;justify-content:center;gap:12px;max-width:560px;margin:0 auto}
+.date-nav .arrow{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--card);display:grid;place-items:center;font-size:20px;color:var(--brand-deep);flex:none;transition:all .18s}
+.date-nav .arrow:hover{border-color:var(--brand);background:rgba(var(--brand-rgb),.06)}
+.date-center{text-align:center;flex:1;min-width:0}
+.date-center .dow{font-family:var(--display);font-size:20px;line-height:1.1}
+.date-center .full{font-size:12.5px;color:var(--muted);margin-top:2px}
+.date-center input[type=date]{margin-top:6px;border:1px solid var(--brand);border-radius:7px;padding:5px 9px;font:inherit;font-size:13px;color:var(--ink);background:#fff}
+.today-btn{display:block;margin:10px auto 0;font-size:12px;color:var(--brand);background:none;border:none;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.today-btn[hidden]{display:none}
+
+/* ---------- Summary chips ---------- */
+.summary{max-width:1100px;margin:16px auto 4px;padding:0 18px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.sum-chip{flex:1;min-width:120px;max-width:200px;border:1px solid var(--line);border-radius:12px;padding:12px 14px;text-align:center;background:var(--card)}
+.sum-chip .n{font-family:var(--display);font-size:26px;line-height:1}
+.sum-chip .l{font-size:12px;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:.6px}
+.sum-chip.free .n{color:var(--ok)} .sum-chip.low .n{color:var(--low)} .sum-chip.full .n{color:var(--full)}
+
+/* ---------- Controls ---------- */
+.controls{max-width:1100px;margin:14px auto 0;padding:0 18px}
+.search-wrap{position:relative}
+.search-wrap input{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px 14px 12px 40px;font-size:15px;background:var(--card)}
+.search-wrap input:focus{outline:none;border-color:var(--brand)}
+.search-wrap .ic{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--muted)}
+.cats{display:flex;gap:8px;overflow-x:auto;padding:12px 0 4px;-webkit-overflow-scrolling:touch}
+.cats::-webkit-scrollbar{display:none}
+.cat{white-space:nowrap;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:8px 15px;font-size:13px;font-weight:700;transition:all .18s}
+.cat.active{background:var(--brand);border-color:var(--brand);color:#fff}
+
+/* ---------- Item list ---------- */
+.list{max-width:1100px;margin:6px auto 0;padding:8px 18px 30px;display:grid;gap:14px;grid-template-columns:1fr}
+@media(min-width:760px){ .list{grid-template-columns:repeat(2,minmax(0,1fr))} }
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:var(--shadow);transition:border-color .2s}
+.card.st-full{border-color:rgba(192,69,59,.35)}
+.card-top{display:flex;align-items:flex-start;gap:12px}
+.card-top .thumb{width:58px;height:58px;border-radius:11px;object-fit:cover;flex:none;border:1px solid var(--line);background:#f2efe8}
+.card-top img.thumb{cursor:zoom-in;transition:transform .15s,box-shadow .15s}
+.card-top img.thumb:hover{transform:scale(1.05);box-shadow:0 4px 14px rgba(90,70,40,.18)}
+.card-top .thumb-ph{display:grid;place-items:center;font-family:var(--display);font-size:24px;color:var(--brand);background:linear-gradient(150deg,rgba(var(--brand-rgb),.14),rgba(var(--brand-rgb),.04))}
+.card-top .name{font-family:var(--serif);font-weight:700;font-size:20px;line-height:1.15;flex:1;min-width:0;padding-top:2px}
+.tag{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-top:3px;font-weight:700}
+.status{font-size:11.5px;font-weight:800;padding:5px 10px;border-radius:999px;white-space:nowrap;letter-spacing:.4px}
+.status.free{color:var(--ok);background:var(--ok-bg)} .status.low{color:var(--low);background:var(--low-bg)}
+.status.full{color:var(--full);background:var(--full-bg)} .status.untracked{color:var(--muted);background:#f2efe8}
+
+.bar{height:7px;border-radius:999px;background:#efeae0;overflow:hidden;margin:14px 0 4px}
+.bar > i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--brand),var(--brand-deep));transition:width .35s ease,background .3s}
+.bar.warn > i{background:linear-gradient(90deg,#d69a2e,var(--low))}
+.bar.danger > i{background:linear-gradient(90deg,#d9564b,var(--full))}
+.bar-legend{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:12px}
+.bar-legend b{color:var(--ink)}
+
+.rowline{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.stepper{display:flex;align-items:center;gap:0;border:1px solid var(--line);border-radius:11px;overflow:hidden;background:var(--card)}
+.stepper button{width:52px;height:52px;border:none;background:var(--card);font-size:26px;font-weight:700;color:var(--brand-deep);line-height:1;display:grid;place-items:center;transition:background .12s,transform .08s}
+.stepper button:active{transform:scale(.9);background:rgba(var(--brand-rgb),.1)}
+.stepper button:disabled{color:#cfc8ba;cursor:not-allowed}
+.stepper .val{min-width:64px;text-align:center;font-family:var(--display);font-size:24px;border-left:1px solid var(--line);border-right:1px solid var(--line);padding:0 6px;height:52px;line-height:52px}
+.stepper .val input{width:64px;height:50px;border:none;text-align:center;font-family:var(--display);font-size:24px;background:transparent;color:var(--ink)}
+.stepper .val input:focus{outline:none}
+.step-label{font-size:12px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;display:block}
+.remain-box{margin-left:auto;text-align:center;min-width:82px}
+.remain-box .rn{font-family:var(--display);font-size:32px;line-height:1}
+.remain-box.free .rn{color:var(--ok)} .remain-box.low .rn{color:var(--low)} .remain-box.full .rn{color:var(--full)}
+.remain-box .rl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+
+.total-row{display:flex;align-items:center;gap:10px;margin-top:16px;padding-top:14px;border-top:1px dashed var(--line);font-size:13.5px;color:var(--muted)}
+.total-row label{font-weight:700;color:var(--ink)}
+.total-inp{width:78px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font:inherit;font-size:15px;text-align:center}
+.total-inp:focus{outline:none;border-color:var(--brand)}
+.card[data-locked] .stepper button,.card[data-locked] .stepper input,.card[data-locked] .total-inp{pointer-events:none;opacity:.55}
+
+/* ---------- Busy dates ---------- */
+.busy-sec{max-width:1100px;margin:10px auto 0;padding:0 18px 40px}
+.busy-sec h2{font-family:var(--display);font-size:20px;margin:0 0 4px}
+.busy-sec .sub{font-size:13px;color:var(--muted)}
+.busy-list{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.busy-chip{border:1px solid var(--line);border-radius:11px;padding:11px 15px;min-width:150px;background:var(--card);transition:all .18s}
+.busy-chip:hover{border-color:var(--brand);transform:translateY(-2px)}
+.busy-chip.full{border-color:rgba(192,69,59,.4);background:var(--full-bg)}
+.busy-chip.active{border-color:var(--brand);box-shadow:0 0 0 2px rgba(var(--brand-rgb),.25)}
+.busy-chip .d{font-weight:800;font-size:14px}
+.busy-chip .m{font-size:12.5px;color:var(--muted);margin-top:3px}
+.busy-chip .m .out{color:var(--full);font-weight:800}
+
+/* ---------- View-only banner ---------- */
+.viewbar{max-width:820px;margin:14px auto 0;padding:12px 16px;background:var(--low-bg);border:1px solid rgba(189,130,24,.3);border-radius:11px;display:flex;align-items:center;gap:10px;font-size:13.5px;color:#7a5710}
+.viewbar[hidden]{display:none}
+.viewbar b{color:#5f430b}
+
+/* ---------- Save toast ---------- */
+.savebar{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(30px);background:var(--ink);color:#fff;padding:11px 20px;border-radius:999px;font-size:13.5px;font-weight:700;box-shadow:0 10px 30px rgba(0,0,0,.2);opacity:0;transition:all .28s;pointer-events:none;z-index:80;display:flex;align-items:center;gap:9px}
+.savebar.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.savebar.saving{background:var(--brand-deep)}
+.savebar.err{background:var(--full)}
+.spin{width:14px;height:14px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* ---------- Login modal ---------- */
+.modal{position:fixed;inset:0;background:rgba(43,38,32,.5);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
+.modal.show{display:flex}
+.modal .box{background:var(--card);border-radius:16px;padding:26px 24px;width:100%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.modal h3{font-family:var(--display);font-size:22px;margin:0 0 4px}
+.modal p{font-size:13px;color:var(--muted);margin:0 0 18px}
+.modal label{display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin:12px 0 5px}
+.modal input{width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:9px;font-size:15px}
+.modal input:focus{outline:none;border-color:var(--brand)}
+.modal .actions{display:flex;gap:10px;margin-top:20px}
+.modal .actions .btn{flex:1;justify-content:center;text-align:center;padding:12px}
+.empty{text-align:center;color:var(--muted);padding:40px 20px;font-size:15px}
+
+/* ---------- Image lightbox ---------- */
+.imgbox{position:fixed;inset:0;background:rgba(28,24,19,.88);z-index:120;display:none;align-items:center;justify-content:center;padding:24px;cursor:zoom-out;flex-direction:column}
+.imgbox.show{display:flex;animation:fade .18s ease}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.imgbox figure{margin:0;max-width:100%;max-height:100%;display:flex;flex-direction:column;align-items:center;gap:12px}
+.imgbox img{max-width:min(920px,94vw);max-height:82vh;object-fit:contain;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.5);background:#fff}
+.imgbox figcaption{color:#fff;font-family:var(--display);font-size:20px;text-align:center}
+.imgbox-x{position:absolute;top:18px;right:22px;color:#fff;font-size:26px;line-height:1;cursor:pointer;opacity:.85}
+.imgbox-x:hover{opacity:1}
+
+@media(max-width:520px){
+  .brand h1{font-size:16px}
+  .remain-box{margin-left:0}
+  .rowline{gap:10px}
+  .sum-chip{min-width:96px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <span class="logo" id="brandLogo"></span>
+    <div>
+      <h1 id="bizName">Corporative Tent House</h1>
+      <div class="sub">Inventory Manager</div>
+    </div>
+  </div>
+  <div class="spacer"></div>
+  <div class="auth-pill" id="authPill"></div>
+  <a class="btn ghost sm" href="booking.html">📝 New booking</a>
+  <a class="btn ghost sm" href="analytics.html">📊 Reports</a>
+  <button class="btn ghost sm" onclick="refresh()">↻ Refresh</button>
+</div>
+
+<div class="datebar">
+  <div class="date-nav">
+    <button class="arrow" onclick="shiftDay(-1)" aria-label="Previous day">‹</button>
+    <div class="date-center">
+      <div class="dow" id="dowLabel">—</div>
+      <div class="full" id="fullLabel">—</div>
+      <input type="date" id="workDate" onchange="setWorkDate(this.value)"/>
+    </div>
+    <button class="arrow" onclick="shiftDay(1)" aria-label="Next day">›</button>
+  </div>
+  <button class="today-btn" id="todayBtn" onclick="goToday()">Jump to today</button>
+</div>
+
+<div class="viewbar" id="viewbar" hidden>
+  🔒 <span><b>View only.</b> Log in to change bookings and stock.</span>
+  <div class="spacer" style="flex:1"></div>
+  <button class="btn primary sm" onclick="openLogin()">Log in</button>
+</div>
+
+<div class="summary" id="summary"></div>
+
+<div class="controls">
+  <div class="search-wrap">
+    <span class="ic">🔍</span>
+    <input id="search" placeholder="Search items…" oninput="render()"/>
+  </div>
+  <div class="cats" id="cats"></div>
+</div>
+
+<div class="list" id="list"></div>
+
+<div class="busy-sec">
+  <h2>Busy dates at a glance</h2>
+  <div class="sub">Every date that has bookings. Red means one or more items are fully out that day. Tap a date to open it.</div>
+  <div class="busy-list" id="busyList"></div>
+</div>
+
+<div class="savebar" id="savebar"></div>
+
+<div class="imgbox" id="imgbox" onclick="closeImg()">
+  <span class="imgbox-x" aria-label="Close">✕</span>
+  <figure>
+    <img id="imgbox-img" src="" alt=""/>
+    <figcaption id="imgbox-cap"></figcaption>
+  </figure>
+</div>
+
+<div class="modal" id="loginModal">
+  <div class="box">
+    <h3>Log in to edit</h3>
+    <p>Use the same email &amp; password you use for the website admin.</p>
+    <label>Email</label>
+    <input id="loginEmail" type="email" autocomplete="username" placeholder="you@example.com"/>
+    <label>Password</label>
+    <input id="loginPass" type="password" autocomplete="current-password" placeholder="Your password" onkeydown="if(event.key==='Enter')doLogin()"/>
+    <div class="actions">
+      <button class="btn ghost" onclick="closeLogin()">Cancel</button>
+      <button class="btn primary" onclick="doLogin()">Log in</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="common.js"></script>
+<script>
+/* Supabase client + shared helpers now come from /common.js */
+let DB = null;
+let dbRowExists = false;
+let isAuthed = false;
+let activeCat = "All";
+let workDate = todayISO();
+let busyActive = "";
+
+/* ---------- page-specific date helpers ---------- */
+function parseISO(s){ return new Date(s+"T00:00:00"); }
+function shiftISO(s,days){ const d=parseISO(s); d.setDate(d.getDate()+days); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+function fmtDOW(s){ return parseISO(s).toLocaleDateString("en-IN",{weekday:"long"}); }
+function fmtFull(s){ return parseISO(s).toLocaleDateString("en-IN",{day:"numeric",month:"long",year:"numeric"}); }
+function fmtShort(s){ return parseISO(s).toLocaleDateString("en-IN",{weekday:"short",day:"numeric",month:"short"}); }
+
+/* ---------- page-specific status helper (stock helpers are in common.js) ---------- */
+function statusOf(i,date){
+  const s=itemStock(i); if(s==null) return "untracked";
+  const r=itemRemaining(i,date);
+  if(r<=0) return "full";
+  if(r<=Math.max(3,Math.ceil(s*0.2))) return "low";
+  return "free";
+}
+
+/* ---------- normalise items to the per-date model ---------- */
+function normalize(d){
+  (d.items||[]).forEach(it=>{
+    if(!('stock' in it)) it.stock="";
+    if(!it.bookedByDate || typeof it.bookedByDate!=="object"){
+      it.bookedByDate={};
+      const legacy=parseInt(it.booked)||0;
+      if(legacy>0) it.bookedByDate[todayISO()]=legacy;
+    }
+    delete it.booked;
+  });
+  return d;
+}
+
+/* ---------- load / save ---------- */
+async function loadDB(){
+  const { data, error } = await sb.from("site").select("data").eq("id",1).maybeSingle();
+  if(error){ console.warn(error.message); return null; }
+  if(data && data.data && data.data.items){ dbRowExists=true; return normalize(data.data); }
+  return null;
+}
+
+let saveTimer=null, savePending=false;
+function queueSave(){
+  if(!isAuthed) return;
+  savePending=true;
+  showSave("saving");
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(commitSave,650);
+}
+async function commitSave(){
+  if(!isAuthed) return;
+  try{
+    const { error } = await sb.from("site").upsert({ id:1, data:DB, updated_at:new Date().toISOString() });
+    if(error) throw error;
+    savePending=false;
+    showSave("saved");
+  }catch(e){
+    console.error(e);
+    showSave("err");
+  }
+}
+
+/* ---------- edits ---------- */
+function setBooked(id,val){
+  if(!isAuthed) return openLogin();
+  const i=DB.items.find(x=>x.id===id); if(!i) return;
+  if(!i.bookedByDate) i.bookedByDate={};
+  let n=Math.max(0,parseInt(val)||0);
+  const s=itemStock(i); if(s!=null && n>s) n=s;
+  if(n===0) delete i.bookedByDate[workDate]; else i.bookedByDate[workDate]=n;
+  queueSave(); render();
+}
+function bump(id,delta){
+  const i=DB.items.find(x=>x.id===id); if(!i) return;
+  setBooked(id, itemBooked(i,workDate)+delta);
+}
+function setStock(id,val){
+  if(!isAuthed) return openLogin();
+  const i=DB.items.find(x=>x.id===id); if(!i) return;
+  val=(val||"").toString().trim();
+  i.stock=(val==="")?"":Math.max(0,parseInt(val)||0);
+  queueSave(); render();
+}
+
+/* ---------- rendering ---------- */
+function setWorkDate(v){ workDate=v||todayISO(); busyActive=workDate; render(); }
+function shiftDay(n){ workDate=shiftISO(workDate,n); busyActive=workDate; render(); }
+function goToday(){ workDate=todayISO(); busyActive=workDate; render(); }
+
+function renderCats(){
+  const cats=["All",...new Set(DB.items.map(i=>i.cat))];
+  document.getElementById("cats").innerHTML=cats.map(c=>
+    `<button class="cat ${c===activeCat?'active':''}" onclick="activeCat='${c.replace(/'/g,"\\'")}';render()">${c}</button>`
+  ).join("");
+}
+
+function render(){
+  if(!DB) return;
+  // date bar
+  document.getElementById("dowLabel").textContent=fmtDOW(workDate);
+  document.getElementById("fullLabel").textContent=fmtFull(workDate);
+  document.getElementById("workDate").value=workDate;
+  document.getElementById("todayBtn").hidden = (workDate===todayISO());
+
+  renderCats();
+
+  // filter
+  const q=(document.getElementById("search").value||"").toLowerCase().trim();
+  let items=DB.items.filter(i=>activeCat==="All"||i.cat===activeCat);
+  if(q) items=items.filter(i=>(i.name||"").toLowerCase().includes(q));
+
+  // summary (over full catalog for the date, tracked items only)
+  let free=0,low=0,full=0;
+  DB.items.forEach(i=>{ const st=statusOf(i,workDate); if(st==="free")free++; else if(st==="low")low++; else if(st==="full")full++; });
+  document.getElementById("summary").innerHTML=`
+    <div class="sum-chip free"><div class="n">${free}</div><div class="l">Available</div></div>
+    <div class="sum-chip low"><div class="n">${low}</div><div class="l">Running low</div></div>
+    <div class="sum-chip full"><div class="n">${full}</div><div class="l">Fully out</div></div>`;
+
+  // list
+  const list=document.getElementById("list");
+  if(!items.length){ list.innerHTML=`<div class="empty">No items match.</div>`; }
+  else list.innerHTML=items.map(i=>cardHTML(i)).join("");
+
+  renderBusy();
+}
+
+function cardHTML(i){
+  const s=itemStock(i), booked=itemBooked(i,workDate), rem=itemRemaining(i,workDate);
+  const st=statusOf(i,workDate);
+  const stLabel={free:"Available",low:"Running low",full:"Fully out",untracked:"Not tracked"}[st];
+  const locked=isAuthed?"":"data-locked";
+  const pct = (s&&s>0)?Math.min(100,Math.round(booked/s*100)):0;
+  const barCls = st==="full"?"danger":(st==="low"?"warn":"");
+  const remBox = s==null
+    ? `<div class="remain-box"><div class="rn" style="color:var(--muted)">—</div><div class="rl">Untracked</div></div>`
+    : `<div class="remain-box ${st}"><div class="rn">${rem}</div><div class="rl">Left this day</div></div>`;
+  const barBlock = s==null ? "" : `
+    <div class="bar ${barCls}"><i style="width:${pct}%"></i></div>
+    <div class="bar-legend"><span><b>${booked}</b> booked</span><span>of <b>${s}</b> total</span></div>`;
+  const minusDis = booked<=0?"disabled":"";
+  const plusDis = (s!=null && booked>=s)?"disabled":"";
+  return `<div class="card st-${st}" ${locked}>
+    <div class="card-top">
+      ${i.img?`<img class="thumb" src="${esc(i.img)}" alt="${esc(i.name)}" loading="lazy" onclick="openImg(${i.id})" onerror="this.style.display='none'"/>`:`<span class="thumb thumb-ph">${esc((i.name||'?').trim().charAt(0).toUpperCase())}</span>`}
+      <div class="name">${esc(i.name)}<div class="tag">${esc(i.cat||"")}</div></div>
+      <span class="status ${st}">${stLabel}</span>
+    </div>
+    ${barBlock}
+    <span class="step-label">Booked on ${fmtShort(workDate)}</span>
+    <div class="rowline">
+      <div class="stepper">
+        <button ${minusDis} onclick="bump(${i.id},-1)">–</button>
+        <span class="val"><input type="number" min="0" value="${booked}" onchange="setBooked(${i.id},this.value)"/></span>
+        <button ${plusDis} onclick="bump(${i.id},1)">+</button>
+      </div>
+      ${remBox}
+    </div>
+    <div class="total-row">
+      <label>Total I own:</label>
+      <input class="total-inp" type="number" min="0" value="${s==null?'':s}" placeholder="—" onchange="setStock(${i.id},this.value)"/>
+      <span>${s==null?'Leave blank = not tracked':'items in stock'}</span>
+    </div>
+  </div>`;
+}
+
+function renderBusy(){
+  const box=document.getElementById("busyList");
+  const dates={};
+  DB.items.forEach(i=>{
+    if(!i.bookedByDate) return;
+    for(const dt in i.bookedByDate){
+      const b=parseInt(i.bookedByDate[dt])||0; if(b<=0) continue;
+      if(!dates[dt]) dates[dt]={items:0,out:0};
+      dates[dt].items++;
+      const s=itemStock(i); if(s!=null && (s-b)<=0) dates[dt].out++;
+    }
+  });
+  const keys=Object.keys(dates).sort();
+  if(!keys.length){ box.innerHTML=`<span class="sub">No bookings recorded yet.</span>`; return; }
+  box.innerHTML=keys.map(dt=>{
+    const info=dates[dt];
+    const meta = info.out>0
+      ? `<span class="out">${info.out} fully out</span> · ${info.items} booked`
+      : `${info.items} item${info.items>1?'s':''} booked`;
+    return `<button class="busy-chip ${info.out>0?'full':''} ${dt===workDate?'active':''}" onclick="setWorkDate('${dt}')">
+      <div class="d">${fmtShort(dt)} ${parseISO(dt).getFullYear()}</div><div class="m">${meta}</div></button>`;
+  }).join("");
+}
+
+/* ---------- auth ---------- */
+function openLogin(){ document.getElementById("loginModal").classList.add("show"); setTimeout(()=>document.getElementById("loginEmail").focus(),50); }
+function closeLogin(){ document.getElementById("loginModal").classList.remove("show"); }
+async function doLogin(){
+  const email=document.getElementById("loginEmail").value.trim();
+  const password=document.getElementById("loginPass").value;
+  if(!email||!password){ showSave("err","Enter email & password"); return; }
+  const { error } = await sb.auth.signInWithPassword({ email, password });
+  if(error){ showSave("err","Login failed — check details"); return; }
+  closeLogin();
+  document.getElementById("loginPass").value="";
+  await refreshAuth();
+  render();
+  showSave("saved","Logged in — edits save automatically");
+}
+async function doLogout(){ await sb.auth.signOut(); await refreshAuth(); render(); showSave("saved","Logged out"); }
+async function refreshAuth(){
+  const { data } = await sb.auth.getUser();
+  isAuthed = !!(data && data.user);
+  const pill=document.getElementById("authPill");
+  document.getElementById("viewbar").hidden = isAuthed;
+  if(isAuthed){
+    pill.innerHTML=`<span>✅ ${esc((data.user.email||"admin"))}</span><button class="btn ghost sm" onclick="doLogout()">Log out</button>`;
+  }else{
+    pill.innerHTML=`<button class="btn primary sm" onclick="openLogin()">Log in to edit</button>`;
+  }
+}
+
+/* ---------- image lightbox ---------- */
+function openImg(id){
+  const i=DB.items.find(x=>x.id===id); if(!i||!i.img) return;
+  document.getElementById("imgbox-img").src=i.img;
+  document.getElementById("imgbox-cap").textContent=i.name||"";
+  document.getElementById("imgbox").classList.add("show");
+}
+function closeImg(){ document.getElementById("imgbox").classList.remove("show"); }
+window.addEventListener("keydown",e=>{ if(e.key==="Escape") closeImg(); });
+
+/* ---------- misc ---------- */
+let saveHideTimer=null;
+function showSave(kind,msg){
+  const el=document.getElementById("savebar");
+  el.className="savebar show "+(kind==="saving"?"saving":(kind==="err"?"err":""));
+  const txt = msg || (kind==="saving"?"Saving…":(kind==="err"?"Couldn't save — check login/connection":"Saved ✓"));
+  el.innerHTML=(kind==="saving"?'<span class="spin"></span>':"")+txt;
+  clearTimeout(saveHideTimer);
+  if(kind!=="saving") saveHideTimer=setTimeout(()=>el.classList.remove("show"),2200);
+}
+async function refresh(){
+  showSave("saving","Refreshing…");
+  const d=await loadDB();
+  if(d){ DB=d; render(); showSave("saved","Up to date"); }
+  else showSave("err","Could not load");
+}
+function brandLogo(){
+  return `<svg viewBox="0 0 72 86" preserveAspectRatio="xMidYMid meet" width="100%" height="100%">
+    <path d="M8 30 C8 16 22 10 36 10 C50 10 64 16 64 30 q-4.66 6 -9.33 0 q-4.66 6 -9.33 0 q-4.66 6 -9.33 0 q-4.66 6 -9.33 0 q-4.66 6 -9.33 0 q-4.66 6 -9.33 0 Z" fill="var(--brand)"/>
+    <circle cx="36" cy="4" r="2" fill="var(--brand)"/><path d="M36 10 V5" stroke="var(--brand)" stroke-width="1.6"/>
+    <rect x="39.5" y="45" width="3.6" height="19" rx="1" fill="var(--brand-deep)"/>
+    <rect x="35" y="45" width="14.5" height="3.4" rx="1" fill="var(--brand-deep)"/>
+    <rect x="52" y="48.5" width="3.6" height="15.5" rx="1" fill="var(--brand)"/>
+    <rect x="43.1" y="53.6" width="9" height="3.2" fill="var(--brand)"/>
+    <path d="M22 79 V70 M22 74 H26 M26 74 V79 M50 79 V70 M50 74 H46 M46 74 V79" fill="none" stroke="var(--brand-deep)" stroke-width="2" stroke-linecap="round"/>
+    <ellipse cx="36" cy="70" rx="8.5" ry="2.2" fill="var(--brand-deep)"/>
+  </svg>`;
+}
+
+/* ---------- boot ---------- */
+async function boot(){
+  document.getElementById("brandLogo").innerHTML=brandLogo();
+  busyActive=workDate;
+  await refreshAuth();
+  const d=await loadDB();
+  if(!d){ document.getElementById("list").innerHTML=`<div class="empty">Could not load the catalog. Check your connection and tap ↻ Refresh.</div>`; return; }
+  DB=d;
+  if(DB.settings && DB.settings.bizName) document.getElementById("bizName").textContent=DB.settings.bizName;
+  render();
+  sb.auth.onAuthStateChange(()=>{ refreshAuth(); render(); });
+}
+boot();
+</script>
+</body>
+</html>
