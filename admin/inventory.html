@@ -281,7 +281,7 @@ function normalize(d){
 async function loadDB(){
   const { data, error } = await sb.from("site").select("data").eq("id",1).maybeSingle();
   if(error){ console.warn(error.message); return null; }
-  if(data && data.data && data.data.items){ dbRowExists=true; return normalize(data.data); }
+  if(data && data.data && data.data.items){ dbRowExists=true; await loadAvailability(); return normalize(data.data); }
   return null;
 }
 
@@ -306,20 +306,9 @@ async function commitSave(){
   }
 }
 
-/* ---------- edits ---------- */
-function setBooked(id,val){
-  if(!isAuthed) return openLogin();
-  const i=DB.items.find(x=>x.id===id); if(!i) return;
-  if(!i.bookedByDate) i.bookedByDate={};
-  let n=Math.max(0,parseInt(val)||0);
-  const s=itemStock(i); if(s!=null && n>s) n=s;
-  if(n===0) delete i.bookedByDate[workDate]; else i.bookedByDate[workDate]=n;
-  queueSave(); render();
-}
-function bump(id,delta){
-  const i=DB.items.find(x=>x.id===id); if(!i) return;
-  setBooked(id, itemBooked(i,workDate)+delta);
-}
+/* ---------- edits ----------
+   "Booked" is no longer edited here — it's derived live from the bookings
+   table (via the availability view). Only the total stock I own is editable. */
 function setStock(id,val){
   if(!isAuthed) return openLogin();
   const i=DB.items.find(x=>x.id===id); if(!i) return;
@@ -384,8 +373,6 @@ function cardHTML(i){
   const barBlock = s==null ? "" : `
     <div class="bar ${barCls}"><i style="width:${pct}%"></i></div>
     <div class="bar-legend"><span><b>${booked}</b> booked</span><span>of <b>${s}</b> total</span></div>`;
-  const minusDis = booked<=0?"disabled":"";
-  const plusDis = (s!=null && booked>=s)?"disabled":"";
   return `<div class="card st-${st}" ${locked}>
     <div class="card-top">
       ${i.img?`<img class="thumb" src="${esc(i.img)}" alt="${esc(i.name)}" loading="lazy" onclick="openImg(${i.id})" onerror="this.style.display='none'"/>`:`<span class="thumb thumb-ph">${esc((i.name||'?').trim().charAt(0).toUpperCase())}</span>`}
@@ -393,13 +380,8 @@ function cardHTML(i){
       <span class="status ${st}">${stLabel}</span>
     </div>
     ${barBlock}
-    <span class="step-label">Booked on ${fmtShort(workDate)}</span>
     <div class="rowline">
-      <div class="stepper">
-        <button ${minusDis} onclick="bump(${i.id},-1)">–</button>
-        <span class="val"><input type="number" min="0" value="${booked}" onchange="setBooked(${i.id},this.value)"/></span>
-        <button ${plusDis} onclick="bump(${i.id},1)">+</button>
-      </div>
+      <span class="step-label" style="margin:0">Booked on ${fmtShort(workDate)}: <b>${booked}</b></span>
       ${remBox}
     </div>
     <div class="total-row">
@@ -413,15 +395,18 @@ function cardHTML(i){
 function renderBusy(){
   const box=document.getElementById("busyList");
   const dates={};
-  DB.items.forEach(i=>{
-    if(!i.bookedByDate) return;
-    for(const dt in i.bookedByDate){
-      const b=parseInt(i.bookedByDate[dt])||0; if(b<=0) continue;
+  // AVAIL (from the availability view) maps date -> {itemId: bookedQty}
+  for(const dt in AVAIL){
+    const m=AVAIL[dt]||{};
+    for(const id in m){
+      const b=parseInt(m[id])||0; if(b<=0) continue;
       if(!dates[dt]) dates[dt]={items:0,out:0};
       dates[dt].items++;
-      const s=itemStock(i); if(s!=null && (s-b)<=0) dates[dt].out++;
+      const it=DB.items.find(x=>String(x.id)===String(id));
+      const s=it?itemStock(it):null;
+      if(s!=null && (s-b)<=0) dates[dt].out++;
     }
-  });
+  }
   const keys=Object.keys(dates).sort();
   if(!keys.length){ box.innerHTML=`<span class="sub">No bookings recorded yet.</span>`; return; }
   box.innerHTML=keys.map(dt=>{

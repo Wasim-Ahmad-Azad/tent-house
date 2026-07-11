@@ -323,7 +323,7 @@ function authPillClick(){ if(isAuthed){ if(confirm("Log out?")) doLogout(); } el
 
 /* ---------- cart ops ---------- */
 function eventDate(){ return document.getElementById("cDate").value; }
-function onDateChange(){ render(); }
+async function onDateChange(){ const d=eventDate(); if(d) await loadAvailability([d]); render(); }
 function add(id){
   const i=DB.items.find(x=>x.id===id); if(!i) return;
   const d=eventDate(), rem=itemRemaining(i,d), cur=cart[id]?cart[id].qty:0;
@@ -500,7 +500,7 @@ async function saveBooking(){
   const advance=parseFloat(document.getElementById("cAdvance").value)||0;
   const items=d.items.map(c=>({id:c.id,name:c.name,price:money(c.price),unit:c.unit||"",qty:c.qty}));
   const b={
-    id: Date.now()+Math.floor(Math.random()*1000),
+    id: newId(),
     createdAt: new Date().toISOString(),
     status: "confirmed",
     quoteNo,
@@ -508,19 +508,14 @@ async function saveBooking(){
     eventDate: d.date,
     items,
     total: agreed===""?"":(money(agreed)),
-    payments: advance>0 ? [{id:Date.now(),amount:advance,date:todayISO(),method:"advance",note:"Advance at booking"}] : [],
+    payments: advance>0 ? [{id:newId(),amount:advance,date:todayISO(),method:"advance",note:"Advance at booking"}] : [],
     notes:""
   };
   const btn=document.getElementById("saveBtn"); btn.disabled=true; btn.textContent="Saving…";
-  DB.bookings.push(b);
-  applyInventory(items, d.date, +1);
-  const ok=await saveDB();
+  const {ok,error}=await dbInsertBooking(b);
   btn.disabled=false; btn.textContent="✅ Save booking";
-  if(!ok){ // roll back local changes on failure
-    DB.bookings=DB.bookings.filter(x=>x.id!==b.id);
-    applyInventory(items, d.date, -1);
-    return;
-  }
+  if(!ok){ showBar("Save failed: "+(error&&error.message||"try again"),"err"); return; }
+  await loadAvailability([d.date]); // refresh live availability for this date
   showBar("Booking saved for "+d.name+" ✓");
   lastSaved=b;
   document.getElementById("savedNote").style.display="block";
@@ -559,6 +554,7 @@ async function boot(){
   if(!d){ document.getElementById("items").innerHTML=`<div class="q-empty">Could not load the catalog. Check your connection and reload.</div>`; return; }
   DB=d;
   if(DB.settings && DB.settings.bizName) document.getElementById("bizName").textContent=DB.settings.bizName;
+  await loadAvailability([cd.value]);
   await refreshAuth();
   render();
   sb.auth.onAuthStateChange(()=>refreshAuth());

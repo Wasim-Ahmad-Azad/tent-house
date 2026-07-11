@@ -193,6 +193,42 @@ table.pr th.num,table.pr td.num{text-align:right}
 table.pr td{padding:7px 8px;border-bottom:1px solid #eee}
 .pr-tot{margin-top:14px;font-size:14px;display:flex;gap:24px;flex-wrap:wrap}
 .pr-tot b{font-family:var(--display)}
+
+/* ===== business reports (trends / rankings / dues / builder) ===== */
+.kpi .kd{font-weight:800;margin-left:6px;white-space:nowrap;font-size:12px;font-family:var(--sans);vertical-align:middle}
+.kd.up{color:var(--ok)} .kd.down{color:var(--full)} .kd.flat{color:var(--muted)}
+.card2{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:16px 18px;margin-bottom:18px}
+.card2 .c2head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.card2 .c2head h3{font-family:var(--display);font-size:18px;margin:0}
+.two-col{display:grid;gap:18px;grid-template-columns:1fr}
+@media(min-width:860px){ .two-col{grid-template-columns:1fr 1fr} }
+.chartscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.chart-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:10px}
+.chart-legend .ci{display:inline-flex;align-items:center;gap:6px}
+.chart-legend .sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+.rank{width:100%;border-collapse:collapse;font-size:13.5px}
+.rank th{text-align:left;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.4px;padding:6px 6px;font-weight:700}
+.rank td{padding:8px 6px;border-top:1px solid var(--line);vertical-align:middle}
+.rank td.num,.rank th.num{text-align:right;white-space:nowrap}
+.rank .nm b{font-weight:700}
+.rank .nm small{display:block}
+.rank .barcell{width:34%}
+.mbar{height:8px;border-radius:999px;background:#efe9de;overflow:hidden;min-width:30px}
+.mbar>i{display:block;height:100%;background:linear-gradient(90deg,var(--brand),var(--brand-deep))}
+.badge{display:inline-block;font-size:10px;font-weight:800;padding:2px 7px;border-radius:999px;background:var(--ok-bg);color:var(--ok);margin-left:6px;vertical-align:middle}
+.dues-sum{display:flex;gap:20px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin-bottom:12px}
+.dues-sum b{font-family:var(--display);font-size:18px;color:var(--ink);display:block}
+.dueline{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line);flex-wrap:wrap}
+.dueline .who{flex:1;min-width:150px}
+.dueline .who b{font-weight:700}
+.dueline .who small{display:block;color:var(--muted);font-size:12px}
+.dueline .when{font-size:12px;min-width:96px}
+.dueline .over{color:var(--full);font-weight:700}
+.dueline .soon{color:var(--low);font-weight:700}
+.dueline .amt{font-family:var(--display);font-size:18px;color:var(--full);min-width:84px;text-align:right}
+.rb-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-bottom:14px}
+.rb-total{font-size:12.5px;color:var(--muted);margin-bottom:8px}
+.rb-total b{font-family:var(--display);font-size:15px;color:var(--ink)}
 </style>
 </head>
 <body>
@@ -210,6 +246,7 @@ table.pr td{padding:7px 8px;border-bottom:1px solid #eee}
   <a class="btn ghost sm" href="booking.html">📝 New booking</a>
   <a class="btn ghost sm" href="inventory.html">📦 Inventory</a>
   <button class="btn ghost sm" onclick="openRemSettings()">🔔 Auto-reminders</button>
+  <button class="btn ghost sm" id="migrateBtn" style="display:none" onclick="migrateOldData()">⬆ Import old bookings</button>
   <button class="btn ghost sm" onclick="reload()">↻ Refresh</button>
 </div>
 
@@ -273,6 +310,74 @@ table.pr td{padding:7px 8px;border-bottom:1px solid #eee}
     </div>
     <div class="pl-grid" id="plGrid"></div>
     <div class="pl-note" id="plNote"></div>
+  </div>
+
+  <div class="card2" id="trendCard">
+    <div class="c2head">
+      <h3>📈 Trends over time</h3>
+      <div class="seg" id="trendSeg">
+        <button data-m="6" onclick="setTrendMonths(6)">6 mo</button>
+        <button data-m="12" class="on" onclick="setTrendMonths(12)">12 mo</button>
+        <button data-m="24" onclick="setTrendMonths(24)">24 mo</button>
+      </div>
+    </div>
+    <div class="chartscroll" id="trendChart"></div>
+    <div class="chart-legend">
+      <span class="ci"><span class="sw" style="background:linear-gradient(180deg,var(--brand),var(--brand-deep))"></span> Collected</span>
+      <span class="ci"><span class="sw" style="background:#e0a96d"></span> Expenses</span>
+      <span class="ci"><span class="sw" style="background:var(--ink)"></span> Profit (line)</span>
+      <span class="ci"><span class="sw" style="background:var(--muted);border-radius:999px"></span> Bookings (count under each month)</span>
+    </div>
+    <div class="pl-note">💡 Based on <b>money actually received</b> (payment dates) and expense dates — so it shows real cash flow month by month, whatever date range you pick above.</div>
+  </div>
+
+  <div class="two-col">
+    <div class="card2" id="bestItemsCard">
+      <div class="c2head"><h3>🏆 Best-earning items</h3><span class="count" id="bestItemsRange"></span></div>
+      <table class="rank"><thead><tr><th>Item</th><th class="barcell">Share</th><th class="num">Earned</th><th class="num">Units</th></tr></thead>
+        <tbody id="bestItems"></tbody></table>
+    </div>
+    <div class="card2" id="topCustCard">
+      <div class="c2head"><h3>👥 Top customers</h3><span class="count" id="topCustRange"></span></div>
+      <table class="rank"><thead><tr><th>Customer</th><th class="barcell">Share</th><th class="num">Value</th><th class="num">Events</th></tr></thead>
+        <tbody id="topCust"></tbody></table>
+    </div>
+  </div>
+
+  <div class="card2" id="duesCard">
+    <div class="c2head"><h3>💰 Outstanding dues</h3><span class="count" id="duesCount"></span></div>
+    <div class="dues-sum" id="duesSum"></div>
+    <div id="duesList"></div>
+  </div>
+
+  <div class="card2" id="rbCard">
+    <div class="c2head"><h3>🧮 Custom report</h3></div>
+    <div class="rb-controls">
+      <label>Group by
+        <select id="rbGroup" onchange="renderReportBuilder()">
+          <option value="month">Month</option>
+          <option value="item">Item</option>
+          <option value="customer">Customer</option>
+          <option value="category">Expense category</option>
+          <option value="status">Booking status</option>
+        </select>
+      </label>
+      <label>Show
+        <select id="rbMeasure" onchange="renderReportBuilder()">
+          <option value="collected">Money collected</option>
+          <option value="booked">Booked value</option>
+          <option value="due">Dues outstanding</option>
+          <option value="count">Number of bookings</option>
+          <option value="units">Units rented</option>
+          <option value="expense">Expenses</option>
+        </select>
+      </label>
+      <button class="btn sm" onclick="exportReportBuilder()">⬇ Download</button>
+    </div>
+    <div class="rb-total" id="rbTotal"></div>
+    <table class="rank"><thead><tr><th id="rbGroupHead">Group</th><th class="barcell">Share</th><th class="num" id="rbMeasureHead">Value</th></tr></thead>
+      <tbody id="rbOut"></tbody></table>
+    <div class="pl-note">💡 Pick what to group by and what to measure — then Download to get it as a spreadsheet. Respects the date range &amp; status filter above.</div>
   </div>
 
   <div class="sec-title">🔔 Upcoming events <span class="count" id="upCount"></span></div>
@@ -435,6 +540,7 @@ table.pr td{padding:7px 8px;border-bottom:1px solid #eee}
 <script>
 let DB=null, isAuthed=false;
 let basis="event", curBooking=null, editSnap=null, plBasis="cash", curExpense=null;
+let trendMonths=12;
 
 function normalize(d){
   (d.items||[]).forEach(it=>{
@@ -468,15 +574,72 @@ function paymentsInWindow(){
 async function loadDB(){
   const {data,error}=await sb.from("site").select("data").eq("id",1).maybeSingle();
   if(error){ showBar("Load failed: "+error.message,"err"); return null; }
-  if(data&&data.data&&data.data.items) return normalize(data.data);
-  return null;
+  if(!(data&&data.data&&data.data.items)) return null;
+  const d=normalize(data.data);
+  // legacy bookings/expenses (from the old single-blob) are kept aside for the
+  // one-time migration; the live arrays now come from their own tables.
+  d.legacyBookings=Array.isArray(d.bookings)?d.bookings:[];
+  d.legacyExpenses=Array.isArray(d.expenses)?d.expenses:[];
+  d.bookings=await dbLoadBookings()||[];
+  d.expenses=await dbLoadExpenses()||[];
+  return d;
 }
-async function saveDB(){
-  const {error}=await sb.from("site").upsert({id:1,data:DB,updated_at:new Date().toISOString()});
+/* Save ONLY the blob-backed parts (catalog items, gallery, videos, settings).
+   Bookings/expenses live in their own tables now, so we strip them out before
+   upserting to avoid re-writing stale copies into the blob. */
+async function saveBlob(){
+  const {data,error}=await sb.from("site").select("data").eq("id",1).maybeSingle();
   if(error){ showBar("Save failed: "+error.message,"err"); return false; }
+  const blob=(data&&data.data)?data.data:{};
+  blob.items=DB.items||blob.items||[];
+  blob.gallery=DB.gallery||blob.gallery||[];
+  blob.videos=DB.videos||blob.videos||[];
+  blob.settings=DB.settings||blob.settings||{};
+  const {error:e2}=await sb.from("site").upsert({id:1,data:blob,updated_at:new Date().toISOString()});
+  if(e2){ showBar("Save failed: "+e2.message,"err"); return false; }
   return true;
 }
 async function reload(){ const d=await loadDB(); if(d){ DB=d; render(); showBar("Refreshed"); } }
+
+/* One-time import: copy bookings/expenses that still live in the old single
+   blob into their own tables. Safe to run more than once — rows that already
+   exist (matched by id) are skipped. Button only shows when logged in and the
+   blob still has legacy rows to import. */
+function updateMigrateBtn(){
+  const btn=document.getElementById("migrateBtn"); if(!btn) return;
+  const n=((DB&&DB.legacyBookings)||[]).length+((DB&&DB.legacyExpenses)||[]).length;
+  btn.style.display=(isAuthed&&n>0)?"inline-flex":"none";
+  btn.textContent="⬆ Import old bookings ("+n+")";
+}
+async function migrateOldData(){
+  if(needAuth()) return;
+  const lb=(DB.legacyBookings||[]), le=(DB.legacyExpenses||[]);
+  if(!lb.length&&!le.length){ showBar("Nothing to import"); return; }
+  if(!confirm("Import "+lb.length+" old bookings and "+le.length+" old expenses into the new tables?\n\nAlready-imported rows are skipped. This is safe to run once.")) return;
+  const btn=document.getElementById("migrateBtn"); btn.disabled=true; btn.textContent="Importing…";
+  const haveB=new Set((DB.bookings||[]).map(b=>String(b.id)));
+  const haveE=new Set((DB.expenses||[]).map(e=>String(e.id)));
+  let okB=0,okE=0,fail=0;
+  for(const b of lb){
+    if(haveB.has(String(b.id))) continue;
+    const {ok}=await dbInsertBooking(b); if(ok) okB++; else fail++;
+  }
+  for(const e of le){
+    if(haveE.has(String(e.id))) continue;
+    const {ok}=await dbInsertExpense(e); if(ok) okE++; else fail++;
+  }
+  // On a clean run (nothing failed) remove the old copies from the blob so
+  // this becomes truly one-time and the button goes away.
+  if(!fail){
+    const {data}=await sb.from("site").select("data").eq("id",1).maybeSingle();
+    const blob=(data&&data.data)?data.data:null;
+    if(blob){ blob.bookings=[]; blob.expenses=[]; await sb.from("site").upsert({id:1,data:blob,updated_at:new Date().toISOString()}); }
+  }
+  btn.disabled=false;
+  const d=await loadDB(); if(d){ DB=d; render(); }
+  updateMigrateBtn();
+  showBar("Imported "+okB+" bookings, "+okE+" expenses"+(fail?(" · "+fail+" failed — old copies kept"):" · done")+" ✓");
+}
 
 /* ---------- auth ---------- */
 async function refreshAuth(){
@@ -538,9 +701,15 @@ function render(){
   const list=filteredBookings();
   renderKPIs(list);
   renderPL(list);
+  renderTrends();
+  renderBestItems(list);
+  renderTopCustomers(list);
+  renderDues();
+  renderReportBuilder();
   renderReminders();
   renderList(list);
   renderExpenses();
+  updateMigrateBtn();
 }
 function setPLBasis(b){ plBasis=b; document.querySelectorAll("#plBasisSeg button").forEach(x=>x.classList.toggle("on",x.dataset.pl===b)); render(); }
 function renderPL(list){
@@ -572,16 +741,257 @@ function renderKPIs(list){
   const due=active.reduce((s,b)=>s+bookingDue(b),0);
   const cancelled=list.filter(b=>b.status==="cancelled").length;
   const avg=active.length?Math.round(revenue/active.length):0;
+  // period-over-period deltas (only when a real range is selected)
+  const pw=prevWindow();
+  const hasPrev = pw[0]&&pw[1];
+  const pAct=hasPrev?bookingsIn(pw,true):[];
+  const dBk = hasPrev?deltaHTML(active.length,pAct.length):"";
+  const dRev= hasPrev?deltaHTML(revenue,pAct.reduce((s,b)=>s+bookingTotal(b),0)):"";
+  const dCol= hasPrev?deltaHTML(paid,paymentsIn(pw)):"";
   const k=[
-    {k:"Bookings",v:active.length,s:cancelled?cancelled+" cancelled":"confirmed",cls:""},
-    {k:"Revenue",v:inr(revenue),s:"agreed value",cls:"rev"},
-    {k:"Collected",v:inr(paid),s:"received",cls:"paid"},
-    {k:"Dues",v:inr(due),s:"to collect",cls:"due"},
-    {k:"Avg / booking",v:inr(avg),s:"value",cls:""},
-    {k:"Items rented",v:active.reduce((s,b)=>s+(b.items||[]).reduce((x,c)=>x+(c.qty||0),0),0),s:"units",cls:""}
+    {k:"Bookings",v:active.length,s:cancelled?cancelled+" cancelled":"confirmed",cls:"",d:dBk},
+    {k:"Revenue",v:inr(revenue),s:"agreed value",cls:"rev",d:dRev},
+    {k:"Collected",v:inr(paid),s:"received",cls:"paid",d:dCol},
+    {k:"Dues",v:inr(due),s:"to collect",cls:"due",d:""},
+    {k:"Avg / booking",v:inr(avg),s:"value",cls:"",d:""},
+    {k:"Items rented",v:active.reduce((s,b)=>s+(b.items||[]).reduce((x,c)=>x+(c.qty||0),0),0),s:"units",cls:"",d:""}
   ];
-  document.getElementById("kpis").innerHTML=k.map(x=>`<div class="kpi ${x.cls}"><div class="k">${x.k}</div><div class="v">${x.v}</div><div class="s">${x.s}</div></div>`).join("");
+  document.getElementById("kpis").innerHTML=k.map(x=>`<div class="kpi ${x.cls}"><div class="k">${x.k}</div><div class="v">${x.v}${x.d||""}</div><div class="s">${x.s}${hasPrev&&x.d?" vs prev":""}</div></div>`).join("");
 }
+/* ---------- trends over time (cash flow by month) ---------- */
+function monthKey(iso){ return (iso||"").slice(0,7); }
+function monthLabel(mk){
+  if(!mk) return "";
+  const [y,m]=mk.split("-"); const d=new Date(parseInt(y),parseInt(m)-1,1);
+  return d.toLocaleDateString("en-IN",{month:"short"})+(m==="01"||m==="1"?(" '"+String(y).slice(2)):"");
+}
+function lastNMonths(n){
+  const arr=[], now=new Date();
+  for(let i=n-1;i>=0;i--){ const d=new Date(now.getFullYear(),now.getMonth()-i,1); arr.push(d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")); }
+  return arr;
+}
+function trendData(months){
+  const keys=lastNMonths(months);
+  const idx={}; keys.forEach(k=>idx[k]={mk:k,collected:0,expense:0,bookings:0});
+  (DB.bookings||[]).forEach(b=>{
+    if(b.status==="cancelled") return;
+    (b.payments||[]).forEach(p=>{ const k=monthKey((p.date||"").slice(0,10)); if(idx[k]) idx[k].collected+=parseFloat(p.amount)||0; });
+    const bk=monthKey(b.eventDate); if(idx[bk]) idx[bk].bookings+=1;
+  });
+  (DB.expenses||[]).forEach(e=>{ const k=monthKey(e.date); if(idx[k]) idx[k].expense+=money(e.amount); });
+  return keys.map(k=>{ const r=idx[k]; r.profit=r.collected-r.expense; return r; });
+}
+function barChartSVG(data){
+  const gw=56, padT=16, padB=40, H=210, plotH=H-padT-padB;
+  const W=Math.max(data.length*gw, 40);
+  let maxPos=0, minNeg=0;
+  data.forEach(d=>{ maxPos=Math.max(maxPos,d.collected,d.expense,d.profit); minNeg=Math.min(minNeg,d.profit); });
+  if(maxPos<=0&&minNeg>=0) maxPos=1;
+  const span=(maxPos-minNeg)||1;
+  const y=v=>padT+plotH*(1-(v-minNeg)/span);
+  const base=y(0);
+  const bw=14, gap=6;
+  let bars="", line="", dots="", labels="";
+  const pts=[];
+  data.forEach((d,i)=>{
+    const cx=i*gw+gw/2;
+    const x1=cx-bw-gap/2, x2=cx+gap/2;
+    const cy=y(d.collected), ey=y(d.expense);
+    bars+=`<rect x="${x1}" y="${Math.min(cy,base)}" width="${bw}" height="${Math.abs(base-cy)}" rx="3" fill="url(#gCol)"><title>${monthLabel(d.mk)}: collected ${inr(d.collected)}</title></rect>`;
+    bars+=`<rect x="${x2}" y="${Math.min(ey,base)}" width="${bw}" height="${Math.abs(base-ey)}" rx="3" fill="#e0a96d"><title>${monthLabel(d.mk)}: expenses ${inr(d.expense)}</title></rect>`;
+    const py=y(d.profit); pts.push(cx+","+py);
+    dots+=`<circle cx="${cx}" cy="${py}" r="3.2" fill="var(--ink)"><title>${monthLabel(d.mk)}: profit ${d.profit<0?"−":""}${inr(Math.abs(d.profit))}</title></circle>`;
+    labels+=`<text x="${cx}" y="${H-24}" text-anchor="middle" font-size="10.5" fill="var(--muted)">${monthLabel(d.mk)}</text>`;
+    labels+=`<text x="${cx}" y="${H-10}" text-anchor="middle" font-size="10" fill="var(--muted)">${d.bookings||0} bkg</text>`;
+  });
+  line=`<polyline points="${pts.join(" ")}" fill="none" stroke="var(--ink)" stroke-width="1.6" opacity=".7"/>`;
+  const zero=`<line x1="0" y1="${base}" x2="${W}" y2="${base}" stroke="var(--line)" stroke-width="1"/>`;
+  return `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" style="display:block;min-width:100%">
+    <defs><linearGradient id="gCol" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--brand)"/><stop offset="1" stop-color="var(--brand-deep)"/></linearGradient></defs>
+    ${zero}${bars}${line}${dots}${labels}</svg>`;
+}
+function setTrendMonths(n){ trendMonths=n; document.querySelectorAll("#trendSeg button").forEach(x=>x.classList.toggle("on",parseInt(x.dataset.m)===n)); renderTrends(); }
+function renderTrends(){
+  const data=trendData(trendMonths);
+  const any=data.some(d=>d.collected||d.expense||d.bookings);
+  document.getElementById("trendChart").innerHTML = any ? barChartSVG(data)
+    : `<div class="rem-empty" style="padding:26px 4px">No activity yet in this range. Charts fill in as you record payments and expenses.</div>`;
+}
+
+/* ---------- best items & top customers ---------- */
+function rankRows(rows,total){
+  return rows.map((r,i)=>{
+    const pct=total>0?Math.round(r.val/total*100):0;
+    return `<tr><td class="nm"><b>${i+1}. ${esc(r.name)}</b>${r.sub?`<small>${esc(r.sub)}</small>`:""}</td>
+      <td class="barcell"><div class="mbar"><i style="width:${pct}%"></i></div></td>
+      <td class="num"><b>${r.money?inr(r.val):r.val}</b></td>
+      <td class="num">${r.extra}</td></tr>`;
+  }).join("");
+}
+function renderBestItems(list){
+  const active=list.filter(b=>b.status!=="cancelled");
+  const agg={};
+  active.forEach(b=>(b.items||[]).forEach(c=>{
+    const key=String(c.id||c.name); const a=agg[key]||(agg[key]={name:c.name||"—",val:0,units:0});
+    a.val+=money(c.price)*(c.qty||0); a.units+=(c.qty||0);
+  }));
+  const rows=Object.values(agg).sort((a,b)=>b.val-a.val).slice(0,8)
+    .map(a=>({name:a.name,val:a.val,money:true,extra:a.units}));
+  const total=rows.reduce((s,r)=>s+r.val,0);
+  document.getElementById("bestItemsRange").textContent=document.getElementById("rangeSel").selectedOptions[0].text;
+  document.getElementById("bestItems").innerHTML=rows.length?rankRows(rows,total)
+    :`<tr><td colspan="4" class="rem-empty" style="padding:18px 4px">No items rented in this range.</td></tr>`;
+}
+function renderTopCustomers(list){
+  const active=list.filter(b=>b.status!=="cancelled");
+  const agg={};
+  active.forEach(b=>{
+    const nm=(b.customer&&b.customer.name)||"—", ph=(b.customer&&b.customer.phone)||"";
+    const key=ph||nm; const a=agg[key]||(agg[key]={name:nm,phone:ph,val:0,events:0});
+    a.val+=bookingTotal(b); a.events+=1;
+  });
+  const rows=Object.values(agg).sort((a,b)=>b.val-a.val).slice(0,8)
+    .map(a=>({name:a.name,sub:(a.phone?"📞 "+a.phone:"")+(a.events>1?"  ·  🔁 repeat":""),val:a.val,money:true,extra:a.events}));
+  const total=rows.reduce((s,r)=>s+r.val,0);
+  document.getElementById("topCustRange").textContent=document.getElementById("rangeSel").selectedOptions[0].text;
+  document.getElementById("topCust").innerHTML=rows.length?rankRows(rows,total)
+    :`<tr><td colspan="4" class="rem-empty" style="padding:18px 4px">No customers in this range.</td></tr>`;
+}
+
+/* ---------- outstanding dues (aging) ---------- */
+function renderDues(){
+  const t=todayISO();
+  const due=(DB.bookings||[]).filter(b=>b.status!=="cancelled"&&bookingDue(b)>0)
+    .sort((a,b)=>(a.eventDate<b.eventDate?-1:1));
+  const total=due.reduce((s,b)=>s+bookingDue(b),0);
+  const overdue=due.filter(b=>b.eventDate&&b.eventDate<t);
+  const overdueSum=overdue.reduce((s,b)=>s+bookingDue(b),0);
+  document.getElementById("duesCount").textContent=due.length?("· "+due.length):"";
+  document.getElementById("duesSum").innerHTML=
+    `<div><b>${inr(total)}</b>total outstanding</div>
+     <div><b>${inr(overdueSum)}</b>overdue (event passed)</div>
+     <div><b>${due.length}</b>customers to follow up</div>`;
+  document.getElementById("duesList").innerHTML = due.length ? due.map(b=>{
+    const past=b.eventDate&&b.eventDate<t;
+    const days=b.eventDate?Math.round((new Date(b.eventDate+"T00:00:00")-new Date(t+"T00:00:00"))/86400000):null;
+    const when = days==null ? "<span>no date</span>"
+      : past ? `<span class="over">${Math.abs(days)}d overdue</span>`
+      : days<=7 ? `<span class="soon">in ${days}d</span>`
+      : `<span>in ${days}d</span>`;
+    return `<div class="dueline">
+      <div class="who"><b>${esc(b.customer.name)}</b><small>📞 ${esc(b.customer.phone||"—")} · ${fmtDate(b.eventDate)}</small></div>
+      <div class="when">${when}</div>
+      <div class="amt">${inr(bookingDue(b))}</div>
+      <button class="btn sm" onclick="waDue('${b.id}')">💬 Remind</button>
+    </div>`;
+  }).join("") : `<div class="rem-empty" style="padding:18px 4px">🎉 No outstanding dues. Everyone has paid in full.</div>`;
+}
+function waDue(id){ curBooking=(DB.bookings||[]).find(b=>String(b.id)===String(id))||null; if(curBooking) waRemind(); }
+
+/* ---------- KPI period-over-period compare ---------- */
+function prevWindow(){
+  const [a,b]=rangeWindow(); if(!a||!b) return [null,null];
+  const da=new Date(a+"T00:00:00"), db=new Date(b+"T00:00:00");
+  const len=Math.round((db-da)/86400000)+1;
+  return [addDaysISO(a,-len), addDaysISO(a,-1)];
+}
+function bookingsIn(win,activeOnly){
+  return (DB.bookings||[]).filter(b=>{
+    if(activeOnly&&b.status==="cancelled") return false;
+    const d=basis==="event"?b.eventDate:createdISO(b);
+    return inWindow(d,win);
+  });
+}
+function paymentsIn(win){
+  let sum=0;
+  (DB.bookings||[]).forEach(b=>{ if(b.status==="cancelled")return; (b.payments||[]).forEach(p=>{ if(inWindow((p.date||"").slice(0,10),win)) sum+=parseFloat(p.amount)||0; }); });
+  return sum;
+}
+function deltaHTML(cur,prev){
+  if(prev<=0){ return cur>0?`<span class="kd up">▲ new</span>`:``; }
+  const pct=Math.round((cur-prev)/prev*100);
+  if(pct===0) return `<span class="kd flat">▬ 0%</span>`;
+  return `<span class="kd ${pct>0?"up":"down"}">${pct>0?"▲":"▼"} ${Math.abs(pct)}%</span>`;
+}
+
+/* ---------- custom report builder ---------- */
+function rbCompute(){
+  const group=document.getElementById("rbGroup").value;
+  const measure=document.getElementById("rbMeasure").value;
+  const list=filteredBookings();
+  const active=list.filter(b=>b.status!=="cancelled");
+  const isMoney=["collected","booked","due","expense"].includes(measure);
+  const agg={}; // key -> {name, val}
+  const add=(k,name,v)=>{ const a=agg[k]||(agg[k]={name:name,val:0}); a.val+=v; };
+  if(measure==="expense"){
+    // expenses only make sense grouped by category or month
+    filteredExpenses().forEach(e=>{
+      const k = group==="month" ? monthKey(e.date) : (e.category||"Uncategorised");
+      add(String(k), group==="month"?monthLabel(monthKey(e.date)):(e.category||"Uncategorised"), money(e.amount));
+    });
+  } else if(group==="item"){
+    active.forEach(b=>(b.items||[]).forEach(c=>{
+      const k=String(c.id||c.name);
+      let v = measure==="units"?(c.qty||0) : measure==="count"?0 : money(c.price)*(c.qty||0);
+      if(measure==="count") return; // count per item not meaningful; handled below
+      add(k, c.name||"—", v);
+    }));
+    if(measure==="count"){ // number of bookings each item appears in
+      active.forEach(b=>{ const seen={}; (b.items||[]).forEach(c=>{ const k=String(c.id||c.name); if(!seen[k]){seen[k]=1; add(k,c.name||"—",1);} }); });
+    }
+  } else {
+    active.forEach(b=>{
+      let k,name;
+      if(group==="month"){ k=monthKey(b.eventDate); name=monthLabel(k); }
+      else if(group==="customer"){ k=(b.customer&&b.customer.phone)||(b.customer&&b.customer.name)||"—"; name=(b.customer&&b.customer.name)||"—"; }
+      else if(group==="status"){ k=b.status||"confirmed"; name=(b.status||"confirmed"); }
+      else if(group==="category"){ k=name="(bookings have no category)"; }
+      let v = measure==="collected"?bookingPaid(b)
+            : measure==="booked"?bookingTotal(b)
+            : measure==="due"?bookingDue(b)
+            : measure==="units"?(b.items||[]).reduce((s,c)=>s+(c.qty||0),0)
+            : 1;
+      add(String(k),name,v);
+    });
+  }
+  let rows=Object.values(agg).filter(r=>r.val!==0);
+  rows.sort((a,b)=> group==="month" ? (a.name<b.name?-1:1) : (b.val-a.val));
+  return {rows,isMoney,group,measure};
+}
+function renderReportBuilder(){
+  const {rows,isMoney,group,measure}=rbCompute();
+  window._rbRows={rows,isMoney,group,measure};
+  const gh={month:"Month",item:"Item",customer:"Customer",category:"Category",status:"Status"}[group]||"Group";
+  const mh={collected:"Collected",booked:"Booked value",due:"Dues",count:"Bookings",units:"Units",expense:"Expenses"}[measure]||"Value";
+  document.getElementById("rbGroupHead").textContent=gh;
+  document.getElementById("rbMeasureHead").textContent=mh;
+  const total=rows.reduce((s,r)=>s+r.val,0);
+  document.getElementById("rbTotal").innerHTML = rows.length ? `Total ${mh.toLowerCase()}: <b>${isMoney?inr(total):total}</b> across ${rows.length} ${gh.toLowerCase()}${rows.length===1?"":"s"}` : "";
+  document.getElementById("rbOut").innerHTML = rows.length ? rows.map(r=>{
+    const pct=total>0?Math.round(r.val/total*100):0;
+    return `<tr><td class="nm"><b>${esc(r.name)}</b></td>
+      <td class="barcell"><div class="mbar"><i style="width:${pct}%"></i></div></td>
+      <td class="num"><b>${isMoney?inr(r.val):r.val}</b></td></tr>`;
+  }).join("") : `<tr><td colspan="3" class="rem-empty" style="padding:18px 4px">Nothing to show for this combination in the selected range.</td></tr>`;
+}
+function exportReportBuilder(){
+  const d=window._rbRows; if(!d||!d.rows.length){ showBar("Nothing to export","err"); return; }
+  const gh={month:"Month",item:"Item",customer:"Customer",category:"Category",status:"Status"}[d.group]||"Group";
+  const mh={collected:"Collected",booked:"Booked value",due:"Dues",count:"Bookings",units:"Units",expense:"Expenses"}[d.measure]||"Value";
+  const rows=d.rows.map(r=>({[gh]:r.name,[mh]:r.val}));
+  const fname="report-"+d.group+"-"+d.measure+"-"+todayISO();
+  if(window.XLSX){
+    const wb=XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(rows),"Report");
+    XLSX.writeFile(wb,fname+".xlsx");
+  } else {
+    const h=Object.keys(rows[0]);
+    const csv=[h.join(",")].concat(rows.map(r=>h.map(k=>`"${String(r[k]).replace(/"/g,'""')}"`).join(","))).join("\n");
+    const a=document.createElement("a"); a.href=URL.createObjectURL(new Blob(["\ufeff"+csv],{type:"text/csv"})); a.download=fname+".csv"; a.click();
+  }
+  showBar("Report downloaded");
+}
+
 function renderReminders(){
   const t=todayISO(), tm=addDaysISO(t,1), wk=addDaysISO(t,7), mo=addDaysISO(t,30);
   const up=(DB.bookings||[]).filter(b=>b.status!=="cancelled"&&b.eventDate&&b.eventDate>=t).sort((a,b)=>a.eventDate<b.eventDate?-1:1);
@@ -597,7 +1007,7 @@ function renderReminders(){
     const sub={today:"happening now",tomorrow:"1 day away",week:"within 7 days",month:"within 30 days"}[bk.key];
     return `<div class="rem-col ${bk.cls}">
       <h3>${bk.title}</h3><div class="bucket-sub">${sub}</div>
-      ${rows.length?rows.map(b=>`<div class="rem-item" onclick="openDet(${b.id})">
+      ${rows.length?rows.map(b=>`<div class="rem-item" onclick="openDet('${b.id}')">
           <b>${esc(b.customer.name)}</b>
           <div class="m"><span>${fmtDate(b.eventDate)} · ${(b.items||[]).length} items</span><span class="${bookingDue(b)>0?'due':''}">${bookingDue(b)>0?"Due "+inr(bookingDue(b)):"Paid"}</span></div>
         </div>`).join(""):`<div class="rem-empty">Nothing scheduled.</div>`}
@@ -610,7 +1020,7 @@ function renderList(list){
   empty.style.display=list.length?"none":"block";
   document.getElementById("bkBody").innerHTML=list.map(b=>{
     const ps=payState(b);
-    return `<tr class="row ${b.status==='cancelled'?'cancelled':''}" onclick="openDet(${b.id})">
+    return `<tr class="row ${b.status==='cancelled'?'cancelled':''}" onclick="openDet('${b.id}')">
       <td>${fmtDate(b.eventDate)}</td>
       <td class="cust"><b>${esc(b.customer.name)}</b><small>📞 ${esc(b.customer.phone)}</small></td>
       <td>${(b.items||[]).length}</td>
@@ -622,7 +1032,7 @@ function renderList(list){
   }).join("");
   document.getElementById("bkCards").innerHTML=list.map(b=>{
     const ps=payState(b);
-    return `<div class="bcard ${b.status==='cancelled'?'cancelled':''}" onclick="openDet(${b.id})">
+    return `<div class="bcard ${b.status==='cancelled'?'cancelled':''}" onclick="openDet('${b.id}')">
       <div class="top"><b>${esc(b.customer.name)}</b>${statusPill(b,ps)}</div>
       <div class="m">📅 ${fmtDate(b.eventDate)} · ${(b.items||[]).length} items · 📞 ${esc(b.customer.phone)}</div>
       <div class="amts"><span>Total <b>${inr(bookingTotal(b))}</b></span><span>Paid ${inr(bookingPaid(b))}</span>${bookingDue(b)>0?`<span class="due">Due ${inr(bookingDue(b))}</span>`:""}</div>
@@ -678,20 +1088,30 @@ async function saveExpense(){
   if(amt<=0){ document.getElementById("exErr").textContent="Enter an amount greater than 0."; return; }
   if(!cat){ document.getElementById("exErr").textContent="Choose or type a category."; return; }
   DB.expenses=DB.expenses||[];
-  if(curExpense){ curExpense.date=date; curExpense.category=cat; curExpense.amount=amt; curExpense.note=note; }
-  else DB.expenses.push({id:Date.now(),date,category:cat,amount:amt,note});
-  if(await saveDB()){ closeExpense(); render(); showBar("Expense saved"); }
+  if(curExpense){
+    curExpense.date=date; curExpense.category=cat; curExpense.amount=amt; curExpense.note=note;
+    const {ok,error}=await dbUpdateExpense(curExpense);
+    if(!ok){ document.getElementById("exErr").textContent="Save failed: "+(error&&error.message||"try again"); return; }
+  } else {
+    const e={id:newId(),date,category:cat,amount:amt,note};
+    const {ok,error}=await dbInsertExpense(e);
+    if(!ok){ document.getElementById("exErr").textContent="Save failed: "+(error&&error.message||"try again"); return; }
+    DB.expenses.push(e);
+  }
+  closeExpense(); render(); showBar("Expense saved");
 }
 async function deleteExpense(){
   if(needAuth()||!curExpense) return;
   if(!confirm("Delete this expense?")) return;
+  const {ok,error}=await dbDeleteExpense(curExpense.id);
+  if(!ok){ showBar("Delete failed: "+(error&&error.message||"try again"),"err"); return; }
   DB.expenses=(DB.expenses||[]).filter(x=>String(x.id)!==String(curExpense.id));
-  if(await saveDB()){ closeExpense(); render(); showBar("Expense deleted"); }
+  closeExpense(); render(); showBar("Expense deleted");
 }
 
 /* ---------- detail modal ---------- */
 function openDet(id){
-  const b=(DB.bookings||[]).find(x=>x.id===id); if(!b) return; curBooking=b;
+  const b=(DB.bookings||[]).find(x=>String(x.id)===String(id)); if(!b) return; curBooking=b;
   document.getElementById("dTitle").textContent=b.customer.name;
   document.getElementById("dSub").textContent=`Event ${fmtLong(b.eventDate)} · booked ${fmtDate(createdISO(b))}${b.quoteNo?" · "+b.quoteNo:""}`;
   renderDet();
@@ -700,7 +1120,7 @@ function openDet(id){
 function renderDet(){
   const b=curBooking; if(!b) return;
   const rows=(b.items||[]).map((c,n)=>`<tr><td>${n+1}</td><td>${esc(c.name)}</td><td class="num">${c.qty}</td><td class="num">${inr(money(c.price))}</td><td class="num">${inr(money(c.price)*c.qty)}</td></tr>`).join("");
-  const pays=(b.payments||[]).map(p=>`<div class="pay-row"><span>${fmtDate(p.date)} · ${esc(p.method||"payment")}${p.note?" — "+esc(p.note):""}</span><span><b>${inr(p.amount)}</b>${isAuthed?` <button class="px" title="Remove" onclick="removePayment(${p.id})">✕</button>`:""}</span></div>`).join("");
+  const pays=(b.payments||[]).map(p=>`<div class="pay-row"><span>${fmtDate(p.date)} · ${esc(p.method||"payment")}${p.note?" — "+esc(p.note):""}</span><span><b>${inr(p.amount)}</b>${isAuthed?` <button class="px" title="Remove" onclick="removePayment('${p.id}')">✕</button>`:""}</span></div>`).join("");
   document.getElementById("dBody").innerHTML=`
     <div class="det-grid">
       <div><div class="lbl">Phone</div>${esc(b.customer.phone)}</div>
@@ -745,29 +1165,37 @@ async function addPayment(){
   const date=document.getElementById("payDate").value||todayISO();
   const note=document.getElementById("payNote").value.trim();
   curBooking.payments=curBooking.payments||[];
-  curBooking.payments.push({id:Date.now(),amount:amt,date,method:note?note:"payment",note:""});
-  if(await saveDB()){ renderDet(); render(); showBar("Payment recorded"); }
+  const p={id:newId(),amount:amt,date,method:note?note:"payment",note:""};
+  curBooking.payments.push(p);
+  const {ok,error}=await dbUpdateBooking(curBooking);
+  if(!ok){ curBooking.payments=curBooking.payments.filter(x=>x!==p); showBar("Save failed: "+(error&&error.message||"try again"),"err"); return; }
+  renderDet(); render(); showBar("Payment recorded");
 }
 async function removePayment(pid){
   if(needAuth()||!curBooking) return;
   if(!confirm("Remove this payment?")) return;
-  curBooking.payments=(curBooking.payments||[]).filter(p=>p.id!==pid);
-  if(await saveDB()){ renderDet(); render(); showBar("Payment removed"); }
+  const prev=curBooking.payments||[];
+  curBooking.payments=prev.filter(p=>String(p.id)!==String(pid));
+  const {ok,error}=await dbUpdateBooking(curBooking);
+  if(!ok){ curBooking.payments=prev; showBar("Save failed: "+(error&&error.message||"try again"),"err"); return; }
+  renderDet(); render(); showBar("Payment removed");
 }
 
 /* ---------- cancel / restore ---------- */
 async function cancelBooking(){
   if(needAuth()||!curBooking) return;
   if(!confirm("Cancel this booking? Items will be freed back into inventory.")) return;
-  applyInventory(curBooking.items,curBooking.eventDate,-1);
   curBooking.status="cancelled";
-  if(await saveDB()){ renderDet(); render(); showBar("Booking cancelled"); }
+  const {ok,error}=await dbUpdateBooking(curBooking);
+  if(!ok){ curBooking.status="confirmed"; showBar("Save failed: "+(error&&error.message||"try again"),"err"); return; }
+  renderDet(); render(); showBar("Booking cancelled");
 }
 async function restoreBooking(){
   if(needAuth()||!curBooking) return;
-  applyInventory(curBooking.items,curBooking.eventDate,+1);
   curBooking.status="confirmed";
-  if(await saveDB()){ renderDet(); render(); showBar("Booking restored"); }
+  const {ok,error}=await dbUpdateBooking(curBooking);
+  if(!ok){ curBooking.status="cancelled"; showBar("Save failed: "+(error&&error.message||"try again"),"err"); return; }
+  renderDet(); render(); showBar("Booking restored");
 }
 
 /* ---------- edit ---------- */
@@ -806,18 +1234,12 @@ async function saveEdit(){
   if(needAuth()||!curBooking) return;
   const newDate=document.getElementById("eDate").value||curBooking.eventDate;
   const tot=document.getElementById("eTotal").value.trim();
-  // reverse old inventory, apply new (only for confirmed bookings)
-  if(curBooking.status!=="cancelled"){
-    applyInventory(editSnap.items,editSnap.eventDate,-1);
-    applyInventory(curBooking.items,newDate,+1);
-  }
   curBooking.eventDate=newDate;
   curBooking.total=tot===""?"":money(tot);
   curBooking.notes=document.getElementById("eNotes").value.trim();
-  if(await saveDB()){ closeEdit(); renderDet(); render(); showBar("Booking updated"); }
-  else { // rollback inventory on failure
-    if(curBooking.status!=="cancelled"){ applyInventory(curBooking.items,newDate,-1); applyInventory(editSnap.items,editSnap.eventDate,+1); }
-  }
+  const {ok,error}=await dbUpdateBooking(curBooking);
+  if(!ok){ showBar("Save failed: "+(error&&error.message||"try again"),"err"); return; }
+  closeEdit(); renderDet(); render(); showBar("Booking updated");
 }
 function closeEdit(){ document.getElementById("editModal").classList.remove("show"); }
 
@@ -965,7 +1387,7 @@ async function saveRemSettings(){
     },
     lastRun:(DB.settings.reminders&&DB.settings.reminders.lastRun)||""
   };
-  if(await saveDB()){ closeRemSettings(); showBar("Reminder settings saved"); }
+  if(await saveBlob()){ closeRemSettings(); showBar("Reminder settings saved"); }
 }
 function setupGuideHTML(){
   return `

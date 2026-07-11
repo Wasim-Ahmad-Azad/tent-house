@@ -740,10 +740,10 @@
       <div class="inv-datebar">
         <label style="font-weight:700">Show bookings for:</label>
         <input id="adminInvDate" type="date" onchange="setAdminInvDate(this.value)"/>
-        <button class="btn-ghost" style="padding:8px 14px" onclick="clearAdminInvDate()">🗑 Clear this date's bookings</button>
+        <span style="font-size:12.5px;color:var(--muted)">Booked counts come from real bookings — manage them on the Bookings page.</span>
       </div>
       <table class="admin-table inv-table">
-        <thead><tr><th>Item</th><th>Total I have</th><th>Booked on this date</th><th>Remaining this date</th></tr></thead>
+        <thead><tr><th>Item</th><th>Total I have</th><th>Booked (from bookings)</th><th>Remaining this date</th></tr></thead>
         <tbody id="invRows"></tbody>
       </table>
 
@@ -1042,12 +1042,13 @@ let isAdmin = false;
 let selectedDate = (()=>{ try{return localStorage.getItem("tentHouseEventDate")||todayISO();}catch(e){return todayISO();} })();
 
 // Customer picks their event date; availability + cart all key off this date.
-function setEventDate(v){
+async function setEventDate(v){
   selectedDate = v || "";
   try{ localStorage.setItem("tentHouseEventDate", selectedDate); }catch(e){}
   const cd=document.getElementById("cDate"); if(cd) cd.value=selectedDate;
   const gate=document.getElementById("dateGate"); if(gate) gate.classList.toggle("chosen", !!selectedDate);
   const ed=document.getElementById("eventDate"); if(ed && ed.value!==selectedDate) ed.value=selectedDate;
+  if(selectedDate) await loadAvailability([selectedDate]);
   renderGrid();
 }
 
@@ -1120,7 +1121,20 @@ function renderFilters(){
 // ---- stock helpers (empty stock = not tracked / unlimited) ----
 function todayISO(){ const d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
 function itemStock(i){ return (i.stock===""||i.stock==null)?null:(parseInt(i.stock)||0); }
-function itemBooked(i,date){ if(!date||!i.bookedByDate) return 0; return parseInt(i.bookedByDate[date])||0; }
+/* Booked counts come live from the PII-free `availability` view (derived from
+   confirmed bookings). AVAIL: "YYYY-MM-DD" -> { "<itemId>": bookedQty }.
+   Pass no dates to load all (admin); pass [date] for one day (customer). */
+let AVAIL = {};
+async function loadAvailability(dates){
+  dates=(dates||[]).filter(Boolean);
+  let q=sb.from("availability").select("item_id,date,qty");
+  if(dates.length) q=q.in("date",dates);
+  const {data,error}=await q;
+  if(error){ console.warn("availability:",error.message); return; }
+  if(dates.length) dates.forEach(d=>AVAIL[d]={}); else AVAIL={};
+  (data||[]).forEach(r=>{ (AVAIL[r.date]=AVAIL[r.date]||{})[String(r.item_id)]=parseInt(r.qty)||0; });
+}
+function itemBooked(i,date){ if(!date) return 0; const m=AVAIL[date]; return m?(parseInt(m[String(i.id)])||0):0; }
 function itemRemaining(i,date){ const s=itemStock(i); return s==null?null:Math.max(0,s-itemBooked(i,date)); }
 
 function renderGrid(){
@@ -1394,13 +1408,14 @@ function renderAdmin(){
   renderPackagesAdmin();
 }
 let adminInvDate = "";
-function setAdminInvDate(v){ adminInvDate=v||""; renderInventory(); }
-function renderInventory(){
+async function setAdminInvDate(v){ adminInvDate=v||""; if(adminInvDate) await loadAvailability([adminInvDate]); renderInventory(); }
+async function renderInventory(){
   const tb=document.getElementById("invRows"); if(!tb)return;
   const di=document.getElementById("adminInvDate");
   if(di && !adminInvDate){ adminInvDate=todayISO(); di.value=adminInvDate; }
   else if(di && di.value!==adminInvDate){ di.value=adminInvDate; }
   const d=adminInvDate;
+  await loadAvailability(); // all dates, for this date's booked + busy chips
   tb.innerHTML=DB.items.map(i=>{
     const s=itemStock(i), r=itemRemaining(i,d);
     const remTxt = s==null
@@ -1409,7 +1424,7 @@ function renderInventory(){
     return `<tr>
       <td>${esc(i.name)}</td>
       <td><input class="inv-inp" type="number" min="0" value="${s==null?'':s}" placeholder="—" onchange="setItemStock(${i.id},this.value)"/></td>
-      <td><input class="inv-inp" type="number" min="0" value="${itemBooked(i,d)}" onchange="setItemBooked(${i.id},this.value)"/></td>
+      <td style="text-align:center">${itemBooked(i,d)}</td>
       <td>${remTxt}</td>
     </tr>`;
   }).join("");
@@ -1418,15 +1433,17 @@ function renderInventory(){
 function renderBusyDates(){
   const box=document.getElementById("busyList"); if(!box)return;
   const dates={};
-  DB.items.forEach(i=>{
-    if(!i.bookedByDate) return;
-    for(const dt in i.bookedByDate){
-      const b=parseInt(i.bookedByDate[dt])||0; if(b<=0) continue;
+  // booked counts are derived live from the availability view (AVAIL)
+  for(const dt in AVAIL){
+    const m=AVAIL[dt]||{};
+    for(const id in m){
+      const b=parseInt(m[id])||0; if(b<=0) continue;
       if(!dates[dt]) dates[dt]={items:0,out:0};
       dates[dt].items++;
-      const s=itemStock(i); if(s!=null && (s-b)<=0) dates[dt].out++;
+      const it=DB.items.find(x=>String(x.id)===String(id));
+      const s=it?itemStock(it):null; if(s!=null && (s-b)<=0) dates[dt].out++;
     }
-  });
+  }
   const keys=Object.keys(dates).sort();
   if(!keys.length){ box.innerHTML='<span style="color:var(--muted)">No bookings recorded yet.</span>'; return; }
   box.innerHTML=keys.map(dt=>{
@@ -1440,20 +1457,9 @@ function renderBusyDates(){
   }).join("");
 }
 function setItemStock(id,v){ const i=DB.items.find(x=>x.id===id); if(!i)return; v=(v||"").toString().trim(); i.stock=(v==="")?"":Math.max(0,parseInt(v)||0); saveDB(); renderInventory(); renderGrid(); }
-function setItemBooked(id,v){
-  const i=DB.items.find(x=>x.id===id); if(!i)return;
-  if(!adminInvDate){ toast("Pick a date first"); return; }
-  if(!i.bookedByDate) i.bookedByDate={};
-  const n=Math.max(0,parseInt(v)||0);
-  if(n===0) delete i.bookedByDate[adminInvDate]; else i.bookedByDate[adminInvDate]=n;
-  saveDB(); renderInventory(); renderGrid();
-}
-function clearAdminInvDate(){
-  if(!adminInvDate){ toast("Pick a date first"); return; }
-  if(!confirm("Clear all bookings for "+adminInvDate+"? Every item goes back to fully available on that day."))return;
-  DB.items.forEach(i=>{ if(i.bookedByDate) delete i.bookedByDate[adminInvDate]; });
-  saveDB(); renderInventory(); renderGrid(); toast("Bookings cleared for "+adminInvDate);
-}
+/* "Booked" is now derived from real bookings — no longer edited by hand here.
+   Use the Bookings page to add/cancel bookings; this panel only sets total stock. */
+function clearAdminInvDate(){ toast("Booked counts come from real bookings now — cancel a booking on the Bookings page to free items."); }
 function deleteItem(id){
   if(!confirm("Delete this item?"))return;
   DB.items=DB.items.filter(i=>i.id!==id); saveDB(); renderAdmin(); renderGrid(); toast("Item deleted");
@@ -2292,6 +2298,7 @@ function initEventDate(){
 }
 async function boot(){
   DB = await loadDB();
+  if(selectedDate) await loadAvailability([selectedDate]);
   applySettings(); renderHero(); renderFilters(); renderGrid(); renderPackages(); renderGallery(); renderVideos(); renderTestimonials(); renderOffer(); updateCount(); revealObserve();
   initEventDate();
   LANG=localStorage.getItem("siteLang")||"en";
