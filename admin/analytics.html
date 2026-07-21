@@ -295,6 +295,9 @@ table.pr td{padding:7px 8px;border-bottom:1px solid #eee}
     <div class="exp">
       <button class="btn sm" onclick="exportExcel()">⬇ Excel</button>
       <button class="btn sm" onclick="exportPDF()">🖨 PDF</button>
+      <button class="btn sm" onclick="exportAll()" title="Save ALL your data (items, bookings, expenses, settings) to one file">💾 Backup all</button>
+      <button class="btn sm" onclick="document.getElementById('restoreFile').click()" title="Load everything from a backup file">↥ Restore</button>
+      <input type="file" id="restoreFile" accept=".json,application/json" hidden onchange="importAll(this.files[0]); this.value='';">
     </div>
   </div>
 
@@ -639,6 +642,48 @@ async function migrateOldData(){
   const d=await loadDB(); if(d){ DB=d; render(); }
   updateMigrateBtn();
   showBar("Imported "+okB+" bookings, "+okE+" expenses"+(fail?(" · "+fail+" failed — old copies kept"):" · done")+" ✓");
+}
+
+/* ---------- full backup / restore (works with the desktop app too) ----------
+   One JSON file holds EVERYTHING: catalog+settings (the site blob), every
+   booking, every expense. The exact same file format is read/written by the
+   offline desktop app, so a website backup imports straight into the desktop
+   app and vice-versa. */
+const BACKUP_APP="corporative-tent-house", BACKUP_VER=1;
+async function exportAll(){
+  if(needAuth()) return;
+  showBar("Preparing backup…");
+  const {data,error}=await sb.from("site").select("data").eq("id",1).maybeSingle();
+  if(error){ showBar("Backup failed: "+error.message,"err"); return; }
+  const site=(data&&data.data)?data.data:{};
+  delete site.bookings; delete site.expenses;   // these live in tables now
+  const bookings=await dbLoadBookings()||[];
+  const expenses=await dbLoadExpenses()||[];
+  const backup={app:BACKUP_APP,version:BACKUP_VER,exportedAt:new Date().toISOString(),source:"website",site,bookings,expenses};
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(new Blob([JSON.stringify(backup)],{type:"application/json"}));
+  a.download="tent-house-backup-"+todayISO()+".json";
+  a.click();
+  showBar("Backup downloaded ✓ — keep it safe (pen-drive / Google Drive)");
+}
+async function importAll(file){
+  if(!file) return;
+  if(needAuth()) return;
+  let backup;
+  try{ backup=JSON.parse(await file.text()); }
+  catch(e){ showBar("That file isn't a valid backup","err"); return; }
+  if(!backup||backup.app!==BACKUP_APP||!backup.site){ showBar("This doesn't look like a Tent House backup file","err"); return; }
+  const nb=(backup.bookings||[]).length, ne=(backup.expenses||[]).length, ni=((backup.site.items)||[]).length;
+  if(!confirm("Import from this backup?\n\n• Catalog & settings — REPLACED with the file's version ("+ni+" items)\n• Bookings — added/updated ("+nb+"), nothing deleted\n• Expenses — added/updated ("+ne+"), nothing deleted\n\nTip: click “Backup all” first so you have today's copy.\n\nContinue?")) return;
+  showBar("Restoring… please wait, don't close this tab");
+  const site=Object.assign({},backup.site); delete site.bookings; delete site.expenses;
+  const {error:se}=await sb.from("site").upsert({id:1,data:site,updated_at:new Date().toISOString()});
+  if(se){ showBar("Restore failed (catalog): "+se.message,"err"); return; }
+  let fail=0;
+  for(const b of (backup.bookings||[])){ const {error}=await sb.from("bookings").upsert(bookingToRow(b)); if(error){ console.warn("restore booking",error.message); fail++; } }
+  for(const e of (backup.expenses||[])){ const {error}=await sb.from("expenses").upsert({id:String(e.id),date:e.date||null,category:e.category||"",amount:money(e.amount),note:e.note||""}); if(error){ console.warn("restore expense",error.message); fail++; } }
+  const d=await loadDB(); if(d){ DB=d; render(); }
+  showBar("Restore complete ✓ · "+nb+" bookings, "+ne+" expenses"+(fail?(" · "+fail+" rows failed"):""));
 }
 
 /* ---------- auth ---------- */
