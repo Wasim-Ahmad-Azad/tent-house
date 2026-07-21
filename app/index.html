@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Tent House Manager</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#6f5a3a">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Marcellus&family=Mulish:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="theme.css">
+<style>
+body{min-height:100vh}
+.topbar{background:var(--card);border-bottom:1px solid var(--line);padding:16px 20px;display:flex;align-items:center;gap:14px}
+.logo{width:44px;height:44px;border-radius:12px;background:var(--brand);color:#fff;display:grid;place-items:center;font-size:24px;flex:none}
+.topbar h1{font-family:var(--display);font-size:20px;margin:0;line-height:1.1}
+.topbar .sub{color:var(--muted);font-size:12.5px;margin-top:2px}
+.spacer{flex:1}
+.net{font-size:12px;font-weight:800;padding:5px 10px;border-radius:999px}
+.net.on{background:var(--ok-bg);color:var(--ok)} .net.off{background:var(--low-bg);color:var(--low)}
+.wrap{max-width:960px;margin:0 auto;padding:22px 18px 60px}
+.hello{font-family:var(--display);font-size:26px;margin:6px 2px 2px}
+.subtle{color:var(--muted);font-size:13.5px;margin:0 2px 18px}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:22px}
+@media(min-width:640px){ .stats{grid-template-columns:repeat(4,1fr)} }
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:14px 16px}
+.stat .v{font-family:var(--display);font-size:24px}
+.stat .k{color:var(--muted);font-size:12px;margin-top:2px}
+.stat.due .v{color:var(--full)}
+.grid{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:24px}
+@media(min-width:640px){ .grid{grid-template-columns:repeat(3,1fr)} }
+.tile{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:22px 20px;transition:transform .12s,box-shadow .12s}
+.tile:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(90,70,40,.14)}
+.tile .ic{font-size:34px}
+.tile h3{font-family:var(--display);font-size:20px;margin:10px 0 4px}
+.tile p{color:var(--muted);font-size:13px;margin:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:20px 20px;margin-bottom:18px}
+.card h2{font-family:var(--display);font-size:19px;margin:0 0 4px}
+.card .note{color:var(--muted);font-size:13px;margin:0 0 14px;line-height:1.5}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.btn{border:1px solid var(--brand);background:var(--brand);color:#fff;border-radius:11px;padding:12px 18px;font-weight:800;font-size:14.5px;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+.btn:hover{background:var(--brand-deep)}
+.btn.ghost{background:transparent;color:var(--brand-deep);border-color:var(--line)}
+.btn.ghost:hover{background:#faf6ee}
+.banner{background:var(--low-bg);border:1px solid #eecf8f;color:#6b4e12;border-radius:14px;padding:14px 16px;margin-bottom:18px;font-size:14px;line-height:1.5}
+.banner b{color:#5a4210}
+.hide{display:none!important}
+.tip{background:var(--ok-bg);border:1px solid #c7e2cd;color:#2c5c39;border-radius:12px;padding:12px 14px;font-size:13px;line-height:1.5;margin-top:14px}
+.bar{position:fixed;left:50%;transform:translateX(-50%);bottom:20px;background:var(--ink);color:#fff;padding:12px 20px;border-radius:999px;font-size:14px;font-weight:700;box-shadow:0 8px 30px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .2s;z-index:50;max-width:92vw;text-align:center}
+.bar.show{opacity:1}
+.bar.err{background:var(--full)}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="logo">⛺</span>
+  <div>
+    <h1 id="bizName">Tent House Manager</h1>
+    <div class="sub">Private · saved on this device only</div>
+  </div>
+  <div class="spacer"></div>
+  <span class="net off" id="netPill">● Offline</span>
+</div>
+
+<div class="wrap">
+
+  <div class="hello" id="hello">Welcome 👋</div>
+  <p class="subtle">Everything here is stored on this computer. No internet needed. Remember to Backup regularly.</p>
+
+  <div class="banner" id="firstRun" style="display:none">
+    👋 <b>First time?</b> This app is empty. To load your items and past bookings, click
+    <b>Restore / Import backup</b> below and choose the backup file you downloaded from your website
+    (<i>tent-house-backup-….json</i>).
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="grid">
+    <a class="tile" href="booking.html"><div class="ic">📝</div><h3>New Booking</h3><p>Create a booking or quote, add items, record payments.</p></a>
+    <a class="tile" href="inventory.html"><div class="ic">📦</div><h3>Inventory</h3><p>Set stock counts and see what's booked for any date.</p></a>
+    <a class="tile" href="analytics.html"><div class="ic">📊</div><h3>Reports</h3><p>Profit, trends, best items, top customers, dues.</p></a>
+  </div>
+
+  <div class="card">
+    <h2>💾 Backup &amp; Restore</h2>
+    <p class="note">Because your data lives only on this computer, a backup is your safety net. Save the file to a
+      pen-drive or Google Drive. If this PC ever breaks, you can Restore everything on another one.</p>
+    <div class="row">
+      <button class="btn" onclick="exportAll()">💾 Backup all data</button>
+      <button class="btn ghost" onclick="document.getElementById('restoreFile').click()">↥ Restore / Import backup</button>
+      <input type="file" id="restoreFile" accept=".json,application/json" hidden onchange="importAll(this.files[0]); this.value='';">
+    </div>
+    <div class="tip">✅ Tip: take a fresh backup at the end of every busy day. It only takes a second.</div>
+  </div>
+
+  <div class="card" id="installCard" style="display:none">
+    <h2>⬇ Install as a desktop app</h2>
+    <p class="note">Add an icon to your desktop so it opens in its own window like normal software.</p>
+    <div class="row"><button class="btn" id="installBtn">⬇ Install Tent House Manager</button></div>
+  </div>
+
+</div>
+
+<div class="bar" id="bar"></div>
+
+<script src="common.js"></script>
+<script>
+const BACKUP_APP="corporative-tent-house", BACKUP_VER=1;
+let bar; function showBar(m,cls){ bar=bar||document.getElementById("bar"); bar.textContent=m; bar.className="bar show"+(cls==="err"?" err":""); clearTimeout(showBar._t); showBar._t=setTimeout(()=>bar.className="bar",cls==="err"?4200:2600); }
+
+function setNet(){ const p=document.getElementById("netPill"); const on=navigator.onLine; p.className="net "+(on?"on":"off"); p.textContent=on?"● Online":"● Offline"; }
+window.addEventListener("online",setNet); window.addEventListener("offline",setNet);
+
+async function siteBlob(){ const {data}=await sb.from("site").select("data").eq("id",1).maybeSingle(); return (data&&data.data)?data.data:null; }
+
+async function refresh(){
+  setNet();
+  const blob=await siteBlob();
+  const bookings=await dbLoadBookings()||[];
+  const expenses=await dbLoadExpenses()||[];
+  const items=(blob&&blob.items)||[];
+  const name=(blob&&blob.settings&&blob.settings.bizName)||"Corporative Tent House";
+  document.getElementById("bizName").textContent=name;
+  document.getElementById("hello").textContent="Welcome to "+name+" 👋";
+  document.getElementById("firstRun").style.display=(items.length===0&&bookings.length===0)?"block":"none";
+
+  const t=todayISO();
+  const active=bookings.filter(b=>b.status!=="cancelled");
+  const upcoming=active.filter(b=>b.eventDate&&b.eventDate>=t).length;
+  const dues=active.reduce((s,b)=>s+bookingDue(b),0);
+  const stats=[
+    {v:items.length,k:"Items in catalog"},
+    {v:active.length,k:"Bookings"},
+    {v:upcoming,k:"Upcoming events"},
+    {v:inr(dues),k:"Dues to collect",cls:"due"}
+  ];
+  document.getElementById("stats").innerHTML=stats.map(s=>`<div class="stat ${s.cls||""}"><div class="v">${s.v}</div><div class="k">${s.k}</div></div>`).join("");
+}
+
+async function exportAll(){
+  showBar("Preparing backup…");
+  const site=(await siteBlob())||{};
+  delete site.bookings; delete site.expenses;
+  const bookings=await dbLoadBookings()||[];
+  const expenses=await dbLoadExpenses()||[];
+  const backup={app:BACKUP_APP,version:BACKUP_VER,exportedAt:new Date().toISOString(),source:"desktop",site,bookings,expenses};
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(new Blob([JSON.stringify(backup)],{type:"application/json"}));
+  a.download="tent-house-backup-"+todayISO()+".json";
+  a.click();
+  showBar("Backup saved ✓ — keep it safe (pen-drive / Drive)");
+}
+async function importAll(file){
+  if(!file) return;
+  let backup;
+  try{ backup=JSON.parse(await file.text()); }
+  catch(e){ showBar("That file isn't a valid backup","err"); return; }
+  if(!backup||backup.app!==BACKUP_APP||!backup.site){ showBar("This doesn't look like a Tent House backup file","err"); return; }
+  const nb=(backup.bookings||[]).length, ne=(backup.expenses||[]).length, ni=((backup.site.items)||[]).length;
+  if(!confirm("Import from this backup?\n\n• Catalog & settings — REPLACED with the file ("+ni+" items)\n• Bookings — added/updated ("+nb+"), nothing deleted\n• Expenses — added/updated ("+ne+"), nothing deleted\n\nContinue?")) return;
+  showBar("Importing… please wait");
+  const site=Object.assign({},backup.site); delete site.bookings; delete site.expenses;
+  await sb.from("site").upsert({id:1,data:site,updated_at:new Date().toISOString()});
+  let fail=0;
+  for(const b of (backup.bookings||[])){ const {error}=await sb.from("bookings").upsert(bookingToRow(b)); if(error) fail++; }
+  for(const e of (backup.expenses||[])){ const {error}=await sb.from("expenses").upsert({id:String(e.id),date:e.date||null,category:e.category||"",amount:money(e.amount),note:e.note||""}); if(error) fail++; }
+  await refresh();
+  showBar("Import complete ✓ · "+nb+" bookings, "+ne+" expenses"+(fail?(" · "+fail+" failed"):""));
+}
+
+/* PWA install button */
+let deferredPrompt=null;
+window.addEventListener("beforeinstallprompt",e=>{ e.preventDefault(); deferredPrompt=e; document.getElementById("installCard").style.display="block"; });
+document.getElementById("installBtn").addEventListener("click",async()=>{
+  if(!deferredPrompt) return;
+  deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null;
+  document.getElementById("installCard").style.display="none";
+});
+window.addEventListener("appinstalled",()=>{ document.getElementById("installCard").style.display="none"; showBar("Installed ✓ — look for the icon"); });
+
+refresh();
+</script>
+</body>
+</html>

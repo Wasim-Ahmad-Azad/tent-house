@@ -1,0 +1,1490 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Reports — Tent House Manager</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#7a5c3e">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Marcellus&family=Mulish:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="theme.css">
+<style>
+
+.topbar{background:var(--card);border-bottom:1px solid var(--line);padding:14px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:11px;min-width:0}
+.brand .logo{width:40px;height:40px;border-radius:11px;background:linear-gradient(150deg,rgba(var(--brand-rgb),.14),rgba(var(--brand-rgb),.04));display:grid;place-items:center;flex:none}
+.brand .logo svg{width:26px;height:26px}
+.brand h1{font-family:var(--display);font-size:18px;margin:0;letter-spacing:.3px;line-height:1.1;white-space:nowrap}
+.brand .sub{font-size:11px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase}
+.topbar .spacer{flex:1}
+.btn{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:9px 15px;font-size:14px;font-weight:700;transition:all .18s;display:inline-flex;align-items:center;gap:7px;text-decoration:none}
+.btn:hover{border-color:var(--brand)}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
+.btn.primary:hover{background:var(--brand-deep);border-color:var(--brand-deep)}
+.btn.wa{background:#25913a;border-color:#25913a;color:#fff}
+.btn.wa:hover{background:#1e7a30;border-color:#1e7a30}
+.btn.danger{background:var(--full);border-color:var(--full);color:#fff}
+.btn.ghost{background:transparent}
+.btn.sm{padding:6px 11px;font-size:12.5px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.authpill{border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:12.5px;font-weight:700;color:var(--muted);cursor:pointer;white-space:nowrap;transition:all .15s}
+.authpill:hover{border-color:var(--brand)}
+.authpill.on{color:var(--ok);border-color:#bfe0c4;background:var(--ok-bg)}
+
+.wrap{max-width:1160px;margin:0 auto;padding:20px 18px 60px}
+
+/* filter bar */
+.filterbar{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow);display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;margin-bottom:18px}
+.fb-group{display:flex;flex-direction:column;gap:5px}
+.fb-group label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+.fb-group select,.fb-group input{padding:9px 11px;border:1px solid var(--line);border-radius:9px;font-size:14px;background:var(--card);color:var(--ink)}
+.fb-group select:focus,.fb-group input:focus{outline:none;border-color:var(--brand)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.seg button{border:none;background:var(--card);padding:9px 13px;font-size:13px;font-weight:700;color:var(--muted)}
+.seg button.on{background:var(--brand);color:#fff}
+.fb-spacer{flex:1}
+.exp{display:flex;gap:8px;align-items:flex-end}
+
+/* KPIs */
+.kpis{display:grid;gap:12px;grid-template-columns:repeat(2,1fr);margin-bottom:18px}
+@media(min-width:720px){ .kpis{grid-template-columns:repeat(3,1fr)} }
+@media(min-width:1000px){ .kpis{grid-template-columns:repeat(6,1fr)} }
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 16px;box-shadow:var(--shadow)}
+.kpi .k{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+.kpi .v{font-family:var(--display);font-size:26px;line-height:1.1;margin-top:6px}
+.kpi.rev .v{color:var(--brand-deep)} .kpi.paid .v{color:var(--ok)} .kpi.due .v{color:var(--full)}
+.kpi .s{font-size:11.5px;color:var(--muted);margin-top:3px}
+
+.sec-title{font-family:var(--display);font-size:20px;margin:26px 0 12px;display:flex;align-items:center;gap:10px}
+.sec-title .count{font-size:13px;color:var(--muted);font-family:var(--sans)}
+
+/* profit & loss */
+.pl-card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:16px 18px;margin-bottom:18px}
+.pl-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.pl-head h3{font-family:var(--display);font-size:18px;margin:0}
+.pl-head .pl-range{font-size:12.5px;color:var(--muted);font-family:var(--sans);margin-left:6px}
+.pl-grid{display:grid;gap:12px;grid-template-columns:1fr 1fr;align-items:stretch}
+@media(min-width:720px){ .pl-grid{grid-template-columns:repeat(4,1fr)} }
+.pl-cell{border:1px solid var(--line);border-radius:12px;padding:13px 14px}
+.pl-cell .k{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+.pl-cell .v{font-family:var(--display);font-size:24px;line-height:1.1;margin-top:6px}
+.pl-cell .s{font-size:11.5px;color:var(--muted);margin-top:3px}
+.pl-cell.in .v{color:var(--ok)} .pl-cell.out .v{color:var(--full)}
+.pl-cell.net{background:rgba(var(--brand-rgb),.05);border-color:var(--brand)}
+.pl-cell.net .v.pos{color:var(--ok)} .pl-cell.net .v.neg{color:var(--full)}
+.pl-note{font-size:12px;color:var(--muted);margin-top:12px}
+
+/* reminders */
+.rem-wrap{display:grid;gap:12px;grid-template-columns:1fr;margin-bottom:8px}
+@media(min-width:720px){ .rem-wrap{grid-template-columns:repeat(2,1fr)} }
+@media(min-width:1000px){ .rem-wrap{grid-template-columns:repeat(4,1fr)} }
+.rem-col{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:var(--shadow)}
+.rem-col h3{margin:0 0 4px;font-family:var(--display);font-size:15px}
+.rem-col .bucket-sub{font-size:11.5px;color:var(--muted);margin-bottom:10px}
+.rem-col.today{border-color:#e7b7b2}.rem-col.today h3{color:var(--full)}
+.rem-col.tomorrow{border-color:#e6cf9a}.rem-col.tomorrow h3{color:var(--low)}
+.rem-item{border-top:1px dashed var(--line);padding:9px 0;font-size:13px;cursor:pointer}
+.rem-item:hover{color:var(--brand-deep)}
+.rem-item b{font-weight:700}
+.rem-item .m{color:var(--muted);font-size:12px;display:flex;justify-content:space-between;gap:8px;margin-top:2px}
+.rem-item .due{color:var(--full);font-weight:700}
+.rem-empty{color:var(--muted);font-size:12.5px;padding:8px 0}
+
+/* bookings table */
+.tablecard{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+table.bk{width:100%;border-collapse:collapse;font-size:14px}
+table.bk th{text-align:left;background:rgba(var(--brand-rgb),.06);color:var(--brand-deep);font-size:11.5px;text-transform:uppercase;letter-spacing:.5px;padding:11px 12px;white-space:nowrap}
+table.bk th.num,table.bk td.num{text-align:right}
+table.bk td{padding:12px;border-top:1px solid var(--line);vertical-align:middle}
+table.bk tr.row{cursor:pointer}
+table.bk tr.row:hover td{background:rgba(var(--brand-rgb),.03)}
+table.bk tr.cancelled td{opacity:.5;text-decoration:line-through}
+.cust b{font-weight:700}
+.cust small{display:block;color:var(--muted);font-size:12px}
+.pill{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px}
+.pill.paid{background:var(--ok-bg);color:var(--ok)}
+.pill.partial{background:var(--low-bg);color:var(--low)}
+.pill.unpaid{background:var(--full-bg);color:var(--full)}
+.pill.canc{background:#eee;color:#888}
+.mobcards{display:none}
+@media(max-width:680px){
+  table.bk{display:none}
+  .mobcards{display:grid;gap:10px}
+  .bcard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px;box-shadow:var(--shadow)}
+  .bcard.cancelled{opacity:.55}
+  .bcard .top{display:flex;justify-content:space-between;gap:10px}
+  .bcard b{font-weight:800}
+  .bcard .m{font-size:12.5px;color:var(--muted);margin-top:3px}
+  .bcard .amts{display:flex;gap:14px;margin-top:8px;font-size:13px}
+  .bcard .amts .due{color:var(--full);font-weight:700}
+}
+.empty{text-align:center;color:var(--muted);padding:40px 16px}
+
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(43,38,32,.55);display:none;z-index:100;overflow:auto;padding:24px 14px}
+.modal.show{display:block}
+.dialog{max-width:640px;margin:0 auto;background:var(--card);border-radius:16px;box-shadow:0 24px 70px rgba(0,0,0,.34);overflow:hidden}
+.dialog .dhead{padding:18px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.dialog .dhead h2{font-family:var(--display);font-size:21px;margin:0}
+.dialog .dhead .sub{font-size:12.5px;color:var(--muted);margin-top:3px}
+.dialog .dbody{padding:18px 20px;max-height:70vh;overflow:auto}
+.x{border:none;background:none;font-size:22px;color:var(--muted);line-height:1;padding:4px}
+.det-grid{display:grid;gap:10px;grid-template-columns:1fr 1fr;font-size:14px;margin-bottom:14px}
+.det-grid .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+.det-sec{margin-top:16px}
+.det-sec h4{font-family:var(--display);font-size:15px;margin:0 0 8px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+table.mini{width:100%;border-collapse:collapse;font-size:13.5px}
+table.mini th{text-align:left;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.4px;padding:6px 6px}
+table.mini td{padding:7px 6px;border-top:1px solid var(--line)}
+table.mini td.num,table.mini th.num{text-align:right}
+.totbox{margin-top:12px;margin-left:auto;width:min(280px,100%)}
+.totbox .r{display:flex;justify-content:space-between;padding:5px 0;font-size:14px}
+.totbox .r.g{border-top:2px solid var(--brand);margin-top:5px;padding-top:10px;font-family:var(--display);font-size:18px}
+.totbox .r .due{color:var(--full);font-weight:800}
+.pay-row{display:flex;justify-content:space-between;gap:10px;font-size:13.5px;padding:8px 0;border-top:1px dashed var(--line)}
+.pay-row .px{color:var(--full);background:none;border:none;font-size:14px}
+.addpay{display:grid;gap:8px;grid-template-columns:1fr 1fr auto;margin-top:10px;align-items:end}
+@media(max-width:520px){ .addpay{grid-template-columns:1fr 1fr} .det-grid{grid-template-columns:1fr} }
+.minif label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);margin-bottom:4px}
+.minif input,.minif select{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;font-size:14px}
+.dfoot{padding:14px 20px;border-top:1px solid var(--line);display:flex;gap:9px;flex-wrap:wrap;justify-content:flex-end}
+.editrow{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px dashed var(--line)}
+.editrow .nm{flex:1;min-width:0;font-size:14px}
+.stepper{display:flex;align-items:center;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.stepper button{width:34px;height:36px;border:none;background:var(--card);font-size:19px;color:var(--brand-deep)}
+.stepper .val{min-width:34px;text-align:center;height:36px;line-height:36px;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+.rm{color:var(--full);border:none;background:none;font-size:16px}
+
+.savebar{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:11px 20px;border-radius:999px;font-size:13.5px;font-weight:700;box-shadow:0 10px 30px rgba(0,0,0,.2);opacity:0;transition:all .28s;pointer-events:none;z-index:200}
+.savebar.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.savebar.err{background:var(--full)}
+.viewbanner{background:var(--low-bg);border:1px solid #e6cf9a;color:#7a5a12;border-radius:12px;padding:11px 14px;font-size:13.5px;margin-bottom:16px;display:flex;gap:10px;align-items:center}
+
+/* reminder settings */
+.toggle-line{display:flex;align-items:center;gap:9px;font-size:15px}
+.toggle-line input{width:18px;height:18px}
+.hint{font-size:12.5px;color:var(--muted);margin:6px 0 4px}
+.lead-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.lead-grid label{display:flex;align-items:center;gap:8px;font-size:14px;border:1px solid var(--line);border-radius:9px;padding:9px 11px;cursor:pointer}
+.lead-grid input{width:16px;height:16px}
+details.setup{margin-top:16px;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+details.setup summary{cursor:pointer;padding:12px 14px;font-weight:700;font-size:13.5px;background:rgba(var(--brand-rgb),.05);list-style:none}
+details.setup summary::-webkit-details-marker{display:none}
+.setup-body{padding:6px 16px 14px}
+.setup-body ol{margin:6px 0;padding-left:20px}
+.setup-body li{margin:9px 0;font-size:13.5px;line-height:1.5}
+.setup-body code{background:#f3ede2;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:12.5px;word-break:break-all}
+.setup-body a{color:var(--brand-deep);font-weight:700}
+.setup-body .step-h{font-family:var(--display);font-size:15px;margin:16px 0 4px;color:var(--brand-deep)}
+
+/* print report */
+#printArea{display:none}
+@media print{
+  body>*:not(#printArea){display:none!important}
+  #printArea{display:block;padding:0}
+  .modal{display:none!important}
+}
+.pr-head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid var(--brand);padding-bottom:14px;margin-bottom:16px}
+.pr-head h2{font-family:var(--display);margin:0;font-size:22px}
+.pr-head .tag{font-size:12px;color:var(--muted)}
+table.pr{width:100%;border-collapse:collapse;font-size:12.5px}
+table.pr th{text-align:left;background:#f3ede2;padding:7px 8px;font-size:11px;text-transform:uppercase}
+table.pr th.num,table.pr td.num{text-align:right}
+table.pr td{padding:7px 8px;border-bottom:1px solid #eee}
+.pr-tot{margin-top:14px;font-size:14px;display:flex;gap:24px;flex-wrap:wrap}
+.pr-tot b{font-family:var(--display)}
+
+/* ===== business reports (trends / rankings / dues / builder) ===== */
+.kpi .kd{font-weight:800;margin-left:6px;white-space:nowrap;font-size:12px;font-family:var(--sans);vertical-align:middle}
+.kd.up{color:var(--ok)} .kd.down{color:var(--full)} .kd.flat{color:var(--muted)}
+.card2{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:16px 18px;margin-bottom:18px}
+.card2 .c2head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.card2 .c2head h3{font-family:var(--display);font-size:18px;margin:0}
+.two-col{display:grid;gap:18px;grid-template-columns:1fr}
+@media(min-width:860px){ .two-col{grid-template-columns:1fr 1fr} }
+.chartscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.chart-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:10px}
+.chart-legend .ci{display:inline-flex;align-items:center;gap:6px}
+.chart-legend .sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+.rank{width:100%;border-collapse:collapse;font-size:13.5px}
+.rank th{text-align:left;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.4px;padding:6px 6px;font-weight:700}
+.rank td{padding:8px 6px;border-top:1px solid var(--line);vertical-align:middle}
+.rank td.num,.rank th.num{text-align:right;white-space:nowrap}
+.rank .nm b{font-weight:700}
+.rank .nm small{display:block}
+.rank .barcell{width:34%}
+.mbar{height:8px;border-radius:999px;background:#efe9de;overflow:hidden;min-width:30px}
+.mbar>i{display:block;height:100%;background:linear-gradient(90deg,var(--brand),var(--brand-deep))}
+.badge{display:inline-block;font-size:10px;font-weight:800;padding:2px 7px;border-radius:999px;background:var(--ok-bg);color:var(--ok);margin-left:6px;vertical-align:middle}
+.dues-sum{display:flex;gap:20px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin-bottom:12px}
+.dues-sum b{font-family:var(--display);font-size:18px;color:var(--ink);display:block}
+.dueline{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line);flex-wrap:wrap}
+.dueline .who{flex:1;min-width:150px}
+.dueline .who b{font-weight:700}
+.dueline .who small{display:block;color:var(--muted);font-size:12px}
+.dueline .when{font-size:12px;min-width:96px}
+.dueline .over{color:var(--full);font-weight:700}
+.dueline .soon{color:var(--low);font-weight:700}
+.dueline .amt{font-family:var(--display);font-size:18px;color:var(--full);min-width:84px;text-align:right}
+.rb-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-bottom:14px}
+.rb-total{font-size:12.5px;color:var(--muted);margin-bottom:8px}
+.rb-total b{font-family:var(--display);font-size:15px;color:var(--ink)}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <span class="logo" id="brandLogo"></span>
+    <div>
+      <h1 id="bizName">Corporative Tent House</h1>
+      <div class="sub">Business &amp; Reports</div>
+    </div>
+  </div>
+  <div class="spacer"></div>
+  <span class="authpill" id="authPill" onclick="authPillClick()">🔒 Log in</span>
+  <a class="btn ghost sm" href="index.html">🏠 Home</a>
+  <a class="btn ghost sm" href="booking.html">📝 New booking</a>
+  <a class="btn ghost sm" href="inventory.html">📦 Inventory</a>
+  <button class="btn ghost sm" onclick="openRemSettings()">🔔 Auto-reminders</button>
+  <button class="btn ghost sm" id="migrateBtn" style="display:none" onclick="migrateOldData()">⬆ Import old bookings</button>
+  <button class="btn ghost sm" onclick="reload()">↻ Refresh</button>
+</div>
+
+<div class="wrap">
+  <div class="viewbanner" id="viewBanner" style="display:none">👀 View-only. <b style="cursor:pointer;text-decoration:underline" onclick="openLogin()">Log in</b>&nbsp;to record payments, edit or cancel bookings.</div>
+
+  <div class="filterbar">
+    <div class="fb-group">
+      <label>Date basis</label>
+      <div class="seg" id="basisSeg">
+        <button data-basis="event" class="on" onclick="setBasis('event')">Event date</button>
+        <button data-basis="created" onclick="setBasis('created')">Booked on</button>
+      </div>
+    </div>
+    <div class="fb-group">
+      <label>Show</label>
+      <select id="rangeSel" onchange="onRangeChange()">
+        <option value="all">All time</option>
+        <option value="today">Today</option>
+        <option value="yesterday">Yesterday</option>
+        <option value="week">This week</option>
+        <option value="month">This month</option>
+        <option value="year">This year</option>
+        <option value="last15">Last 15 days</option>
+        <option value="last30">Last 30 days</option>
+        <option value="last90">Last 90 days</option>
+        <option value="custom">Custom range…</option>
+      </select>
+    </div>
+    <div class="fb-group" id="customWrap" style="display:none">
+      <label>From – To</label>
+      <div style="display:flex;gap:6px">
+        <input type="date" id="customFrom" onchange="render()"/>
+        <input type="date" id="customTo" onchange="render()"/>
+      </div>
+    </div>
+    <div class="fb-group">
+      <label>Status</label>
+      <select id="statusSel" onchange="render()">
+        <option value="active">Confirmed only</option>
+        <option value="all">Include cancelled</option>
+        <option value="cancelled">Cancelled only</option>
+      </select>
+    </div>
+    <div class="fb-spacer"></div>
+    <div class="exp">
+      <button class="btn sm" onclick="exportExcel()">⬇ Excel</button>
+      <button class="btn sm" onclick="exportPDF()">🖨 PDF</button>
+      <button class="btn sm" onclick="exportAll()" title="Save ALL your data (items, bookings, expenses, settings) to one file">💾 Backup all</button>
+      <button class="btn sm" onclick="document.getElementById('restoreFile').click()" title="Load everything from a backup file">↥ Restore</button>
+      <input type="file" id="restoreFile" accept=".json,application/json" hidden onchange="importAll(this.files[0]); this.value='';">
+    </div>
+  </div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="pl-card" id="plCard">
+    <div class="pl-head">
+      <h3>Profit &amp; Loss <span class="pl-range" id="plRange"></span></h3>
+      <div class="seg" id="plBasisSeg">
+        <button data-pl="cash" class="on" onclick="setPLBasis('cash')">Cash (money in/out)</button>
+        <button data-pl="accrual" onclick="setPLBasis('accrual')">Booked value</button>
+      </div>
+    </div>
+    <div class="pl-grid" id="plGrid"></div>
+    <div class="pl-note" id="plNote"></div>
+  </div>
+
+  <div class="card2" id="trendCard">
+    <div class="c2head">
+      <h3>📈 Trends over time</h3>
+      <div class="seg" id="trendSeg">
+        <button data-m="6" onclick="setTrendMonths(6)">6 mo</button>
+        <button data-m="12" class="on" onclick="setTrendMonths(12)">12 mo</button>
+        <button data-m="24" onclick="setTrendMonths(24)">24 mo</button>
+      </div>
+    </div>
+    <div class="chartscroll" id="trendChart"></div>
+    <div class="chart-legend">
+      <span class="ci"><span class="sw" style="background:linear-gradient(180deg,var(--brand),var(--brand-deep))"></span> Collected</span>
+      <span class="ci"><span class="sw" style="background:#e0a96d"></span> Expenses</span>
+      <span class="ci"><span class="sw" style="background:var(--ink)"></span> Profit (line)</span>
+      <span class="ci"><span class="sw" style="background:var(--muted);border-radius:999px"></span> Bookings (count under each month)</span>
+    </div>
+    <div class="pl-note">💡 Based on <b>money actually received</b> (payment dates) and expense dates — so it shows real cash flow month by month, whatever date range you pick above.</div>
+  </div>
+
+  <div class="two-col">
+    <div class="card2" id="bestItemsCard">
+      <div class="c2head"><h3>🏆 Best-earning items</h3><span class="count" id="bestItemsRange"></span></div>
+      <table class="rank"><thead><tr><th>Item</th><th class="barcell">Share</th><th class="num">Earned</th><th class="num">Units</th></tr></thead>
+        <tbody id="bestItems"></tbody></table>
+    </div>
+    <div class="card2" id="topCustCard">
+      <div class="c2head"><h3>👥 Top customers</h3><span class="count" id="topCustRange"></span></div>
+      <table class="rank"><thead><tr><th>Customer</th><th class="barcell">Share</th><th class="num">Value</th><th class="num">Events</th></tr></thead>
+        <tbody id="topCust"></tbody></table>
+    </div>
+  </div>
+
+  <div class="card2" id="duesCard">
+    <div class="c2head"><h3>💰 Outstanding dues</h3><span class="count" id="duesCount"></span></div>
+    <div class="dues-sum" id="duesSum"></div>
+    <div id="duesList"></div>
+  </div>
+
+  <div class="card2" id="rbCard">
+    <div class="c2head"><h3>🧮 Custom report</h3></div>
+    <div class="rb-controls">
+      <label>Group by
+        <select id="rbGroup" onchange="renderReportBuilder()">
+          <option value="month">Month</option>
+          <option value="item">Item</option>
+          <option value="customer">Customer</option>
+          <option value="category">Expense category</option>
+          <option value="status">Booking status</option>
+        </select>
+      </label>
+      <label>Show
+        <select id="rbMeasure" onchange="renderReportBuilder()">
+          <option value="collected">Money collected</option>
+          <option value="booked">Booked value</option>
+          <option value="due">Dues outstanding</option>
+          <option value="count">Number of bookings</option>
+          <option value="units">Units rented</option>
+          <option value="expense">Expenses</option>
+        </select>
+      </label>
+      <button class="btn sm" onclick="exportReportBuilder()">⬇ Download</button>
+    </div>
+    <div class="rb-total" id="rbTotal"></div>
+    <table class="rank"><thead><tr><th id="rbGroupHead">Group</th><th class="barcell">Share</th><th class="num" id="rbMeasureHead">Value</th></tr></thead>
+      <tbody id="rbOut"></tbody></table>
+    <div class="pl-note">💡 Pick what to group by and what to measure — then Download to get it as a spreadsheet. Respects the date range &amp; status filter above.</div>
+  </div>
+
+  <div class="sec-title">🔔 Upcoming events <span class="count" id="upCount"></span></div>
+  <div class="rem-wrap" id="reminders"></div>
+
+  <div class="sec-title">Bookings <span class="count" id="listCount"></span></div>
+  <div class="tablecard">
+    <table class="bk">
+      <thead><tr>
+        <th>Event date</th><th>Customer</th><th>Items</th>
+        <th class="num">Total</th><th class="num">Paid</th><th class="num">Due</th><th>Status</th>
+      </tr></thead>
+      <tbody id="bkBody"></tbody>
+    </table>
+    <div class="mobcards" id="bkCards"></div>
+    <div class="empty" id="bkEmpty" style="display:none">No bookings in this range yet.</div>
+  </div>
+
+  <div class="sec-title">Expenses <span class="count" id="expCount"></span>
+    <span class="fb-spacer"></span>
+    <button class="btn primary sm" id="addExpBtn" onclick="openExpense()" style="display:none">+ Add expense</button>
+  </div>
+  <div class="tablecard">
+    <table class="bk">
+      <thead><tr>
+        <th>Date</th><th>Category</th><th>Note</th><th class="num">Amount</th><th></th>
+      </tr></thead>
+      <tbody id="expBody"></tbody>
+    </table>
+    <div class="mobcards" id="expCards"></div>
+    <div class="empty" id="expEmpty" style="display:none">No expenses recorded in this range.</div>
+  </div>
+</div>
+
+<!-- Booking detail modal -->
+<div class="modal" id="detModal">
+  <div class="dialog">
+    <div class="dhead">
+      <div><h2 id="dTitle">Booking</h2><div class="sub" id="dSub"></div></div>
+      <button class="x" onclick="closeDet()">✕</button>
+    </div>
+    <div class="dbody" id="dBody"></div>
+    <div class="dfoot" id="dFoot"></div>
+  </div>
+</div>
+
+<!-- Edit items modal -->
+<div class="modal" id="editModal">
+  <div class="dialog">
+    <div class="dhead"><div><h2>Edit booking</h2><div class="sub" id="eSub"></div></div><button class="x" onclick="closeEdit()">✕</button></div>
+    <div class="dbody">
+      <div class="minif" style="margin-bottom:12px"><label>Event date</label><input type="date" id="eDate"/></div>
+      <div class="det-sec">
+        <h4>Items</h4>
+        <div id="eItems"></div>
+      </div>
+      <div class="minif" style="margin-top:12px"><label>Add an item</label>
+        <select id="eAddSel"><option value="">Choose an item to add…</option></select>
+      </div>
+      <div class="minif" style="margin-top:12px"><label>Agreed total (₹) — blank = use item total</label><input type="number" min="0" id="eTotal"/></div>
+      <div class="minif" style="margin-top:12px"><label>Notes</label><input id="eNotes" placeholder="Any special instructions"/></div>
+    </div>
+    <div class="dfoot">
+      <button class="btn ghost" onclick="closeEdit()">Cancel</button>
+      <button class="btn primary" onclick="saveEdit()">Save changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- Expense modal -->
+<div class="modal" id="expModal">
+  <div class="dialog" style="max-width:460px">
+    <div class="dhead"><div><h2 id="expTitle">Add expense</h2><div class="sub">Money the business spent — transport, labour, purchases…</div></div><button class="x" onclick="closeExpense()">✕</button></div>
+    <div class="dbody">
+      <div class="minif" style="margin-bottom:12px"><label>Date</label><input type="date" id="exDate"/></div>
+      <div class="minif" style="margin-bottom:12px"><label>Category</label>
+        <input id="exCat" list="expCats" placeholder="e.g. Transport"/>
+        <datalist id="expCats">
+          <option>Transport</option><option>Labour</option><option>Purchase</option>
+          <option>Repair</option><option>Food</option><option>Electricity</option>
+          <option>Rent</option><option>Marketing</option><option>Miscellaneous</option>
+        </datalist>
+      </div>
+      <div class="minif" style="margin-bottom:12px"><label>Amount (₹)</label><input type="number" min="0" id="exAmt" placeholder="e.g. 1500"/></div>
+      <div class="minif"><label>Note (optional)</label><input id="exNote" placeholder="What was it for?"/></div>
+      <div id="exErr" style="color:var(--full);font-size:13px;min-height:18px;margin-top:8px"></div>
+    </div>
+    <div class="dfoot">
+      <button class="btn danger" id="exDelBtn" onclick="deleteExpense()" style="display:none;margin-right:auto">🗑 Delete</button>
+      <button class="btn ghost" onclick="closeExpense()">Cancel</button>
+      <button class="btn primary" onclick="saveExpense()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Auto-reminder settings modal -->
+<div class="modal" id="remModal">
+  <div class="dialog" style="max-width:560px">
+    <div class="dhead"><div><h2>Automatic reminders</h2><div class="sub">Get a WhatsApp (or email) before every event — even when this page is closed.</div></div><button class="x" onclick="closeRemSettings()">✕</button></div>
+    <div class="dbody">
+      <label class="toggle-line"><input type="checkbox" id="rmEnabled"/> <b>Turn on automatic reminders</b></label>
+      <p class="hint">A daily check runs on the server and messages you about events coming up.</p>
+
+      <div class="det-sec"><h4>When to remind me</h4>
+        <div class="lead-grid">
+          <label><input type="checkbox" id="rmD30"/> 1 month before</label>
+          <label><input type="checkbox" id="rmD7"/> 1 week before</label>
+          <label><input type="checkbox" id="rmD1"/> 1 day before</label>
+          <label><input type="checkbox" id="rmD0"/> On the day</label>
+        </div>
+      </div>
+
+      <div class="det-sec"><h4>How to send it</h4>
+        <div class="minif" style="margin-bottom:12px"><label>Channel</label>
+          <select id="rmChannel" onchange="onRmChannel()">
+            <option value="whatsapp">WhatsApp (to my own number)</option>
+            <option value="email">Email</option>
+          </select>
+        </div>
+        <div id="rmWaFields">
+          <div class="minif" style="margin-bottom:12px"><label>My WhatsApp number (with country code, e.g. 9198…)</label><input id="rmPhone" placeholder="91XXXXXXXXXX"/></div>
+          <div class="minif"><label>CallMeBot API key</label><input id="rmApikey" placeholder="from the setup steps below"/></div>
+        </div>
+        <div id="rmEmailFields" style="display:none">
+          <div class="minif"><label>Send reminders to this email</label><input id="rmEmail" type="email" placeholder="you@example.com"/></div>
+        </div>
+      </div>
+
+      <details class="setup">
+        <summary>📖 One-time setup — how to switch it on (tap to open)</summary>
+        <div class="setup-body" id="setupBody"></div>
+      </details>
+    </div>
+    <div class="dfoot">
+      <button class="btn ghost" onclick="closeRemSettings()">Close</button>
+      <button class="btn primary" onclick="saveRemSettings()">Save settings</button>
+    </div>
+  </div>
+</div>
+
+<!-- Login modal -->
+<div class="modal" id="loginModal">
+  <div class="dialog" style="max-width:400px">
+    <div class="dhead"><div><h2>Admin login</h2><div class="sub">Same email &amp; password as the site admin.</div></div><button class="x" onclick="closeLogin()">✕</button></div>
+    <div class="dbody">
+      <div class="minif" style="margin-bottom:12px"><label>Email</label><input id="liEmail" type="email" autocomplete="username"/></div>
+      <div class="minif"><label>Password</label><input id="liPass" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+      <div id="liErr" style="color:var(--full);font-size:13px;min-height:18px;margin-top:8px"></div>
+    </div>
+    <div class="dfoot"><button class="btn ghost" onclick="closeLogin()">Cancel</button><button class="btn primary" id="liBtn" onclick="doLogin()">Log in</button></div>
+  </div>
+</div>
+
+<div id="printArea"></div>
+<div class="savebar" id="savebar"></div>
+
+<script src="common.js"></script>
+<script>
+let DB=null, isAuthed=false;
+let basis="event", curBooking=null, editSnap=null, plBasis="cash", curExpense=null;
+let trendMonths=12;
+
+function normalize(d){
+  (d.items||[]).forEach(it=>{
+    if(!('stock' in it)) it.stock="";
+    if(!it.bookedByDate||typeof it.bookedByDate!=="object"){ it.bookedByDate={}; const l=parseInt(it.booked)||0; if(l>0) it.bookedByDate[todayISO()]=l; }
+    delete it.booked;
+  });
+  if(!Array.isArray(d.bookings)) d.bookings=[];
+  if(!Array.isArray(d.expenses)) d.expenses=[];
+  d.settings=d.settings||{};
+  if(!d.settings.reminders||typeof d.settings.reminders!=="object")
+    d.settings.reminders={enabled:false,channel:"whatsapp",phone:"",apikey:"",email:"",leads:{d30:true,d7:true,d1:true,d0:true},lastRun:""};
+  const r=d.settings.reminders;
+  if(!r.leads||typeof r.leads!=="object") r.leads={d30:true,d7:true,d1:true,d0:true};
+  return d;
+}
+
+function filteredExpenses(){
+  const win=rangeWindow();
+  return (DB.expenses||[]).filter(e=>inWindow(e.date,win))
+    .sort((a,b)=> (a.date<b.date?1:a.date>b.date?-1:0));
+}
+function expensesTotal(list){ return (list||[]).reduce((s,e)=>s+money(e.amount),0); }
+function paymentsInWindow(){
+  const win=rangeWindow(); let sum=0;
+  (DB.bookings||[]).forEach(b=>{ if(b.status==="cancelled")return; (b.payments||[]).forEach(p=>{ if(inWindow((p.date||"").slice(0,10),win)) sum+=parseFloat(p.amount)||0; }); });
+  return sum;
+}
+
+/* ---------- load / save ---------- */
+async function loadDB(){
+  const {data,error}=await sb.from("site").select("data").eq("id",1).maybeSingle();
+  if(error){ showBar("Load failed: "+error.message,"err"); return null; }
+  if(!(data&&data.data&&data.data.items)) return null;
+  const d=normalize(data.data);
+  // legacy bookings/expenses (from the old single-blob) are kept aside for the
+  // one-time migration; the live arrays now come from their own tables.
+  d.legacyBookings=Array.isArray(d.bookings)?d.bookings:[];
+  d.legacyExpenses=Array.isArray(d.expenses)?d.expenses:[];
+  d.bookings=await dbLoadBookings()||[];
+  d.expenses=await dbLoadExpenses()||[];
+  return d;
+}
+/* Save ONLY the blob-backed parts (catalog items, gallery, videos, settings).
+   Bookings/expenses live in their own tables now, so we strip them out before
+   upserting to avoid re-writing stale copies into the blob. */
+async function saveBlob(){
+  const {data,error}=await sb.from("site").select("data").eq("id",1).maybeSingle();
+  if(error){ showBar("Save failed: "+error.message,"err"); return false; }
+  const blob=(data&&data.data)?data.data:{};
+  blob.items=DB.items||blob.items||[];
+  blob.gallery=DB.gallery||blob.gallery||[];
+  blob.videos=DB.videos||blob.videos||[];
+  blob.settings=DB.settings||blob.settings||{};
+  const {error:e2}=await sb.from("site").upsert({id:1,data:blob,updated_at:new Date().toISOString()});
+  if(e2){ showBar("Save failed: "+e2.message,"err"); return false; }
+  return true;
+}
+async function reload(){ const d=await loadDB(); if(d){ DB=d; render(); showBar("Refreshed"); } }
+
+/* One-time import: copy bookings/expenses that still live in the old single
+   blob into their own tables. Safe to run more than once — rows that already
+   exist (matched by id) are skipped. Button only shows when logged in and the
+   blob still has legacy rows to import. */
+function updateMigrateBtn(){
+  const btn=document.getElementById("migrateBtn"); if(!btn) return;
+  const n=((DB&&DB.legacyBookings)||[]).length+((DB&&DB.legacyExpenses)||[]).length;
+  btn.style.display=(isAuthed&&n>0)?"inline-flex":"none";
+  btn.textContent="⬆ Import old bookings ("+n+")";
+}
+async function migrateOldData(){
+  if(needAuth()) return;
+  const lb=(DB.legacyBookings||[]), le=(DB.legacyExpenses||[]);
+  if(!lb.length&&!le.length){ showBar("Nothing to import"); return; }
+  if(!confirm("Import "+lb.length+" old bookings and "+le.length+" old expenses into the new tables?\n\nAlready-imported rows are skipped. This is safe to run once.")) return;
+  const btn=document.getElementById("migrateBtn"); btn.disabled=true; btn.textContent="Importing…";
+  const haveB=new Set((DB.bookings||[]).map(b=>String(b.id)));
+  const haveE=new Set((DB.expenses||[]).map(e=>String(e.id)));
+  let okB=0,okE=0,fail=0;
+  for(const b of lb){
+    if(haveB.has(String(b.id))) continue;
+    const {ok}=await dbInsertBooking(b); if(ok) okB++; else fail++;
+  }
+  for(const e of le){
+    if(haveE.has(String(e.id))) continue;
+    const {ok}=await dbInsertExpense(e); if(ok) okE++; else fail++;
+  }
+  // On a clean run (nothing failed) remove the old copies from the blob so
+  // this becomes truly one-time and the button goes away.
+  if(!fail){
+    const {data}=await sb.from("site").select("data").eq("id",1).maybeSingle();
+    const blob=(data&&data.data)?data.data:null;
+    if(blob){ blob.bookings=[]; blob.expenses=[]; await sb.from("site").upsert({id:1,data:blob,updated_at:new Date().toISOString()}); }
+  }
+  btn.disabled=false;
+  const d=await loadDB(); if(d){ DB=d; render(); }
+  updateMigrateBtn();
+  showBar("Imported "+okB+" bookings, "+okE+" expenses"+(fail?(" · "+fail+" failed — old copies kept"):" · done")+" ✓");
+}
+
+/* ---------- full backup / restore (works with the desktop app too) ----------
+   One JSON file holds EVERYTHING: catalog+settings (the site blob), every
+   booking, every expense. The exact same file format is read/written by the
+   offline desktop app, so a website backup imports straight into the desktop
+   app and vice-versa. */
+const BACKUP_APP="corporative-tent-house", BACKUP_VER=1;
+async function exportAll(){
+  if(needAuth()) return;
+  showBar("Preparing backup…");
+  const {data,error}=await sb.from("site").select("data").eq("id",1).maybeSingle();
+  if(error){ showBar("Backup failed: "+error.message,"err"); return; }
+  const site=(data&&data.data)?data.data:{};
+  delete site.bookings; delete site.expenses;   // these live in tables now
+  const bookings=await dbLoadBookings()||[];
+  const expenses=await dbLoadExpenses()||[];
+  const backup={app:BACKUP_APP,version:BACKUP_VER,exportedAt:new Date().toISOString(),source:"website",site,bookings,expenses};
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(new Blob([JSON.stringify(backup)],{type:"application/json"}));
+  a.download="tent-house-backup-"+todayISO()+".json";
+  a.click();
+  showBar("Backup downloaded ✓ — keep it safe (pen-drive / Google Drive)");
+}
+async function importAll(file){
+  if(!file) return;
+  if(needAuth()) return;
+  let backup;
+  try{ backup=JSON.parse(await file.text()); }
+  catch(e){ showBar("That file isn't a valid backup","err"); return; }
+  if(!backup||backup.app!==BACKUP_APP||!backup.site){ showBar("This doesn't look like a Tent House backup file","err"); return; }
+  const nb=(backup.bookings||[]).length, ne=(backup.expenses||[]).length, ni=((backup.site.items)||[]).length;
+  if(!confirm("Import from this backup?\n\n• Catalog & settings — REPLACED with the file's version ("+ni+" items)\n• Bookings — added/updated ("+nb+"), nothing deleted\n• Expenses — added/updated ("+ne+"), nothing deleted\n\nTip: click “Backup all” first so you have today's copy.\n\nContinue?")) return;
+  showBar("Restoring… please wait, don't close this tab");
+  const site=Object.assign({},backup.site); delete site.bookings; delete site.expenses;
+  const {error:se}=await sb.from("site").upsert({id:1,data:site,updated_at:new Date().toISOString()});
+  if(se){ showBar("Restore failed (catalog): "+se.message,"err"); return; }
+  let fail=0;
+  for(const b of (backup.bookings||[])){ const {error}=await sb.from("bookings").upsert(bookingToRow(b)); if(error){ console.warn("restore booking",error.message); fail++; } }
+  for(const e of (backup.expenses||[])){ const {error}=await sb.from("expenses").upsert({id:String(e.id),date:e.date||null,category:e.category||"",amount:money(e.amount),note:e.note||""}); if(error){ console.warn("restore expense",error.message); fail++; } }
+  const d=await loadDB(); if(d){ DB=d; render(); }
+  showBar("Restore complete ✓ · "+nb+" bookings, "+ne+" expenses"+(fail?(" · "+fail+" rows failed"):""));
+}
+
+/* ---------- auth ---------- */
+async function refreshAuth(){
+  const {data}=await sb.auth.getSession();
+  isAuthed=!!(data&&data.session);
+  const pill=document.getElementById("authPill");
+  pill.textContent=isAuthed?"● Logged in":"🔒 Log in";
+  pill.classList.toggle("on",isAuthed);
+  document.getElementById("viewBanner").style.display=isAuthed?"none":"flex";
+}
+function authPillClick(){ if(isAuthed){ if(confirm("Log out?")) doLogout(); } else openLogin(); }
+function openLogin(){ document.getElementById("loginModal").classList.add("show"); setTimeout(()=>document.getElementById("liEmail").focus(),50); }
+function closeLogin(){ document.getElementById("loginModal").classList.remove("show"); }
+async function doLogin(){
+  const email=document.getElementById("liEmail").value.trim(), pass=document.getElementById("liPass").value;
+  if(!email||!pass){ document.getElementById("liErr").textContent="Enter email and password."; return; }
+  const btn=document.getElementById("liBtn"); btn.disabled=true; btn.textContent="Logging in…";
+  const {error}=await sb.auth.signInWithPassword({email,password:pass});
+  btn.disabled=false; btn.textContent="Log in";
+  if(error){ document.getElementById("liErr").textContent=error.message; return; }
+  closeLogin(); await refreshAuth(); render(); showBar("Logged in");
+}
+async function doLogout(){ await sb.auth.signOut(); await refreshAuth(); render(); showBar("Logged out"); }
+function needAuth(){ if(!isAuthed){ showBar("Log in first","err"); openLogin(); return true; } return false; }
+
+/* ---------- date range ---------- */
+function setBasis(b){ basis=b; document.querySelectorAll("#basisSeg button").forEach(x=>x.classList.toggle("on",x.dataset.basis===b)); render(); }
+function onRangeChange(){ document.getElementById("customWrap").style.display=document.getElementById("rangeSel").value==="custom"?"flex":"none"; render(); }
+function rangeWindow(){
+  const r=document.getElementById("rangeSel").value, t=todayISO(), now=new Date();
+  const iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+  if(r==="all") return [null,null];
+  if(r==="today") return [t,t];
+  if(r==="yesterday"){ const y=addDaysISO(t,-1); return [y,y]; }
+  if(r==="week"){ const d=new Date(); const dow=(d.getDay()+6)%7; const s=new Date(d); s.setDate(d.getDate()-dow); const e=new Date(s); e.setDate(s.getDate()+6); return [iso(s),iso(e)]; }
+  if(r==="month"){ const s=new Date(now.getFullYear(),now.getMonth(),1), e=new Date(now.getFullYear(),now.getMonth()+1,0); return [iso(s),iso(e)]; }
+  if(r==="year"){ return [now.getFullYear()+"-01-01", now.getFullYear()+"-12-31"]; }
+  if(r==="last15") return [addDaysISO(t,-14),t];
+  if(r==="last30") return [addDaysISO(t,-29),t];
+  if(r==="last90") return [addDaysISO(t,-89),t];
+  if(r==="custom") return [document.getElementById("customFrom").value||null, document.getElementById("customTo").value||null];
+  return [null,null];
+}
+function inWindow(d,win){ if(!d) return false; const[a,b]=win; if(a&&d<a)return false; if(b&&d>b)return false; return true; }
+
+function filteredBookings(){
+  const win=rangeWindow(), st=document.getElementById("statusSel").value;
+  return (DB.bookings||[]).filter(b=>{
+    if(st==="active"&&b.status==="cancelled") return false;
+    if(st==="cancelled"&&b.status!=="cancelled") return false;
+    const d=basis==="event"?b.eventDate:createdISO(b);
+    return inWindow(d,win);
+  }).sort((a,b)=> (a.eventDate<b.eventDate?1:a.eventDate>b.eventDate?-1:0));
+}
+
+/* ---------- render ---------- */
+function render(){
+  if(!DB) return;
+  const list=filteredBookings();
+  renderKPIs(list);
+  renderPL(list);
+  renderTrends();
+  renderBestItems(list);
+  renderTopCustomers(list);
+  renderDues();
+  renderReportBuilder();
+  renderReminders();
+  renderList(list);
+  renderExpenses();
+  updateMigrateBtn();
+}
+function setPLBasis(b){ plBasis=b; document.querySelectorAll("#plBasisSeg button").forEach(x=>x.classList.toggle("on",x.dataset.pl===b)); render(); }
+function renderPL(list){
+  const active=list.filter(b=>b.status!=="cancelled");
+  const revenue=active.reduce((s,b)=>s+bookingTotal(b),0);
+  const collected=paymentsInWindow();
+  const expList=filteredExpenses();
+  const expenses=expensesTotal(expList);
+  const moneyIn = plBasis==="cash" ? collected : revenue;
+  const net=moneyIn-expenses;
+  const margin=moneyIn>0?Math.round(net/moneyIn*100):0;
+  const label=document.getElementById("rangeSel").selectedOptions[0].text;
+  document.getElementById("plRange").textContent="· "+label;
+  const inLbl = plBasis==="cash" ? "Money in" : "Booked value";
+  const inSub = plBasis==="cash" ? "payments received in period" : "agreed value of bookings";
+  document.getElementById("plGrid").innerHTML=`
+    <div class="pl-cell in"><div class="k">${inLbl}</div><div class="v">${inr(moneyIn)}</div><div class="s">${inSub}</div></div>
+    <div class="pl-cell out"><div class="k">Expenses</div><div class="v">${inr(expenses)}</div><div class="s">${expList.length} entr${expList.length===1?"y":"ies"}</div></div>
+    <div class="pl-cell net"><div class="k">${net>=0?"Net profit":"Net loss"}</div><div class="v ${net>=0?"pos":"neg"}">${net<0?"−":""}${inr(Math.abs(net))}</div><div class="s">${inLbl.toLowerCase()} − expenses</div></div>
+    <div class="pl-cell"><div class="k">Margin</div><div class="v">${margin}%</div><div class="s">profit per ₹100</div></div>`;
+  document.getElementById("plNote").innerHTML = plBasis==="cash"
+    ? "💡 <b>Cash view:</b> only money actually received (by payment date) minus money spent. Best for “did I make money this period?”"
+    : "💡 <b>Booked-value view:</b> full agreed value of bookings in this period minus expenses. Shows expected profit including dues not yet collected.";
+}
+function renderKPIs(list){
+  const active=list.filter(b=>b.status!=="cancelled");
+  const revenue=active.reduce((s,b)=>s+bookingTotal(b),0);
+  const paid=active.reduce((s,b)=>s+bookingPaid(b),0);
+  const due=active.reduce((s,b)=>s+bookingDue(b),0);
+  const cancelled=list.filter(b=>b.status==="cancelled").length;
+  const avg=active.length?Math.round(revenue/active.length):0;
+  // period-over-period deltas (only when a real range is selected)
+  const pw=prevWindow();
+  const hasPrev = pw[0]&&pw[1];
+  const pAct=hasPrev?bookingsIn(pw,true):[];
+  const dBk = hasPrev?deltaHTML(active.length,pAct.length):"";
+  const dRev= hasPrev?deltaHTML(revenue,pAct.reduce((s,b)=>s+bookingTotal(b),0)):"";
+  const dCol= hasPrev?deltaHTML(paid,paymentsIn(pw)):"";
+  const k=[
+    {k:"Bookings",v:active.length,s:cancelled?cancelled+" cancelled":"confirmed",cls:"",d:dBk},
+    {k:"Revenue",v:inr(revenue),s:"agreed value",cls:"rev",d:dRev},
+    {k:"Collected",v:inr(paid),s:"received",cls:"paid",d:dCol},
+    {k:"Dues",v:inr(due),s:"to collect",cls:"due",d:""},
+    {k:"Avg / booking",v:inr(avg),s:"value",cls:"",d:""},
+    {k:"Items rented",v:active.reduce((s,b)=>s+(b.items||[]).reduce((x,c)=>x+(c.qty||0),0),0),s:"units",cls:"",d:""}
+  ];
+  document.getElementById("kpis").innerHTML=k.map(x=>`<div class="kpi ${x.cls}"><div class="k">${x.k}</div><div class="v">${x.v}${x.d||""}</div><div class="s">${x.s}${hasPrev&&x.d?" vs prev":""}</div></div>`).join("");
+}
+/* ---------- trends over time (cash flow by month) ---------- */
+function monthKey(iso){ return (iso||"").slice(0,7); }
+function monthLabel(mk){
+  if(!mk) return "";
+  const [y,m]=mk.split("-"); const d=new Date(parseInt(y),parseInt(m)-1,1);
+  return d.toLocaleDateString("en-IN",{month:"short"})+(m==="01"||m==="1"?(" '"+String(y).slice(2)):"");
+}
+function lastNMonths(n){
+  const arr=[], now=new Date();
+  for(let i=n-1;i>=0;i--){ const d=new Date(now.getFullYear(),now.getMonth()-i,1); arr.push(d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")); }
+  return arr;
+}
+function trendData(months){
+  const keys=lastNMonths(months);
+  const idx={}; keys.forEach(k=>idx[k]={mk:k,collected:0,expense:0,bookings:0});
+  (DB.bookings||[]).forEach(b=>{
+    if(b.status==="cancelled") return;
+    (b.payments||[]).forEach(p=>{ const k=monthKey((p.date||"").slice(0,10)); if(idx[k]) idx[k].collected+=parseFloat(p.amount)||0; });
+    const bk=monthKey(b.eventDate); if(idx[bk]) idx[bk].bookings+=1;
+  });
+  (DB.expenses||[]).forEach(e=>{ const k=monthKey(e.date); if(idx[k]) idx[k].expense+=money(e.amount); });
+  return keys.map(k=>{ const r=idx[k]; r.profit=r.collected-r.expense; return r; });
+}
+function barChartSVG(data){
+  const gw=56, padT=16, padB=40, H=210, plotH=H-padT-padB;
+  const W=Math.max(data.length*gw, 40);
+  let maxPos=0, minNeg=0;
+  data.forEach(d=>{ maxPos=Math.max(maxPos,d.collected,d.expense,d.profit); minNeg=Math.min(minNeg,d.profit); });
+  if(maxPos<=0&&minNeg>=0) maxPos=1;
+  const span=(maxPos-minNeg)||1;
+  const y=v=>padT+plotH*(1-(v-minNeg)/span);
+  const base=y(0);
+  const bw=14, gap=6;
+  let bars="", line="", dots="", labels="";
+  const pts=[];
+  data.forEach((d,i)=>{
+    const cx=i*gw+gw/2;
+    const x1=cx-bw-gap/2, x2=cx+gap/2;
+    const cy=y(d.collected), ey=y(d.expense);
+    bars+=`<rect x="${x1}" y="${Math.min(cy,base)}" width="${bw}" height="${Math.abs(base-cy)}" rx="3" fill="url(#gCol)"><title>${monthLabel(d.mk)}: collected ${inr(d.collected)}</title></rect>`;
+    bars+=`<rect x="${x2}" y="${Math.min(ey,base)}" width="${bw}" height="${Math.abs(base-ey)}" rx="3" fill="#e0a96d"><title>${monthLabel(d.mk)}: expenses ${inr(d.expense)}</title></rect>`;
+    const py=y(d.profit); pts.push(cx+","+py);
+    dots+=`<circle cx="${cx}" cy="${py}" r="3.2" fill="var(--ink)"><title>${monthLabel(d.mk)}: profit ${d.profit<0?"−":""}${inr(Math.abs(d.profit))}</title></circle>`;
+    labels+=`<text x="${cx}" y="${H-24}" text-anchor="middle" font-size="10.5" fill="var(--muted)">${monthLabel(d.mk)}</text>`;
+    labels+=`<text x="${cx}" y="${H-10}" text-anchor="middle" font-size="10" fill="var(--muted)">${d.bookings||0} bkg</text>`;
+  });
+  line=`<polyline points="${pts.join(" ")}" fill="none" stroke="var(--ink)" stroke-width="1.6" opacity=".7"/>`;
+  const zero=`<line x1="0" y1="${base}" x2="${W}" y2="${base}" stroke="var(--line)" stroke-width="1"/>`;
+  return `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" style="display:block;min-width:100%">
+    <defs><linearGradient id="gCol" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--brand)"/><stop offset="1" stop-color="var(--brand-deep)"/></linearGradient></defs>
+    ${zero}${bars}${line}${dots}${labels}</svg>`;
+}
+function setTrendMonths(n){ trendMonths=n; document.querySelectorAll("#trendSeg button").forEach(x=>x.classList.toggle("on",parseInt(x.dataset.m)===n)); renderTrends(); }
+function renderTrends(){
+  const data=trendData(trendMonths);
+  const any=data.some(d=>d.collected||d.expense||d.bookings);
+  document.getElementById("trendChart").innerHTML = any ? barChartSVG(data)
+    : `<div class="rem-empty" style="padding:26px 4px">No activity yet in this range. Charts fill in as you record payments and expenses.</div>`;
+}
+
+/* ---------- best items & top customers ---------- */
+function rankRows(rows,total){
+  return rows.map((r,i)=>{
+    const pct=total>0?Math.round(r.val/total*100):0;
+    return `<tr><td class="nm"><b>${i+1}. ${esc(r.name)}</b>${r.sub?`<small>${esc(r.sub)}</small>`:""}</td>
+      <td class="barcell"><div class="mbar"><i style="width:${pct}%"></i></div></td>
+      <td class="num"><b>${r.money?inr(r.val):r.val}</b></td>
+      <td class="num">${r.extra}</td></tr>`;
+  }).join("");
+}
+function renderBestItems(list){
+  const active=list.filter(b=>b.status!=="cancelled");
+  const agg={};
+  active.forEach(b=>(b.items||[]).forEach(c=>{
+    const key=String(c.id||c.name); const a=agg[key]||(agg[key]={name:c.name||"—",val:0,units:0});
+    a.val+=money(c.price)*(c.qty||0); a.units+=(c.qty||0);
+  }));
+  const rows=Object.values(agg).sort((a,b)=>b.val-a.val).slice(0,8)
+    .map(a=>({name:a.name,val:a.val,money:true,extra:a.units}));
+  const total=rows.reduce((s,r)=>s+r.val,0);
+  document.getElementById("bestItemsRange").textContent=document.getElementById("rangeSel").selectedOptions[0].text;
+  document.getElementById("bestItems").innerHTML=rows.length?rankRows(rows,total)
+    :`<tr><td colspan="4" class="rem-empty" style="padding:18px 4px">No items rented in this range.</td></tr>`;
+}
+function renderTopCustomers(list){
+  const active=list.filter(b=>b.status!=="cancelled");
+  const agg={};
+  active.forEach(b=>{
+    const nm=(b.customer&&b.customer.name)||"—", ph=(b.customer&&b.customer.phone)||"";
+    const key=ph||nm; const a=agg[key]||(agg[key]={name:nm,phone:ph,val:0,events:0});
+    a.val+=bookingTotal(b); a.events+=1;
+  });
+  const rows=Object.values(agg).sort((a,b)=>b.val-a.val).slice(0,8)
+    .map(a=>({name:a.name,sub:(a.phone?"📞 "+a.phone:"")+(a.events>1?"  ·  🔁 repeat":""),val:a.val,money:true,extra:a.events}));
+  const total=rows.reduce((s,r)=>s+r.val,0);
+  document.getElementById("topCustRange").textContent=document.getElementById("rangeSel").selectedOptions[0].text;
+  document.getElementById("topCust").innerHTML=rows.length?rankRows(rows,total)
+    :`<tr><td colspan="4" class="rem-empty" style="padding:18px 4px">No customers in this range.</td></tr>`;
+}
+
+/* ---------- outstanding dues (aging) ---------- */
+function renderDues(){
+  const t=todayISO();
+  const due=(DB.bookings||[]).filter(b=>b.status!=="cancelled"&&bookingDue(b)>0)
+    .sort((a,b)=>(a.eventDate<b.eventDate?-1:1));
+  const total=due.reduce((s,b)=>s+bookingDue(b),0);
+  const overdue=due.filter(b=>b.eventDate&&b.eventDate<t);
+  const overdueSum=overdue.reduce((s,b)=>s+bookingDue(b),0);
+  document.getElementById("duesCount").textContent=due.length?("· "+due.length):"";
+  document.getElementById("duesSum").innerHTML=
+    `<div><b>${inr(total)}</b>total outstanding</div>
+     <div><b>${inr(overdueSum)}</b>overdue (event passed)</div>
+     <div><b>${due.length}</b>customers to follow up</div>`;
+  document.getElementById("duesList").innerHTML = due.length ? due.map(b=>{
+    const past=b.eventDate&&b.eventDate<t;
+    const days=b.eventDate?Math.round((new Date(b.eventDate+"T00:00:00")-new Date(t+"T00:00:00"))/86400000):null;
+    const when = days==null ? "<span>no date</span>"
+      : past ? `<span class="over">${Math.abs(days)}d overdue</span>`
+      : days<=7 ? `<span class="soon">in ${days}d</span>`
+      : `<span>in ${days}d</span>`;
+    return `<div class="dueline">
+      <div class="who"><b>${esc(b.customer.name)}</b><small>📞 ${esc(b.customer.phone||"—")} · ${fmtDate(b.eventDate)}</small></div>
+      <div class="when">${when}</div>
+      <div class="amt">${inr(bookingDue(b))}</div>
+      <button class="btn sm" onclick="waDue('${b.id}')">💬 Remind</button>
+    </div>`;
+  }).join("") : `<div class="rem-empty" style="padding:18px 4px">🎉 No outstanding dues. Everyone has paid in full.</div>`;
+}
+function waDue(id){ curBooking=(DB.bookings||[]).find(b=>String(b.id)===String(id))||null; if(curBooking) waRemind(); }
+
+/* ---------- KPI period-over-period compare ---------- */
+function prevWindow(){
+  const [a,b]=rangeWindow(); if(!a||!b) return [null,null];
+  const da=new Date(a+"T00:00:00"), db=new Date(b+"T00:00:00");
+  const len=Math.round((db-da)/86400000)+1;
+  return [addDaysISO(a,-len), addDaysISO(a,-1)];
+}
+function bookingsIn(win,activeOnly){
+  return (DB.bookings||[]).filter(b=>{
+    if(activeOnly&&b.status==="cancelled") return false;
+    const d=basis==="event"?b.eventDate:createdISO(b);
+    return inWindow(d,win);
+  });
+}
+function paymentsIn(win){
+  let sum=0;
+  (DB.bookings||[]).forEach(b=>{ if(b.status==="cancelled")return; (b.payments||[]).forEach(p=>{ if(inWindow((p.date||"").slice(0,10),win)) sum+=parseFloat(p.amount)||0; }); });
+  return sum;
+}
+function deltaHTML(cur,prev){
+  if(prev<=0){ return cur>0?`<span class="kd up">▲ new</span>`:``; }
+  const pct=Math.round((cur-prev)/prev*100);
+  if(pct===0) return `<span class="kd flat">▬ 0%</span>`;
+  return `<span class="kd ${pct>0?"up":"down"}">${pct>0?"▲":"▼"} ${Math.abs(pct)}%</span>`;
+}
+
+/* ---------- custom report builder ---------- */
+function rbCompute(){
+  const group=document.getElementById("rbGroup").value;
+  const measure=document.getElementById("rbMeasure").value;
+  const list=filteredBookings();
+  const active=list.filter(b=>b.status!=="cancelled");
+  const isMoney=["collected","booked","due","expense"].includes(measure);
+  const agg={}; // key -> {name, val}
+  const add=(k,name,v)=>{ const a=agg[k]||(agg[k]={name:name,val:0}); a.val+=v; };
+  if(measure==="expense"){
+    // expenses only make sense grouped by category or month
+    filteredExpenses().forEach(e=>{
+      const k = group==="month" ? monthKey(e.date) : (e.category||"Uncategorised");
+      add(String(k), group==="month"?monthLabel(monthKey(e.date)):(e.category||"Uncategorised"), money(e.amount));
+    });
+  } else if(group==="item"){
+    active.forEach(b=>(b.items||[]).forEach(c=>{
+      const k=String(c.id||c.name);
+      let v = measure==="units"?(c.qty||0) : measure==="count"?0 : money(c.price)*(c.qty||0);
+      if(measure==="count") return; // count per item not meaningful; handled below
+      add(k, c.name||"—", v);
+    }));
+    if(measure==="count"){ // number of bookings each item appears in
+      active.forEach(b=>{ const seen={}; (b.items||[]).forEach(c=>{ const k=String(c.id||c.name); if(!seen[k]){seen[k]=1; add(k,c.name||"—",1);} }); });
+    }
+  } else {
+    active.forEach(b=>{
+      let k,name;
+      if(group==="month"){ k=monthKey(b.eventDate); name=monthLabel(k); }
+      else if(group==="customer"){ k=(b.customer&&b.customer.phone)||(b.customer&&b.customer.name)||"—"; name=(b.customer&&b.customer.name)||"—"; }
+      else if(group==="status"){ k=b.status||"confirmed"; name=(b.status||"confirmed"); }
+      else if(group==="category"){ k=name="(bookings have no category)"; }
+      let v = measure==="collected"?bookingPaid(b)
+            : measure==="booked"?bookingTotal(b)
+            : measure==="due"?bookingDue(b)
+            : measure==="units"?(b.items||[]).reduce((s,c)=>s+(c.qty||0),0)
+            : 1;
+      add(String(k),name,v);
+    });
+  }
+  let rows=Object.values(agg).filter(r=>r.val!==0);
+  rows.sort((a,b)=> group==="month" ? (a.name<b.name?-1:1) : (b.val-a.val));
+  return {rows,isMoney,group,measure};
+}
+function renderReportBuilder(){
+  const {rows,isMoney,group,measure}=rbCompute();
+  window._rbRows={rows,isMoney,group,measure};
+  const gh={month:"Month",item:"Item",customer:"Customer",category:"Category",status:"Status"}[group]||"Group";
+  const mh={collected:"Collected",booked:"Booked value",due:"Dues",count:"Bookings",units:"Units",expense:"Expenses"}[measure]||"Value";
+  document.getElementById("rbGroupHead").textContent=gh;
+  document.getElementById("rbMeasureHead").textContent=mh;
+  const total=rows.reduce((s,r)=>s+r.val,0);
+  document.getElementById("rbTotal").innerHTML = rows.length ? `Total ${mh.toLowerCase()}: <b>${isMoney?inr(total):total}</b> across ${rows.length} ${gh.toLowerCase()}${rows.length===1?"":"s"}` : "";
+  document.getElementById("rbOut").innerHTML = rows.length ? rows.map(r=>{
+    const pct=total>0?Math.round(r.val/total*100):0;
+    return `<tr><td class="nm"><b>${esc(r.name)}</b></td>
+      <td class="barcell"><div class="mbar"><i style="width:${pct}%"></i></div></td>
+      <td class="num"><b>${isMoney?inr(r.val):r.val}</b></td></tr>`;
+  }).join("") : `<tr><td colspan="3" class="rem-empty" style="padding:18px 4px">Nothing to show for this combination in the selected range.</td></tr>`;
+}
+function exportReportBuilder(){
+  const d=window._rbRows; if(!d||!d.rows.length){ showBar("Nothing to export","err"); return; }
+  const gh={month:"Month",item:"Item",customer:"Customer",category:"Category",status:"Status"}[d.group]||"Group";
+  const mh={collected:"Collected",booked:"Booked value",due:"Dues",count:"Bookings",units:"Units",expense:"Expenses"}[d.measure]||"Value";
+  const rows=d.rows.map(r=>({[gh]:r.name,[mh]:r.val}));
+  const fname="report-"+d.group+"-"+d.measure+"-"+todayISO();
+  if(window.XLSX){
+    const wb=XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(rows),"Report");
+    XLSX.writeFile(wb,fname+".xlsx");
+  } else {
+    const h=Object.keys(rows[0]);
+    const csv=[h.join(",")].concat(rows.map(r=>h.map(k=>`"${String(r[k]).replace(/"/g,'""')}"`).join(","))).join("\n");
+    const a=document.createElement("a"); a.href=URL.createObjectURL(new Blob(["\ufeff"+csv],{type:"text/csv"})); a.download=fname+".csv"; a.click();
+  }
+  showBar("Report downloaded");
+}
+
+function renderReminders(){
+  const t=todayISO(), tm=addDaysISO(t,1), wk=addDaysISO(t,7), mo=addDaysISO(t,30);
+  const up=(DB.bookings||[]).filter(b=>b.status!=="cancelled"&&b.eventDate&&b.eventDate>=t).sort((a,b)=>a.eventDate<b.eventDate?-1:1);
+  document.getElementById("upCount").textContent=up.length?("· "+up.length+" ahead"):"";
+  const buckets=[
+    {key:"today",title:"Today",cls:"today",test:b=>b.eventDate===t},
+    {key:"tomorrow",title:"Tomorrow",cls:"tomorrow",test:b=>b.eventDate===tm},
+    {key:"week",title:"This week",cls:"",test:b=>b.eventDate>tm&&b.eventDate<=wk},
+    {key:"month",title:"This month",cls:"",test:b=>b.eventDate>wk&&b.eventDate<=mo}
+  ];
+  document.getElementById("reminders").innerHTML=buckets.map(bk=>{
+    const rows=up.filter(bk.test);
+    const sub={today:"happening now",tomorrow:"1 day away",week:"within 7 days",month:"within 30 days"}[bk.key];
+    return `<div class="rem-col ${bk.cls}">
+      <h3>${bk.title}</h3><div class="bucket-sub">${sub}</div>
+      ${rows.length?rows.map(b=>`<div class="rem-item" onclick="openDet('${b.id}')">
+          <b>${esc(b.customer.name)}</b>
+          <div class="m"><span>${fmtDate(b.eventDate)} · ${(b.items||[]).length} items</span><span class="${bookingDue(b)>0?'due':''}">${bookingDue(b)>0?"Due "+inr(bookingDue(b)):"Paid"}</span></div>
+        </div>`).join(""):`<div class="rem-empty">Nothing scheduled.</div>`}
+    </div>`;
+  }).join("");
+}
+function renderList(list){
+  document.getElementById("listCount").textContent=list.length?("· "+list.length):"";
+  const empty=document.getElementById("bkEmpty");
+  empty.style.display=list.length?"none":"block";
+  document.getElementById("bkBody").innerHTML=list.map(b=>{
+    const ps=payState(b);
+    return `<tr class="row ${b.status==='cancelled'?'cancelled':''}" onclick="openDet('${b.id}')">
+      <td>${fmtDate(b.eventDate)}</td>
+      <td class="cust"><b>${esc(b.customer.name)}</b><small>📞 ${esc(b.customer.phone)}</small></td>
+      <td>${(b.items||[]).length}</td>
+      <td class="num">${inr(bookingTotal(b))}</td>
+      <td class="num">${inr(bookingPaid(b))}</td>
+      <td class="num">${bookingDue(b)>0?inr(bookingDue(b)):"—"}</td>
+      <td>${statusPill(b,ps)}</td>
+    </tr>`;
+  }).join("");
+  document.getElementById("bkCards").innerHTML=list.map(b=>{
+    const ps=payState(b);
+    return `<div class="bcard ${b.status==='cancelled'?'cancelled':''}" onclick="openDet('${b.id}')">
+      <div class="top"><b>${esc(b.customer.name)}</b>${statusPill(b,ps)}</div>
+      <div class="m">📅 ${fmtDate(b.eventDate)} · ${(b.items||[]).length} items · 📞 ${esc(b.customer.phone)}</div>
+      <div class="amts"><span>Total <b>${inr(bookingTotal(b))}</b></span><span>Paid ${inr(bookingPaid(b))}</span>${bookingDue(b)>0?`<span class="due">Due ${inr(bookingDue(b))}</span>`:""}</div>
+    </div>`;
+  }).join("");
+}
+function statusPill(b,ps){
+  if(b.status==="cancelled") return `<span class="pill canc">Cancelled</span>`;
+  return {paid:`<span class="pill paid">Paid</span>`,partial:`<span class="pill partial">Partial</span>`,unpaid:`<span class="pill unpaid">Unpaid</span>`}[ps];
+}
+
+/* ---------- expenses ---------- */
+function renderExpenses(){
+  const list=filteredExpenses();
+  const tot=expensesTotal(list);
+  document.getElementById("expCount").textContent=list.length?("· "+list.length+" · "+inr(tot)):"";
+  document.getElementById("addExpBtn").style.display=isAuthed?"inline-flex":"none";
+  document.getElementById("expEmpty").style.display=list.length?"none":"block";
+  document.getElementById("expBody").innerHTML=list.map(e=>`
+    <tr class="row" ${isAuthed?`onclick="openExpense('${e.id}')"`:""} style="${isAuthed?"":"cursor:default"}">
+      <td>${fmtDate(e.date)}</td>
+      <td>${esc(e.category||"—")}</td>
+      <td>${esc(e.note||"")}</td>
+      <td class="num">${inr(money(e.amount))}</td>
+      <td class="num">${isAuthed?"✏":""}</td>
+    </tr>`).join("");
+  document.getElementById("expCards").innerHTML=list.map(e=>`
+    <div class="bcard" ${isAuthed?`onclick="openExpense('${e.id}')"`:""}>
+      <div class="top"><b>${esc(e.category||"—")}</b><b>${inr(money(e.amount))}</b></div>
+      <div class="m">📅 ${fmtDate(e.date)}${e.note?" · "+esc(e.note):""}</div>
+    </div>`).join("");
+}
+function openExpense(id){
+  if(needAuth()) return;
+  curExpense = id ? (DB.expenses||[]).find(x=>String(x.id)===String(id)) : null;
+  document.getElementById("expTitle").textContent=curExpense?"Edit expense":"Add expense";
+  document.getElementById("exDate").value=curExpense?curExpense.date:todayISO();
+  document.getElementById("exCat").value=curExpense?(curExpense.category||""):"";
+  document.getElementById("exAmt").value=curExpense?curExpense.amount:"";
+  document.getElementById("exNote").value=curExpense?(curExpense.note||""):"";
+  document.getElementById("exErr").textContent="";
+  document.getElementById("exDelBtn").style.display=curExpense?"inline-flex":"none";
+  document.getElementById("expModal").classList.add("show");
+  setTimeout(()=>document.getElementById("exAmt").focus(),50);
+}
+function closeExpense(){ document.getElementById("expModal").classList.remove("show"); curExpense=null; }
+async function saveExpense(){
+  if(needAuth()) return;
+  const date=document.getElementById("exDate").value||todayISO();
+  const cat=document.getElementById("exCat").value.trim();
+  const amt=parseFloat(document.getElementById("exAmt").value)||0;
+  const note=document.getElementById("exNote").value.trim();
+  if(amt<=0){ document.getElementById("exErr").textContent="Enter an amount greater than 0."; return; }
+  if(!cat){ document.getElementById("exErr").textContent="Choose or type a category."; return; }
+  DB.expenses=DB.expenses||[];
+  if(curExpense){
+    curExpense.date=date; curExpense.category=cat; curExpense.amount=amt; curExpense.note=note;
+    const {ok,error}=await dbUpdateExpense(curExpense);
+    if(!ok){ document.getElementById("exErr").textContent="Save failed: "+(error&&error.message||"try again"); return; }
+  } else {
+    const e={id:newId(),date,category:cat,amount:amt,note};
+    const {ok,error}=await dbInsertExpense(e);
+    if(!ok){ document.getElementById("exErr").textContent="Save failed: "+(error&&error.message||"try again"); return; }
+    DB.expenses.push(e);
+  }
+  closeExpense(); render(); showBar("Expense saved");
+}
+async function deleteExpense(){
+  if(needAuth()||!curExpense) return;
+  if(!confirm("Delete this expense?")) return;
+  const {ok,error}=await dbDeleteExpense(curExpense.id);
+  if(!ok){ showBar("Delete failed: "+(error&&error.message||"try again"),"err"); return; }
+  DB.expenses=(DB.expenses||[]).filter(x=>String(x.id)!==String(curExpense.id));
+  closeExpense(); render(); showBar("Expense deleted");
+}
+
+/* ---------- detail modal ---------- */
+function openDet(id){
+  const b=(DB.bookings||[]).find(x=>String(x.id)===String(id)); if(!b) return; curBooking=b;
+  document.getElementById("dTitle").textContent=b.customer.name;
+  document.getElementById("dSub").textContent=`Event ${fmtLong(b.eventDate)} · booked ${fmtDate(createdISO(b))}${b.quoteNo?" · "+b.quoteNo:""}`;
+  renderDet();
+  document.getElementById("detModal").classList.add("show");
+}
+function renderDet(){
+  const b=curBooking; if(!b) return;
+  const rows=(b.items||[]).map((c,n)=>`<tr><td>${n+1}</td><td>${esc(c.name)}</td><td class="num">${c.qty}</td><td class="num">${inr(money(c.price))}</td><td class="num">${inr(money(c.price)*c.qty)}</td></tr>`).join("");
+  const pays=(b.payments||[]).map(p=>`<div class="pay-row"><span>${fmtDate(p.date)} · ${esc(p.method||"payment")}${p.note?" — "+esc(p.note):""}</span><span><b>${inr(p.amount)}</b>${isAuthed?` <button class="px" title="Remove" onclick="removePayment('${p.id}')">✕</button>`:""}</span></div>`).join("");
+  document.getElementById("dBody").innerHTML=`
+    <div class="det-grid">
+      <div><div class="lbl">Phone</div>${esc(b.customer.phone)}</div>
+      <div><div class="lbl">Status</div>${b.status==="cancelled"?'<span class="pill canc">Cancelled</span>':'<span class="pill '+payState(b)+'">'+({paid:"Paid",partial:"Partial",unpaid:"Unpaid"}[payState(b)])+'</span>'}</div>
+      <div style="grid-column:1/-1"><div class="lbl">Address</div>${esc(b.customer.address||"—")}</div>
+      ${b.notes?`<div style="grid-column:1/-1"><div class="lbl">Notes</div>${esc(b.notes)}</div>`:""}
+    </div>
+    <div class="det-sec"><h4>Items</h4>
+      <table class="mini"><thead><tr><th>#</th><th>Item</th><th class="num">Qty</th><th class="num">Rate</th><th class="num">Amount</th></tr></thead><tbody>${rows||'<tr><td colspan=5 style="color:var(--muted)">No items</td></tr>'}</tbody></table>
+      <div class="totbox">
+        <div class="r"><span>Total</span><span><b>${inr(bookingTotal(b))}</b></span></div>
+        <div class="r"><span>Paid</span><span>${inr(bookingPaid(b))}</span></div>
+        <div class="r g"><span>Due</span><span class="due">${inr(bookingDue(b))}</span></div>
+      </div>
+    </div>
+    <div class="det-sec"><h4>Payments</h4>
+      ${pays||'<div style="color:var(--muted);font-size:13px">No payments recorded yet.</div>'}
+      ${isAuthed&&b.status!=="cancelled"?`<div class="addpay">
+        <div class="minif"><label>Amount (₹)</label><input type="number" min="0" id="payAmt" placeholder="e.g. 5000"/></div>
+        <div class="minif"><label>Date</label><input type="date" id="payDate" value="${todayISO()}"/></div>
+        <button class="btn primary sm" onclick="addPayment()">+ Add</button>
+      </div>
+      <div class="minif" style="margin-top:8px"><label>Method / note (optional)</label><input id="payNote" placeholder="cash / UPI / cheque…"/></div>`:""}
+    </div>`;
+  const foot=[];
+  foot.push(`<button class="btn wa" onclick="waRemind()">💬 Remind customer</button>`);
+  foot.push(`<button class="btn ghost" onclick="printInvoice()">🖨 Invoice</button>`);
+  if(isAuthed&&b.status!=="cancelled"){
+    foot.push(`<button class="btn" onclick="openEdit()">✏ Edit</button>`);
+    foot.push(`<button class="btn danger" onclick="cancelBooking()">✕ Cancel booking</button>`);
+  }
+  if(isAuthed&&b.status==="cancelled") foot.push(`<button class="btn" onclick="restoreBooking()">↺ Restore</button>`);
+  document.getElementById("dFoot").innerHTML=foot.join("");
+}
+function closeDet(){ document.getElementById("detModal").classList.remove("show"); curBooking=null; }
+
+/* ---------- payments ---------- */
+async function addPayment(){
+  if(needAuth()||!curBooking) return;
+  const amt=parseFloat(document.getElementById("payAmt").value)||0;
+  if(amt<=0){ showBar("Enter an amount","err"); return; }
+  const date=document.getElementById("payDate").value||todayISO();
+  const note=document.getElementById("payNote").value.trim();
+  curBooking.payments=curBooking.payments||[];
+  const p={id:newId(),amount:amt,date,method:note?note:"payment",note:""};
+  curBooking.payments.push(p);
+  const {ok,error}=await dbUpdateBooking(curBooking);
+  if(!ok){ curBooking.payments=curBooking.payments.filter(x=>x!==p); showBar("Save failed: "+(error&&error.message||"try again"),"err"); return; }
+  renderDet(); render(); showBar("Payment recorded");
+}
+async function removePayment(pid){
+  if(needAuth()||!curBooking) return;
+  if(!confirm("Remove this payment?")) return;
+  const prev=curBooking.payments||[];
+  curBooking.payments=prev.filter(p=>String(p.id)!==String(pid));
+  const {ok,error}=await dbUpdateBooking(curBooking);
+  if(!ok){ curBooking.payments=prev; showBar("Save failed: "+(error&&error.message||"try again"),"err"); return; }
+  renderDet(); render(); showBar("Payment removed");
+}
+
+/* ---------- cancel / restore ---------- */
+async function cancelBooking(){
+  if(needAuth()||!curBooking) return;
+  if(!confirm("Cancel this booking? Items will be freed back into inventory.")) return;
+  curBooking.status="cancelled";
+  const {ok,error}=await dbUpdateBooking(curBooking);
+  if(!ok){ curBooking.status="confirmed"; showBar("Save failed: "+(error&&error.message||"try again"),"err"); return; }
+  renderDet(); render(); showBar("Booking cancelled");
+}
+async function restoreBooking(){
+  if(needAuth()||!curBooking) return;
+  curBooking.status="confirmed";
+  const {ok,error}=await dbUpdateBooking(curBooking);
+  if(!ok){ curBooking.status="cancelled"; showBar("Save failed: "+(error&&error.message||"try again"),"err"); return; }
+  renderDet(); render(); showBar("Booking restored");
+}
+
+/* ---------- edit ---------- */
+function openEdit(){
+  if(needAuth()||!curBooking) return;
+  editSnap={items:JSON.parse(JSON.stringify(curBooking.items||[])), eventDate:curBooking.eventDate};
+  document.getElementById("eSub").textContent=curBooking.customer.name;
+  document.getElementById("eDate").value=curBooking.eventDate||todayISO();
+  document.getElementById("eTotal").value=(curBooking.total===""||curBooking.total==null)?"":curBooking.total;
+  document.getElementById("eNotes").value=curBooking.notes||"";
+  const sel=document.getElementById("eAddSel");
+  sel.innerHTML=`<option value="">Choose an item to add…</option>`+
+    (DB.items||[]).filter(i=>i.available!==false).map(i=>`<option value="${i.id}">${esc(i.name)} — ${inr(money(i.price))}</option>`).join("");
+  sel.onchange=function(){ if(this.value){ addEditItem(parseInt(this.value)); this.value=""; } };
+  renderEditItems();
+  document.getElementById("editModal").classList.add("show");
+}
+function renderEditItems(){
+  const its=curBooking.items||[];
+  document.getElementById("eItems").innerHTML=its.length?its.map((c,idx)=>`
+    <div class="editrow">
+      <div class="nm"><b>${esc(c.name)}</b><div style="font-size:12px;color:var(--muted)">${inr(money(c.price))} ${esc(c.unit||"")}</div></div>
+      <div class="stepper"><button onclick="editQty(${idx},-1)">–</button><span class="val">${c.qty}</span><button onclick="editQty(${idx},1)">+</button></div>
+      <button class="rm" title="Remove" onclick="editRemove(${idx})">🗑</button>
+    </div>`).join(""):`<div style="color:var(--muted);font-size:13px">No items — add some below.</div>`;
+}
+function editQty(idx,delta){ const c=curBooking.items[idx]; if(!c)return; c.qty=Math.max(1,(c.qty||1)+delta); renderEditItems(); }
+function editRemove(idx){ curBooking.items.splice(idx,1); renderEditItems(); }
+function addEditItem(id){
+  const i=DB.items.find(x=>x.id===id); if(!i) return;
+  const ex=curBooking.items.find(c=>c.id===id);
+  if(ex) ex.qty++; else curBooking.items.push({id:i.id,name:i.name,price:money(i.price),unit:i.unit||"",qty:1});
+  renderEditItems();
+}
+async function saveEdit(){
+  if(needAuth()||!curBooking) return;
+  const newDate=document.getElementById("eDate").value||curBooking.eventDate;
+  const tot=document.getElementById("eTotal").value.trim();
+  curBooking.eventDate=newDate;
+  curBooking.total=tot===""?"":money(tot);
+  curBooking.notes=document.getElementById("eNotes").value.trim();
+  const {ok,error}=await dbUpdateBooking(curBooking);
+  if(!ok){ showBar("Save failed: "+(error&&error.message||"try again"),"err"); return; }
+  closeEdit(); renderDet(); render(); showBar("Booking updated");
+}
+function closeEdit(){ document.getElementById("editModal").classList.remove("show"); }
+
+/* ---------- WhatsApp reminder ---------- */
+function waRemind(){
+  const b=curBooking; if(!b) return;
+  const s=DB.settings||{};
+  let msg=`*${s.bizName||"Corporative Tent House"}* — booking reminder\n\n`;
+  msg+=`Hello ${b.customer.name}, this is a reminder for your event on *${fmtLong(b.eventDate)}*.\n\n*Items:*\n`;
+  (b.items||[]).forEach((c,n)=>{ msg+=`${n+1}. ${c.name} × ${c.qty}\n`; });
+  msg+=`\n*Total:* ${inr(bookingTotal(b))}\n*Paid:* ${inr(bookingPaid(b))}\n`;
+  if(bookingDue(b)>0) msg+=`*Balance due:* ${inr(bookingDue(b))}\n`;
+  msg+=`\nThank you!`;
+  const phone=(b.customer.phone||"").replace(/[^0-9]/g,"");
+  const wa=phone.length>=11?phone:("91"+phone);
+  window.open(`https://wa.me/${wa}?text=${encodeURIComponent(msg)}`,"_blank");
+}
+
+/* ---------- export ---------- */
+function reportRows(){
+  return filteredBookings().map(b=>({
+    "Booked on":createdISO(b),
+    "Event date":b.eventDate||"",
+    "Customer":b.customer.name,
+    "Phone":b.customer.phone,
+    "Address":b.customer.address||"",
+    "Items":(b.items||[]).map(c=>`${c.name} x${c.qty}`).join("; "),
+    "Total":bookingTotal(b),
+    "Paid":bookingPaid(b),
+    "Due":bookingDue(b),
+    "Status":b.status||"confirmed"
+  }));
+}
+function expenseRows(){
+  return filteredExpenses().map(e=>({ "Date":e.date||"", "Category":e.category||"", "Note":e.note||"", "Amount":money(e.amount) }));
+}
+function summaryRows(){
+  const active=filteredBookings().filter(b=>b.status!=="cancelled");
+  const revenue=active.reduce((s,b)=>s+bookingTotal(b),0);
+  const collected=paymentsInWindow();
+  const expenses=expensesTotal(filteredExpenses());
+  const dues=active.reduce((s,b)=>s+bookingDue(b),0);
+  return [
+    {"Measure":"Bookings","Value":active.length},
+    {"Measure":"Booked value (agreed)","Value":revenue},
+    {"Measure":"Collected (payments in period)","Value":collected},
+    {"Measure":"Dues (still to collect)","Value":dues},
+    {"Measure":"Expenses","Value":expenses},
+    {"Measure":"Net profit (cash: collected − expenses)","Value":collected-expenses},
+    {"Measure":"Net profit (booked value − expenses)","Value":revenue-expenses}
+  ];
+}
+function exportExcel(){
+  const rows=reportRows(), exp=expenseRows(), summ=summaryRows();
+  if(!rows.length && !exp.length){ showBar("Nothing to export","err"); return; }
+  if(window.XLSX){
+    const wb=XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(summ),"Summary");
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(rows.length?rows:[{}]),"Bookings");
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(exp.length?exp:[{}]),"Expenses");
+    XLSX.writeFile(wb,"report-"+todayISO()+".xlsx");
+  } else {
+    const toCsv=arr=>{ if(!arr.length) return ""; const h=Object.keys(arr[0]); return [h.join(",")].concat(arr.map(r=>h.map(k=>`"${String(r[k]).replace(/"/g,'""')}"`).join(","))).join("\n"); };
+    const csv="SUMMARY\n"+toCsv(summ)+"\n\nBOOKINGS\n"+toCsv(rows)+"\n\nEXPENSES\n"+toCsv(exp);
+    const a=document.createElement("a"); a.href=URL.createObjectURL(new Blob(["\ufeff"+csv],{type:"text/csv"})); a.download="report-"+todayISO()+".csv"; a.click();
+  }
+  showBar("Report downloaded");
+}
+function exportPDF(){
+  const list=filteredBookings(), s=DB.settings||{};
+  const active=list.filter(b=>b.status!=="cancelled");
+  const revenue=active.reduce((x,b)=>x+bookingTotal(b),0), due=active.reduce((x,b)=>x+bookingDue(b),0);
+  const collected=paymentsInWindow();
+  const expList=filteredExpenses(), expenses=expensesTotal(expList);
+  const label=document.getElementById("rangeSel").selectedOptions[0].text;
+  const expTable = expList.length ? `
+    <h3 style="font-family:var(--display);margin:20px 0 6px">Expenses</h3>
+    <table class="pr"><thead><tr><th>Date</th><th>Category</th><th>Note</th><th class="num">Amount</th></tr></thead>
+    <tbody>${expList.map(e=>`<tr><td>${fmtDate(e.date)}</td><td>${esc(e.category||"")}</td><td>${esc(e.note||"")}</td><td class="num">${inr(money(e.amount))}</td></tr>`).join("")}</tbody></table>` : "";
+  document.getElementById("printArea").innerHTML=`
+    <div class="pr-head"><div><h2>${esc(s.bizName||"Corporative Tent House")}</h2><div class="tag">Business report · ${esc(label)} · by ${basis==="event"?"event date":"booking date"}</div></div>
+      <div style="text-align:right;font-size:12px">Generated ${fmtDate(todayISO())}</div></div>
+    <table class="pr"><thead><tr><th>Event date</th><th>Customer</th><th>Phone</th><th>Items</th><th class="num">Total</th><th class="num">Paid</th><th class="num">Due</th><th>Status</th></tr></thead>
+    <tbody>${list.map(b=>`<tr><td>${fmtDate(b.eventDate)}</td><td>${esc(b.customer.name)}</td><td>${esc(b.customer.phone)}</td><td>${(b.items||[]).map(c=>esc(c.name)+" x"+c.qty).join(", ")}</td><td class="num">${inr(bookingTotal(b))}</td><td class="num">${inr(bookingPaid(b))}</td><td class="num">${inr(bookingDue(b))}</td><td>${b.status||"confirmed"}</td></tr>`).join("")}</tbody></table>
+    ${expTable}
+    <div class="pr-tot" style="border-top:2px solid var(--brand);margin-top:18px;padding-top:12px">
+      <span>Bookings: <b>${active.length}</b></span>
+      <span>Booked value: <b>${inr(revenue)}</b></span>
+      <span>Collected: <b>${inr(collected)}</b></span>
+      <span>Dues: <b>${inr(due)}</b></span>
+      <span>Expenses: <b>${inr(expenses)}</b></span>
+      <span>Net (cash): <b>${collected-expenses<0?"−":""}${inr(Math.abs(collected-expenses))}</b></span>
+    </div>`;
+  window.print();
+}
+function printInvoice(){
+  const b=curBooking; if(!b) return; const s=DB.settings||{};
+  document.getElementById("printArea").innerHTML=`
+    <div class="pr-head"><div><h2>${esc(s.bizName||"Corporative Tent House")}</h2><div class="tag">${esc(s.founder||"")} ${s.phone?" · 📞 "+esc(s.phone):""}</div></div>
+      <div style="text-align:right"><div style="font-family:var(--display);font-size:20px;color:var(--brand-deep)">INVOICE</div><div style="font-size:12px">${esc(b.quoteNo||"")}<br>${fmtDate(todayISO())}</div></div></div>
+    <div style="margin-bottom:12px;font-size:13px"><b>${esc(b.customer.name)}</b><br>📞 ${esc(b.customer.phone)}<br>📅 ${fmtLong(b.eventDate)}<br>📍 ${esc(b.customer.address||"")}</div>
+    <table class="pr"><thead><tr><th>#</th><th>Item</th><th class="num">Qty</th><th class="num">Rate</th><th class="num">Amount</th></tr></thead>
+    <tbody>${(b.items||[]).map((c,n)=>`<tr><td>${n+1}</td><td>${esc(c.name)}</td><td class="num">${c.qty}</td><td class="num">${inr(money(c.price))}</td><td class="num">${inr(money(c.price)*c.qty)}</td></tr>`).join("")}</tbody></table>
+    <div class="pr-tot"><span>Total: <b>${inr(bookingTotal(b))}</b></span><span>Paid: <b>${inr(bookingPaid(b))}</b></span><span>Balance due: <b>${inr(bookingDue(b))}</b></span></div>`;
+  window.print();
+}
+
+/* ---------- auto-reminder settings ---------- */
+function openRemSettings(){
+  const r=(DB&&DB.settings&&DB.settings.reminders)||{leads:{}};
+  document.getElementById("rmEnabled").checked=!!r.enabled;
+  document.getElementById("rmChannel").value=r.channel||"whatsapp";
+  document.getElementById("rmPhone").value=r.phone||"";
+  document.getElementById("rmApikey").value=r.apikey||"";
+  document.getElementById("rmEmail").value=r.email||"";
+  const L=r.leads||{};
+  document.getElementById("rmD30").checked=L.d30!==false;
+  document.getElementById("rmD7").checked=L.d7!==false;
+  document.getElementById("rmD1").checked=L.d1!==false;
+  document.getElementById("rmD0").checked=L.d0!==false;
+  onRmChannel();
+  document.getElementById("setupBody").innerHTML=setupGuideHTML();
+  document.getElementById("remModal").classList.add("show");
+}
+function closeRemSettings(){ document.getElementById("remModal").classList.remove("show"); }
+function onRmChannel(){
+  const c=document.getElementById("rmChannel").value;
+  document.getElementById("rmWaFields").style.display=c==="whatsapp"?"block":"none";
+  document.getElementById("rmEmailFields").style.display=c==="email"?"block":"none";
+}
+async function saveRemSettings(){
+  if(needAuth()) return;
+  DB.settings=DB.settings||{};
+  DB.settings.reminders={
+    enabled:document.getElementById("rmEnabled").checked,
+    channel:document.getElementById("rmChannel").value,
+    phone:document.getElementById("rmPhone").value.replace(/[^0-9]/g,""),
+    apikey:document.getElementById("rmApikey").value.trim(),
+    email:document.getElementById("rmEmail").value.trim(),
+    leads:{
+      d30:document.getElementById("rmD30").checked,
+      d7:document.getElementById("rmD7").checked,
+      d1:document.getElementById("rmD1").checked,
+      d0:document.getElementById("rmD0").checked
+    },
+    lastRun:(DB.settings.reminders&&DB.settings.reminders.lastRun)||""
+  };
+  if(await saveBlob()){ closeRemSettings(); showBar("Reminder settings saved"); }
+}
+function setupGuideHTML(){
+  return `
+  <p class="hint">Do this once. After that, reminders arrive on their own — you don't need to keep this page open.</p>
+  <div class="step-h">A · Get your free WhatsApp key (skip if using email)</div>
+  <ol>
+    <li>Save this number in your phone: <code>+34 644 51 95 23</code> (CallMeBot).</li>
+    <li>From your WhatsApp, send it this exact message: <code>I allow callmebot to send me messages</code></li>
+    <li>It replies with your <b>API key</b>. Type that key, and your own number (like <code>91XXXXXXXXXX</code>), into the boxes above and press <b>Save settings</b>.</li>
+  </ol>
+  <div class="step-h">B · Add the reminder robot to Supabase (one time)</div>
+  <ol>
+    <li>Open your project on <a href="https://supabase.com/dashboard" target="_blank" rel="noopener">supabase.com/dashboard</a> → left menu → <b>Edge Functions</b> → <b>Deploy a new function</b>.</li>
+    <li>Name it <code>daily-reminders</code>. Paste in the code from the file <code>supabase/functions/daily-reminders/index.ts</code> (it's in your website folder) and click <b>Deploy</b>.</li>
+    <li>That's all it needs for WhatsApp — the robot can already read your bookings automatically. (No extra keys to add.)</li>
+  </ol>
+  <div class="step-h">C · Tell it to run every day</div>
+  <ol>
+    <li>Left menu → <b>Integrations</b> → <b>Cron</b> → <b>Create job</b>.</li>
+    <li>Schedule: every day at your preferred time (e.g. <code>0 3 * * *</code> = 8:30 AM India time).</li>
+    <li>Set it to call the <b>daily-reminders</b> Edge Function. Save. That's it! ✅</li>
+  </ol>
+  <p class="hint">Prefer email instead of WhatsApp? Pick “Email” above, and in step B also add a <code>RESEND_API_KEY</code> secret (free at resend.com). The same robot then emails you.</p>`;
+}
+
+/* ---------- misc ---------- */
+let barTimer=null;
+function showBar(msg,kind){ const el=document.getElementById("savebar"); el.className="savebar show"+(kind==="err"?" err":""); el.textContent=msg; clearTimeout(barTimer); barTimer=setTimeout(()=>el.classList.remove("show"),2400); }
+function brandLogo(){
+  return `<svg viewBox="0 0 72 86" preserveAspectRatio="xMidYMid meet" width="100%" height="100%">
+    <path d="M8 30 C8 16 22 10 36 10 C50 10 64 16 64 30 q-4.66 6 -9.33 0 q-4.66 6 -9.33 0 q-4.66 6 -9.33 0 q-4.66 6 -9.33 0 q-4.66 6 -9.33 0 q-4.66 6 -9.33 0 Z" fill="var(--brand)"/>
+    <circle cx="36" cy="4" r="2" fill="var(--brand)"/><path d="M36 10 V5" stroke="var(--brand)" stroke-width="1.6"/>
+    <rect x="39.5" y="45" width="3.6" height="19" rx="1" fill="var(--brand-deep)"/><rect x="35" y="45" width="14.5" height="3.4" rx="1" fill="var(--brand-deep)"/>
+    <rect x="52" y="48.5" width="3.6" height="15.5" rx="1" fill="var(--brand)"/><rect x="43.1" y="53.6" width="9" height="3.2" fill="var(--brand)"/>
+    <path d="M22 79 V70 M22 74 H26 M26 74 V79 M50 79 V70 M50 74 H46 M46 74 V79" fill="none" stroke="var(--brand-deep)" stroke-width="2" stroke-linecap="round"/>
+    <ellipse cx="36" cy="70" rx="8.5" ry="2.2" fill="var(--brand-deep)"/></svg>`;
+}
+
+/* ---------- boot ---------- */
+async function boot(){
+  document.getElementById("brandLogo").innerHTML=brandLogo();
+  await refreshAuth();
+  const d=await loadDB();
+  if(!d){ document.querySelector(".wrap").insertAdjacentHTML("beforeend",'<div class="empty">Could not load data. Check your connection and refresh.</div>'); return; }
+  DB=d;
+  if(DB.settings&&DB.settings.bizName) document.getElementById("bizName").textContent=DB.settings.bizName;
+  render();
+  sb.auth.onAuthStateChange(()=>{ refreshAuth().then(render); });
+}
+boot();
+</script>
+</body>
+</html>

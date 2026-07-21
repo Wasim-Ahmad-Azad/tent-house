@@ -1,0 +1,19 @@
+/* Corporative Tent House — shared theme (Gold Fusion).
+   Edit colours/fonts here ONCE and every admin page updates. */
+:root{
+  --brand:#8E744B; --brand-rgb:142,116,75; --brand-2:#a68c5f; --brand-deep:#6f5a3a;
+  --bg:#fdfcf9; --card:#ffffff; --ink:#2b2620; --muted:#8f8674; --line:#e8e1d4;
+  --ok:#3f7d4e; --ok-bg:#eef6ef;
+  --low:#bd8218; --low-bg:#fbf3e0;
+  --full:#c0453b; --full-bg:#fceceb;
+  --blue:#3a6ea5; --blue-bg:#eaf1f8;
+  --serif:"Cormorant Garamond",Georgia,serif;
+  --display:"Marcellus",Georgia,serif;
+  --sans:"Mulish",system-ui,sans-serif;
+  --shadow:0 6px 24px rgba(90,70,40,.08);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+button{font-family:inherit;cursor:pointer}
+input,textarea,select{font-family:inherit}
