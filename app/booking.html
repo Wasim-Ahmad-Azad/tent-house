@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>New Booking — Tent House Manager</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#7a5c3e">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Marcellus&family=Mulish:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="theme.css">
+<style>
+body{padding-bottom:96px}
+
+/* ---------- Top bar ---------- */
+.topbar{background:var(--card);border-bottom:1px solid var(--line);padding:14px 18px;display:flex;align-items:center;gap:12px}
+.brand{display:flex;align-items:center;gap:11px;min-width:0}
+.brand .logo{width:40px;height:40px;border-radius:11px;background:linear-gradient(150deg,rgba(var(--brand-rgb),.14),rgba(var(--brand-rgb),.04));display:grid;place-items:center;flex:none}
+.brand .logo svg{width:26px;height:26px}
+.brand h1{font-family:var(--display);font-size:18px;margin:0;letter-spacing:.3px;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand .sub{font-size:11px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase}
+.topbar .spacer{flex:1}
+.btn{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:9px 15px;font-size:14px;font-weight:700;transition:all .18s;display:inline-flex;align-items:center;gap:7px;text-decoration:none}
+.btn:hover{border-color:var(--brand)}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
+.btn.primary:hover{background:var(--brand-deep);border-color:var(--brand-deep)}
+.btn.wa{background:#25913a;border-color:#25913a;color:#fff}
+.btn.wa:hover{background:#1e7a30;border-color:#1e7a30}
+.btn.ghost{background:transparent}
+.btn.sm{padding:6px 11px;font-size:12.5px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.authpill{border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:12.5px;font-weight:700;color:var(--muted);cursor:pointer;white-space:nowrap;transition:all .15s}
+.authpill:hover{border-color:var(--brand)}
+.authpill.on{color:var(--ok);border-color:#bfe0c4;background:var(--ok-bg)}
+
+.wrap{max-width:1100px;margin:0 auto;padding:20px 18px}
+.grid2{display:grid;gap:18px;grid-template-columns:1fr}
+@media(min-width:860px){ .grid2{grid-template-columns:1.2fr 1fr;align-items:start} }
+
+/* ---------- Cards / sections ---------- */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:var(--shadow);margin-bottom:18px}
+.panel h2{font-family:var(--display);font-size:20px;margin:0 0 3px}
+.panel .hint{font-size:13px;color:var(--muted);margin:0 0 16px}
+.step-badge{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--brand);color:#fff;font-size:14px;font-weight:800;margin-right:8px;vertical-align:-4px}
+
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:6px}
+.field input,.field textarea{width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:10px;font-size:15px;background:var(--card);color:var(--ink)}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--brand)}
+.field textarea{min-height:76px;resize:vertical}
+.two{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+@media(max-width:480px){ .two{grid-template-columns:1fr} }
+
+/* ---------- Item picker ---------- */
+.search-wrap{position:relative;margin-bottom:12px}
+.search-wrap input{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px 14px 12px 40px;font-size:15px;background:var(--card)}
+.search-wrap input:focus{outline:none;border-color:var(--brand)}
+.search-wrap .ic{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--muted)}
+.cats{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch}
+.cats::-webkit-scrollbar{display:none}
+.cat{white-space:nowrap;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:8px 15px;font-size:13px;font-weight:700;transition:all .18s}
+.cat.active{background:var(--brand);border-color:var(--brand);color:#fff}
+
+.items{display:grid;gap:10px;margin-top:14px}
+.item{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:12px;padding:11px 12px;transition:border-color .18s}
+.item.picked{border-color:var(--brand);background:rgba(var(--brand-rgb),.04)}
+.item .thumb{width:52px;height:52px;border-radius:10px;object-fit:cover;flex:none;border:1px solid var(--line);background:#f2efe8}
+.item .thumb-ph{display:grid;place-items:center;font-family:var(--display);font-size:22px;color:var(--brand);background:linear-gradient(150deg,rgba(var(--brand-rgb),.14),rgba(var(--brand-rgb),.04))}
+.item .info{flex:1;min-width:0}
+.item .info b{font-family:var(--serif);font-weight:700;font-size:17px;display:block;line-height:1.15}
+.item .info .meta{font-size:12.5px;color:var(--muted);margin-top:2px}
+.item .info .price{color:var(--brand-deep);font-weight:700}
+.item .info .rem{font-weight:700}
+.item .info .rem.low{color:var(--low)} .item .info .rem.out{color:var(--full)}
+.item .add{border:1px solid var(--brand);background:var(--card);color:var(--brand-deep);border-radius:9px;padding:9px 14px;font-weight:800;font-size:13.5px;white-space:nowrap;transition:all .15s}
+.item .add:hover{background:var(--brand);color:#fff}
+.item .add:disabled{border-color:var(--line);color:#cfc8ba;background:var(--card)}
+.stepper{display:flex;align-items:center;border:1px solid var(--line);border-radius:10px;overflow:hidden;flex:none}
+.stepper button{width:40px;height:42px;border:none;background:var(--card);font-size:22px;font-weight:700;color:var(--brand-deep);display:grid;place-items:center;transition:background .12s,transform .08s}
+.stepper button:active{transform:scale(.9);background:rgba(var(--brand-rgb),.1)}
+.stepper button:disabled{color:#cfc8ba}
+.stepper .val{min-width:40px;text-align:center;font-family:var(--display);font-size:19px;border-left:1px solid var(--line);border-right:1px solid var(--line);height:42px;line-height:42px}
+
+/* ---------- Quote summary (sticky) ---------- */
+.summary-panel{position:sticky;top:18px}
+.qline{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.qline:last-of-type{border-bottom:none}
+.qline .qn{flex:1;min-width:0}
+.qline .qn b{font-weight:700}
+.qline .qn small{display:block;color:var(--muted);font-size:12px}
+.qline .qa{font-weight:800;white-space:nowrap}
+.qline .qx{color:var(--full);background:none;border:none;font-size:16px;padding:0 0 0 8px}
+.q-empty{color:var(--muted);text-align:center;padding:24px 0;font-size:14px}
+.q-total{display:flex;justify-content:space-between;align-items:baseline;margin-top:14px;padding-top:14px;border-top:2px solid var(--line)}
+.q-total .l{font-family:var(--display);font-size:17px}
+.q-total .v{font-family:var(--display);font-size:28px;color:var(--brand-deep)}
+.q-note{font-size:12px;color:var(--muted);margin-top:4px;text-align:right}
+
+/* ---------- Sticky action bar ---------- */
+.actionbar{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:12px 18px;z-index:50;box-shadow:0 -6px 20px rgba(90,70,40,.07)}
+.actionbar .inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.actionbar .tally{min-width:0}
+.actionbar .tally .n{font-family:var(--display);font-size:22px;line-height:1}
+.actionbar .tally .l{font-size:12px;color:var(--muted)}
+.actionbar .spacer{flex:1}
+.actionbar .btn{padding:12px 18px}
+@media(max-width:560px){
+  .actionbar .btn{padding:11px 13px;font-size:13px}
+  .actionbar .tally .n{font-size:18px}
+}
+
+/* ---------- Quote sheet modal ---------- */
+.modal{position:fixed;inset:0;background:rgba(43,38,32,.55);display:none;z-index:100;overflow:auto;padding:24px 16px}
+.modal.show{display:block}
+.sheet-wrap{max-width:720px;margin:0 auto}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-bottom:14px;flex-wrap:wrap}
+.quote-sheet{background:#fff;border-radius:14px;padding:34px 34px 28px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.qs-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;border-bottom:2px solid var(--brand);padding-bottom:16px;flex-wrap:wrap}
+.qs-biz{display:flex;gap:12px;align-items:center}
+.qs-biz .logo{width:52px;height:52px;flex:none}
+.qs-biz h3{font-family:var(--display);font-size:22px;margin:0;line-height:1.1}
+.qs-biz .tag{font-size:11px;color:var(--muted);letter-spacing:1.2px;text-transform:uppercase}
+.qs-biz .contact{font-size:12.5px;color:var(--muted);margin-top:5px;line-height:1.5}
+.qs-meta{text-align:right;font-size:13px}
+.qs-meta .title{font-family:var(--display);font-size:26px;color:var(--brand-deep);letter-spacing:2px}
+.qs-meta .row{color:var(--muted);margin-top:3px}
+.qs-meta .row b{color:var(--ink)}
+.qs-billto{margin:20px 0 14px;font-size:14px}
+.qs-billto .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:5px}
+.qs-billto b{font-size:16px}
+.qs-billto .line{color:var(--ink);margin-top:2px}
+table.qs-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:14px}
+table.qs-table th{text-align:left;background:rgba(var(--brand-rgb),.08);color:var(--brand-deep);font-size:11.5px;text-transform:uppercase;letter-spacing:.5px;padding:9px 10px}
+table.qs-table th.num,table.qs-table td.num{text-align:right}
+table.qs-table td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+table.qs-table td .u{color:var(--muted);font-size:12px}
+.qs-tot{margin-top:14px;margin-left:auto;width:min(300px,100%)}
+.qs-tot .r{display:flex;justify-content:space-between;padding:6px 0;font-size:14px}
+.qs-tot .r.grand{border-top:2px solid var(--brand);margin-top:6px;padding-top:12px;font-family:var(--display);font-size:20px}
+.qs-tot .r.grand .v{color:var(--brand-deep)}
+.qs-terms{margin-top:22px;font-size:12px;color:var(--muted);line-height:1.6;border-top:1px dashed var(--line);padding-top:14px}
+.qs-thanks{text-align:center;font-family:var(--display);font-size:18px;color:var(--brand-deep);margin-top:18px}
+
+.savebar{position:fixed;left:50%;bottom:88px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:11px 20px;border-radius:999px;font-size:13.5px;font-weight:700;box-shadow:0 10px 30px rgba(0,0,0,.2);opacity:0;transition:all .28s;pointer-events:none;z-index:120}
+.savebar.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.savebar.err{background:var(--full)}
+
+@media print{
+  body{background:#fff;padding:0}
+  body > *:not(#quoteModal){display:none!important}
+  #quoteModal{position:static;display:block;background:#fff;padding:0;overflow:visible}
+  .modal-actions{display:none!important}
+  .sheet-wrap{max-width:100%}
+  .quote-sheet{box-shadow:none;border-radius:0;padding:0}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <span class="logo" id="brandLogo"></span>
+    <div>
+      <h1 id="bizName">Corporative Tent House</h1>
+      <div class="sub">New Booking / Quote</div>
+    </div>
+  </div>
+  <div class="spacer"></div>
+  <span class="authpill" id="authPill" onclick="authPillClick()">🔒 Log in to save</span>
+  <a class="btn ghost sm" href="index.html">🏠 Home</a>
+  <a class="btn ghost sm" href="analytics.html">📊 Reports</a>
+  <a class="btn ghost sm" href="inventory.html">📦 Inventory</a>
+</div>
+
+<div class="wrap">
+  <div class="grid2">
+    <div>
+      <div class="panel">
+        <h2><span class="step-badge">1</span>Customer details</h2>
+        <p class="hint">Who is this booking for, and when?</p>
+        <div class="two">
+          <div class="field"><label>Customer name</label><input id="cName" placeholder="e.g. Ramesh Kumar" oninput="render()"/></div>
+          <div class="field"><label>Phone number</label><input id="cPhone" type="tel" placeholder="10-digit mobile" oninput="render()"/></div>
+        </div>
+        <div class="field"><label>Event date</label><input id="cDate" type="date" onchange="onDateChange()"/></div>
+        <div class="field"><label>Full address (with landmark)</label><textarea id="cAddress" placeholder="House / village, nearest landmark, area, PIN" oninput="render()"></textarea></div>
+        <div class="two">
+          <div class="field"><label>Agreed total (₹) — optional</label><input id="cTotal" type="number" min="0" placeholder="Leave blank to use estimate" oninput="render()"/></div>
+          <div class="field"><label>Advance received now (₹) — optional</label><input id="cAdvance" type="number" min="0" placeholder="0" oninput="render()"/></div>
+        </div>
+        <div id="savedNote" style="display:none;background:var(--ok-bg);border:1px solid #bfe0c4;border-radius:10px;padding:12px 13px;font-size:13.5px;color:#215c30">
+          <span id="savedMsg"></span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2><span class="step-badge">2</span>Select items</h2>
+        <p class="hint" id="pickHint">Add tents, seating, lighting, catering and more to the quote.</p>
+        <div class="search-wrap"><span class="ic">🔍</span><input id="search" placeholder="Search items…" oninput="render()"/></div>
+        <div class="cats" id="cats"></div>
+        <div class="items" id="items"></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="panel summary-panel">
+        <h2>Quote summary</h2>
+        <p class="hint" id="sumDate">No event date chosen yet.</p>
+        <div id="qlines"></div>
+        <div class="q-total"><span class="l">Estimated total</span><span class="v" id="qTotal">₹0</span></div>
+        <div class="q-note">Final price confirmed on WhatsApp.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="actionbar">
+  <div class="inner">
+    <div class="tally">
+      <div class="n" id="barCount">0 items</div>
+      <div class="l" id="barTotal">₹0 estimated</div>
+    </div>
+    <div class="spacer"></div>
+    <button class="btn ghost" id="previewBtn" onclick="openQuote()">📄 Preview quote</button>
+    <button class="btn wa" id="waBtn" onclick="sendWhatsApp()">💬 WhatsApp</button>
+    <button class="btn primary" id="saveBtn" onclick="saveBooking()">✅ Save booking</button>
+  </div>
+</div>
+
+<div class="modal" id="quoteModal">
+  <div class="sheet-wrap">
+    <div class="modal-actions">
+      <button class="btn ghost" onclick="closeQuote()">✕ Close</button>
+      <button class="btn" onclick="window.print()">🖨 Print / Save PDF</button>
+      <button class="btn wa" onclick="sendWhatsApp()">💬 Send on WhatsApp</button>
+    </div>
+    <div class="quote-sheet" id="quoteSheet"></div>
+  </div>
+</div>
+
+<div class="modal" id="loginModal">
+  <div class="sheet-wrap" style="max-width:400px">
+    <div class="quote-sheet" style="padding:26px">
+      <h2 style="font-family:var(--display);margin:0 0 4px">Admin login</h2>
+      <p class="hint" style="color:var(--muted);font-size:13px;margin:0 0 16px">Log in to save bookings into your records. Same email &amp; password as the site admin.</p>
+      <div class="field"><label>Email</label><input id="liEmail" type="email" autocomplete="username" placeholder="you@example.com"/></div>
+      <div class="field"><label>Password</label><input id="liPass" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+      <div id="liErr" style="color:var(--full);font-size:13px;min-height:18px;margin-bottom:6px"></div>
+      <div style="display:flex;gap:10px;justify-content:flex-end">
+        <button class="btn ghost" onclick="closeLogin()">Cancel</button>
+        <button class="btn primary" id="liBtn" onclick="doLogin()">Log in</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="savebar" id="savebar"></div>
+
+<script src="common.js"></script>
+<script>
+/* Offline backend + shared helpers now come from /common.js (this device only) */
+let DB = null;
+let cart = {};          // id -> {id,name,price,unit,img,qty}
+let activeCat = "All";
+let quoteNo = "";
+
+/* ---------- page-specific helpers ---------- */
+function fmtNiceDate(s){ if(!s) return ""; return new Date(s+"T00:00:00").toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"long",year:"numeric"}); }
+
+function normalize(d){
+  (d.items||[]).forEach(it=>{
+    if(!('stock' in it)) it.stock="";
+    if(!it.bookedByDate || typeof it.bookedByDate!=="object"){
+      it.bookedByDate={}; const legacy=parseInt(it.booked)||0; if(legacy>0) it.bookedByDate[todayISO()]=legacy;
+    }
+    delete it.booked;
+  });
+  if(!Array.isArray(d.bookings)) d.bookings=[];
+  return d;
+}
+
+/* bookings-model helpers + applyInventory now come from /common.js */
+
+/* ---------- load ---------- */
+async function loadDB(){
+  const { data, error } = await sb.from("site").select("data").eq("id",1).maybeSingle();
+  if(error){ console.warn(error.message); return null; }
+  if(data && data.data && data.data.items) return normalize(data.data);
+  return null;
+}
+async function saveDB(){
+  const { error } = await sb.from("site").upsert({ id:1, data:DB, updated_at:new Date().toISOString() });
+  if(error){ showBar("Save failed: "+error.message,"err"); return false; }
+  return true;
+}
+
+/* ---------- auth (needed to save into your records) ---------- */
+let isAuthed=false;
+async function refreshAuth(){
+  const { data } = await sb.auth.getSession();
+  isAuthed = !!(data && data.session);
+  const pill=document.getElementById("authPill");
+  if(pill){
+    pill.textContent = isAuthed ? "● Logged in" : "🔒 Log in to save";
+    pill.classList.toggle("on", isAuthed);
+  }
+  render();
+}
+function openLogin(){ document.getElementById("loginModal").classList.add("show"); setTimeout(()=>{const e=document.getElementById("liEmail"); if(e)e.focus();},50); }
+function closeLogin(){ document.getElementById("loginModal").classList.remove("show"); }
+async function doLogin(){
+  const email=document.getElementById("liEmail").value.trim();
+  const pass=document.getElementById("liPass").value;
+  if(!email||!pass){ document.getElementById("liErr").textContent="Enter email and password."; return; }
+  document.getElementById("liErr").textContent="";
+  const btn=document.getElementById("liBtn"); btn.disabled=true; btn.textContent="Logging in…";
+  const { error } = await sb.auth.signInWithPassword({ email, password:pass });
+  btn.disabled=false; btn.textContent="Log in";
+  if(error){ document.getElementById("liErr").textContent=error.message; return; }
+  closeLogin(); await refreshAuth(); showBar("Logged in — you can now save bookings");
+}
+async function doLogout(){ await sb.auth.signOut(); await refreshAuth(); showBar("Logged out"); }
+function authPillClick(){ if(isAuthed){ if(confirm("Log out?")) doLogout(); } else openLogin(); }
+
+/* ---------- cart ops ---------- */
+function eventDate(){ return document.getElementById("cDate").value; }
+async function onDateChange(){ const d=eventDate(); if(d) await loadAvailability([d]); render(); }
+function add(id){
+  const i=DB.items.find(x=>x.id===id); if(!i) return;
+  const d=eventDate(), rem=itemRemaining(i,d), cur=cart[id]?cart[id].qty:0;
+  if(rem!=null && cur>=rem){ showBar(rem<=0?"Out of stock for this date":("Only "+rem+" available"),"err"); return; }
+  if(cart[id]) cart[id].qty++;
+  else cart[id]={id,name:i.name,price:i.price,unit:i.unit,img:i.img,qty:1};
+  render();
+}
+function setQty(id,q){
+  const i=DB.items.find(x=>x.id===id); q=Math.max(0,parseInt(q)||0);
+  const rem=i?itemRemaining(i,eventDate()):null;
+  if(rem!=null && q>rem){ q=rem; showBar("Only "+rem+" available for this date","err"); }
+  if(q<=0) delete cart[id]; else if(cart[id]) cart[id].qty=q; else if(q>0){ cart[id]={id,name:i.name,price:i.price,unit:i.unit,img:i.img,qty:q}; }
+  render();
+}
+function subtotal(){ return Object.values(cart).reduce((s,c)=>s+money(c.price)*c.qty,0); }
+function itemCount(){ return Object.values(cart).reduce((s,c)=>s+c.qty,0); }
+
+/* ---------- render ---------- */
+function renderCats(){
+  const cats=["All",...new Set(DB.items.map(i=>i.cat))];
+  document.getElementById("cats").innerHTML=cats.map(c=>
+    `<button class="cat ${c===activeCat?'active':''}" onclick="activeCat='${c.replace(/'/g,"\\'")}';render()">${esc(c)}</button>`
+  ).join("");
+}
+function render(){
+  if(!DB) return;
+  renderCats();
+  const d=eventDate();
+  const q=(document.getElementById("search").value||"").toLowerCase().trim();
+  let items=DB.items.filter(i=>i.available!==false).filter(i=>activeCat==="All"||i.cat===activeCat);
+  if(q) items=items.filter(i=>(i.name||"").toLowerCase().includes(q));
+
+  document.getElementById("pickHint").textContent = d
+    ? "Availability shown for "+fmtNiceDate(d)+"."
+    : "Tip: choose the event date above to see live availability.";
+
+  document.getElementById("items").innerHTML = items.length ? items.map(i=>{
+    const rem=itemRemaining(i,d), inCart=cart[i.id];
+    let remHTML="";
+    if(d && rem!=null){ remHTML = rem<=0?`<span class="rem out">Out of stock this date</span>`:(rem<=3?`<span class="rem low">Only ${rem} left</span>`:`<span class="rem">${rem} available</span>`); }
+    const thumb = i.img?`<img class="thumb" src="${esc(i.img)}" alt="" loading="lazy" onerror="this.style.display='none'"/>`:`<span class="thumb thumb-ph">${esc((i.name||'?').charAt(0).toUpperCase())}</span>`;
+    const ctrl = inCart
+      ? `<div class="stepper"><button onclick="setQty(${i.id},${inCart.qty-1})">–</button><span class="val">${inCart.qty}</span><button ${(d&&rem!=null&&inCart.qty>=rem)?'disabled':''} onclick="setQty(${i.id},${inCart.qty+1})">+</button></div>`
+      : `<button class="add" ${(d&&rem!=null&&rem<=0)?'disabled':''} onclick="add(${i.id})">+ Add</button>`;
+    return `<div class="item ${inCart?'picked':''}">
+      ${thumb}
+      <div class="info">
+        <b>${esc(i.name)}</b>
+        <div class="meta"><span class="price">${inr(money(i.price))}</span> ${esc(i.unit||"")} ${remHTML?"· "+remHTML:""}</div>
+      </div>
+      ${ctrl}
+    </div>`;
+  }).join("") : `<div class="q-empty">No items match.</div>`;
+
+  // summary
+  const lines=Object.values(cart);
+  document.getElementById("sumDate").textContent = d ? "For "+fmtNiceDate(d) : "No event date chosen yet.";
+  document.getElementById("qlines").innerHTML = lines.length ? lines.map(c=>`
+    <div class="qline">
+      <div class="qn"><b>${esc(c.name)}</b><small>${c.qty} × ${inr(money(c.price))} ${esc(c.unit||"")}</small></div>
+      <div class="qa">${inr(money(c.price)*c.qty)}<button class="qx" title="Remove" onclick="setQty(${c.id},0)">✕</button></div>
+    </div>`).join("") : `<div class="q-empty">No items added yet.</div>`;
+  document.getElementById("qTotal").textContent=inr(subtotal());
+
+  // action bar
+  const n=itemCount();
+  document.getElementById("barCount").textContent=n+(n===1?" item":" items");
+  document.getElementById("barTotal").textContent=inr(subtotal())+" estimated";
+  const has=n>0;
+  document.getElementById("previewBtn").disabled=!has;
+  document.getElementById("waBtn").disabled=!has;
+  const sBtn=document.getElementById("saveBtn"); if(sBtn){ sBtn.disabled=!has; sBtn.title=isAuthed?"":"Log in to save"; }
+}
+
+/* ---------- validation ---------- */
+function validate(){
+  const name=document.getElementById("cName").value.trim();
+  const phone=document.getElementById("cPhone").value.trim();
+  const date=document.getElementById("cDate").value;
+  const address=document.getElementById("cAddress").value.trim();
+  if(!Object.keys(cart).length){ showBar("Add at least one item","err"); return null; }
+  if(!name){ showBar("Enter the customer's name","err"); focus("cName"); return null; }
+  if(!phone){ showBar("Enter a phone number","err"); focus("cPhone"); return null; }
+  if(!date){ showBar("Choose the event date","err"); focus("cDate"); return null; }
+  if(!address){ showBar("Enter the full address","err"); focus("cAddress"); return null; }
+  return { name, phone, date, address:address.replace(/\s*\n\s*/g,", "), items:Object.values(cart) };
+}
+function focus(id){ const e=document.getElementById(id); if(e){ e.scrollIntoView({behavior:"smooth",block:"center"}); try{e.focus();}catch(_){} } }
+
+/* ---------- quote sheet ---------- */
+function newQuoteNo(){ const d=new Date(); const y=String(d.getFullYear()).slice(2); const m=String(d.getMonth()+1).padStart(2,"0"); const day=String(d.getDate()).padStart(2,"0"); return "Q-"+y+m+day+"-"+Math.floor(100+Math.random()*900); }
+function openQuote(){
+  const d=validate(); if(!d) return;
+  if(!quoteNo) quoteNo=newQuoteNo();
+  const s=DB.settings||{};
+  const rows=d.items.map((c,n)=>`<tr>
+      <td class="num">${n+1}</td>
+      <td>${esc(c.name)}</td>
+      <td class="u">${esc(c.unit||"")}</td>
+      <td class="num">${c.qty}</td>
+      <td class="num">${inr(money(c.price))}</td>
+      <td class="num">${inr(money(c.price)*c.qty)}</td>
+    </tr>`).join("");
+  const total=subtotal();
+  document.getElementById("quoteSheet").innerHTML=`
+    <div class="qs-head">
+      <div class="qs-biz">
+        <span class="logo">${brandLogo()}</span>
+        <div>
+          <h3>${esc(s.bizName||"Corporative Tent House")}</h3>
+          <div class="tag">Tents · Decor · Catering on rent</div>
+          <div class="contact">${s.founder?esc(s.founder)+"<br>":""}${s.phone?"📞 "+esc(s.phone)+"<br>":""}${s.address?esc(s.address):""}</div>
+        </div>
+      </div>
+      <div class="qs-meta">
+        <div class="title">QUOTATION</div>
+        <div class="row"><b>No:</b> ${esc(quoteNo)}</div>
+        <div class="row"><b>Date:</b> ${new Date().toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"})}</div>
+        <div class="row"><b>Valid:</b> 7 days</div>
+      </div>
+    </div>
+
+    <div class="qs-billto">
+      <div class="lbl">Quotation for</div>
+      <b>${esc(d.name)}</b>
+      <div class="line">📞 ${esc(d.phone)}</div>
+      <div class="line">📅 Event date: ${esc(fmtNiceDate(d.date))}</div>
+      <div class="line">📍 ${esc(d.address)}</div>
+    </div>
+
+    <table class="qs-table">
+      <thead><tr><th class="num">#</th><th>Item</th><th>Unit</th><th class="num">Qty</th><th class="num">Rate</th><th class="num">Amount</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+
+    <div class="qs-tot">
+      <div class="r"><span>Subtotal</span><span>${inr(total)}</span></div>
+      <div class="r grand"><span>Estimated total</span><span class="v">${inr(total)}</span></div>
+    </div>
+
+    <div class="qs-terms">
+      * This is an estimate. Final price is confirmed on WhatsApp/phone and may vary with setup, distance and dates.<br>
+      * Availability is subject to confirmation for the event date shown above.<br>
+      * Advance may be required to lock the booking.
+    </div>
+    <div class="qs-thanks">Thank you — we look forward to making your event beautiful!</div>`;
+  document.getElementById("quoteModal").classList.add("show");
+  window.scrollTo(0,0);
+}
+function closeQuote(){ document.getElementById("quoteModal").classList.remove("show"); }
+
+/* ---------- WhatsApp ---------- */
+function sendWhatsApp(){
+  const d=validate(); if(!d) return;
+  if(!quoteNo) quoteNo=newQuoteNo();
+  const s=DB.settings||{};
+  let msg=`*New booking — ${s.bizName||"Corporative Tent House"}*\n(Quote ${quoteNo})\n\n`;
+  msg+=`*Name:* ${d.name}\n*Phone:* ${d.phone}\n*Event date:* ${fmtNiceDate(d.date)}\n*Address:* ${d.address}\n`;
+  msg+=`\n*Items:*\n`;
+  d.items.forEach((c,n)=>{ msg+=`${n+1}. ${c.name} — qty ${c.qty} × ${inr(money(c.price))} ${c.unit||""} = ${inr(money(c.price)*c.qty)}\n`; });
+  msg+=`\n*Estimated total:* ${inr(subtotal())} (final price to be confirmed)\n`;
+  msg+=`\nPlease confirm availability and total price. Thank you!`;
+  const phone=(s.phone||"").replace(/[^0-9]/g,"");
+  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,"_blank");
+}
+
+/* ---------- save booking into records ---------- */
+async function saveBooking(){
+  const d=validate(); if(!d) return;
+  if(!isAuthed){ showBar("Log in to save this booking","err"); openLogin(); return; }
+  if(!quoteNo) quoteNo=newQuoteNo();
+  const agreed=document.getElementById("cTotal").value.trim();
+  const advance=parseFloat(document.getElementById("cAdvance").value)||0;
+  const items=d.items.map(c=>({id:c.id,name:c.name,price:money(c.price),unit:c.unit||"",qty:c.qty}));
+  const b={
+    id: newId(),
+    createdAt: new Date().toISOString(),
+    status: "confirmed",
+    quoteNo,
+    customer:{ name:d.name, phone:d.phone, address:d.address },
+    eventDate: d.date,
+    items,
+    total: agreed===""?"":(money(agreed)),
+    payments: advance>0 ? [{id:newId(),amount:advance,date:todayISO(),method:"advance",note:"Advance at booking"}] : [],
+    notes:""
+  };
+  const btn=document.getElementById("saveBtn"); btn.disabled=true; btn.textContent="Saving…";
+  const {ok,error}=await dbInsertBooking(b);
+  btn.disabled=false; btn.textContent="✅ Save booking";
+  if(!ok){ showBar("Save failed: "+(error&&error.message||"try again"),"err"); return; }
+  await loadAvailability([d.date]); // refresh live availability for this date
+  showBar("Booking saved for "+d.name+" ✓");
+  lastSaved=b;
+  document.getElementById("savedNote").style.display="block";
+  document.getElementById("savedMsg").innerHTML=`Saved booking for <b>${esc(d.name)}</b> on ${esc(fmtNiceDate(d.date))}. `+
+    `Due: <b>${inr(bookingDue(b))}</b>.`;
+  resetForm();
+}
+let lastSaved=null;
+function resetForm(){
+  cart={}; quoteNo="";
+  ["cName","cPhone","cAddress","cTotal","cAdvance","search"].forEach(id=>{const e=document.getElementById(id); if(e)e.value="";});
+  render();
+}
+
+/* ---------- misc ---------- */
+let barTimer=null;
+function showBar(msg,kind){ const el=document.getElementById("savebar"); el.className="savebar show"+(kind==="err"?" err":""); el.textContent=msg; clearTimeout(barTimer); barTimer=setTimeout(()=>el.classList.remove("show"),2200); }
+function brandLogo(){
+  return `<svg viewBox="0 0 72 86" preserveAspectRatio="xMidYMid meet" width="100%" height="100%">
+    <path d="M8 30 C8 16 22 10 36 10 C50 10 64 16 64 30 q-4.66 6 -9.33 0 q-4.66 6 -9.33 0 q-4.66 6 -9.33 0 q-4.66 6 -9.33 0 q-4.66 6 -9.33 0 q-4.66 6 -9.33 0 Z" fill="var(--brand)"/>
+    <circle cx="36" cy="4" r="2" fill="var(--brand)"/><path d="M36 10 V5" stroke="var(--brand)" stroke-width="1.6"/>
+    <rect x="39.5" y="45" width="3.6" height="19" rx="1" fill="var(--brand-deep)"/>
+    <rect x="35" y="45" width="14.5" height="3.4" rx="1" fill="var(--brand-deep)"/>
+    <rect x="52" y="48.5" width="3.6" height="15.5" rx="1" fill="var(--brand)"/>
+    <rect x="43.1" y="53.6" width="9" height="3.2" fill="var(--brand)"/>
+    <path d="M22 79 V70 M22 74 H26 M26 74 V79 M50 79 V70 M50 74 H46 M46 74 V79" fill="none" stroke="var(--brand-deep)" stroke-width="2" stroke-linecap="round"/>
+    <ellipse cx="36" cy="70" rx="8.5" ry="2.2" fill="var(--brand-deep)"/>
+  </svg>`;
+}
+
+/* ---------- boot ---------- */
+async function boot(){
+  document.getElementById("brandLogo").innerHTML=brandLogo();
+  const cd=document.getElementById("cDate"); cd.min=todayISO(); cd.value=todayISO();
+  const d=await loadDB();
+  if(!d){ document.getElementById("items").innerHTML=`<div class="q-empty">Could not load the catalog. Check your connection and reload.</div>`; return; }
+  DB=d;
+  if(DB.settings && DB.settings.bizName) document.getElementById("bizName").textContent=DB.settings.bizName;
+  await loadAvailability([cd.value]);
+  await refreshAuth();
+  render();
+  sb.auth.onAuthStateChange(()=>refreshAuth());
+}
+boot();
+</script>
+</body>
+</html>

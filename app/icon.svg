@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" rx="96" fill="#7a5c3e"/>
+  <!-- tent -->
+  <path d="M256 96 L432 392 H80 Z" fill="#f6f1e7"/>
+  <path d="M256 96 L256 392 H80 Z" fill="#e9dcc4"/>
+  <!-- door -->
+  <path d="M256 392 L212 300 Q256 268 300 300 Z" fill="#7a5c3e"/>
+  <!-- pole tip flag -->
+  <rect x="250" y="66" width="12" height="44" rx="6" fill="#7a5c3e"/>
+  <path d="M262 72 L306 84 L262 100 Z" fill="#c0392b"/>
+  <!-- ground line -->
+  <rect x="64" y="392" width="384" height="18" rx="9" fill="#5c4630"/>
+</svg>
