@@ -719,6 +719,7 @@
           <a class="btn-ghost" style="padding:9px 16px;text-decoration:none;display:inline-flex;align-items:center" href="admin/inventory.html" target="_blank" rel="noopener">📦 Manage inventory</a>
           <a class="btn-ghost" style="padding:9px 16px;text-decoration:none;display:inline-flex;align-items:center" href="admin/booking.html" target="_blank" rel="noopener">📝 Take a booking</a>
           <a class="btn-ghost" style="padding:9px 16px;text-decoration:none;display:inline-flex;align-items:center" href="admin/analytics.html" target="_blank" rel="noopener">📊 Reports & bookings</a>
+          <button class="btn-ghost" style="padding:9px 16px" onclick="openContentEditor()">🌐 Website text</button>
           <button class="btn-ghost" style="padding:9px 16px" onclick="openSettings()">⚙ Settings</button>
           <button class="btn-primary" style="padding:9px 16px" onclick="openItemForm()">+ Add item</button>
         </div>
@@ -1004,6 +1005,18 @@ function migrate(d){
   { const h=d.settings.hero, def=SEED.settings.hero;
     for(const k in def) if(!(k in h)) h[k]=def[k]; }
   if(!('offerOn' in d.settings)){ d.settings.offerOn=true; d.settings.offerText=SEED.settings.offerText; }
+  // ---- multilingual website text (English / Hindi / Urdu) ----
+  if(!d.settings.content || typeof d.settings.content!=="object") d.settings.content={};
+  ["en","hi","ur"].forEach(l=>{ if(!d.settings.content[l] || typeof d.settings.content[l]!=="object") d.settings.content[l]={}; });
+  if(!d.settings._contentMigrated){
+    const ce=d.settings.content.en, h=d.settings.hero||{};
+    if(h.eyebrow  && !ce.hero_eyebrow) ce.hero_eyebrow=h.eyebrow;
+    if(h.title    && !ce.hero_h1)      ce.hero_h1=h.title;
+    if(h.subtitle && !ce.hero_p)       ce.hero_p=h.subtitle;
+    if(d.settings.aboutText && !ce.about_body) ce.about_body=d.settings.aboutText;
+    if(d.settings.offerText && !ce.offer_text) ce.offer_text=d.settings.offerText;
+    d.settings._contentMigrated=true;
+  }
   return d;
 }
 
@@ -1068,7 +1081,7 @@ function applySettings(){
   const pl=document.getElementById("cPhoneLink"); pl.textContent="+"+DB.settings.phone; pl.href="tel:+"+DB.settings.phone;
   document.getElementById("cWaLink").href="https://wa.me/"+DB.settings.phone;
   document.getElementById("waFab").href="https://wa.me/"+DB.settings.phone;
-  document.getElementById("aboutText").textContent = DB.settings.aboutText || "";
+  document.getElementById("aboutText").textContent = tRaw("about_body");
   // logo
   document.getElementById("logoMark").innerHTML = DB.settings.logoImg
     ? `<img src="${DB.settings.logoImg}" alt="logo" style="width:100%;height:100%;object-fit:cover;border-radius:11px"/>`
@@ -1643,8 +1656,8 @@ function deleteReview(id){
 function renderOffer(){
   const bar=document.getElementById("offerBar");
   let dismissed=false; try{ dismissed=sessionStorage.getItem("offerDismissed")==="1"; }catch(e){}
-  if(DB.settings.offerOn && (DB.settings.offerText||"").trim() && !dismissed){
-    document.getElementById("offerText").textContent=DB.settings.offerText;
+  if(DB.settings.offerOn && tRaw("offer_text").trim() && !dismissed){
+    document.getElementById("offerText").textContent=tRaw("offer_text");
     bar.style.display="flex";
   } else bar.style.display="none";
 }
@@ -1857,25 +1870,19 @@ function openSettings(){
       <button class="mini del" id="heroRemove" style="margin-top:8px;display:${s.heroImg?'inline-block':'none'}" onclick="clearHeroImg()">Remove photo (use illustration)</button>
     </div>
     <div class="field" style="border:1px solid var(--line);border-radius:12px;padding:14px;background:rgba(var(--brand-rgb),.03)">
-      <label style="font-weight:700;margin-bottom:10px">Hero banner text & colours</label>
-      <p class="hint" style="margin:-4px 0 12px">Leave a text box empty to use the default wording. Leave a colour as-is to use the theme colour.</p>
+      <label style="font-weight:700;margin-bottom:10px">Hero banner colours</label>
+      <p class="hint" style="margin:-4px 0 12px">The <b>wording</b> of the hero banner is in <b>🌐 Website text</b> (so you can set it in all languages). Here you choose the colours only. Leave a colour as-is to use the theme colour.</p>
 
-      <label style="font-size:13px">Small line (eyebrow)</label>
-      <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px">
-        <input id="sHeroEyebrow" style="flex:1" value="${esc(hh.eyebrow||'')}" placeholder="✦ Tents · Decor · Catering ✦"/>
-        <input type="color" id="sHeroEyebrowColor" value="${esc(hh.eyebrowColor||'#c4aa7a')}" title="Eyebrow colour" style="width:44px;height:40px;padding:2px;border:1px solid var(--line);border-radius:8px;cursor:pointer"/>
-      </div>
-
-      <label style="font-size:13px">Headline</label>
-      <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:12px">
-        <textarea id="sHeroTitle" style="flex:1;min-height:60px" placeholder="Everything you need to host a beautiful celebration">${esc(hh.title||'')}</textarea>
-        <input type="color" id="sHeroTitleColor" value="${esc(hh.titleColor||'#ffffff')}" title="Headline colour" style="width:44px;height:40px;padding:2px;border:1px solid var(--line);border-radius:8px;cursor:pointer"/>
-      </div>
-
-      <label style="font-size:13px">Sub-text</label>
-      <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:12px">
-        <textarea id="sHeroSub" style="flex:1;min-height:60px" placeholder="Browse our tents, seating, lighting, decoration and catering…">${esc(hh.subtitle||'')}</textarea>
-        <input type="color" id="sHeroSubColor" value="${esc(hh.subColor||'#fff5e6')}" title="Sub-text colour" style="width:44px;height:40px;padding:2px;border:1px solid var(--line);border-radius:8px;cursor:pointer"/>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
+        <label style="font-size:13px;display:flex;align-items:center;gap:8px;margin:0">Small line
+          <input type="color" id="sHeroEyebrowColor" value="${esc(hh.eyebrowColor||'#c4aa7a')}" title="Eyebrow colour" style="width:44px;height:40px;padding:2px;border:1px solid var(--line);border-radius:8px;cursor:pointer"/>
+        </label>
+        <label style="font-size:13px;display:flex;align-items:center;gap:8px;margin:0">Headline
+          <input type="color" id="sHeroTitleColor" value="${esc(hh.titleColor||'#ffffff')}" title="Headline colour" style="width:44px;height:40px;padding:2px;border:1px solid var(--line);border-radius:8px;cursor:pointer"/>
+        </label>
+        <label style="font-size:13px;display:flex;align-items:center;gap:8px;margin:0">Sub-text
+          <input type="color" id="sHeroSubColor" value="${esc(hh.subColor||'#fff5e6')}" title="Sub-text colour" style="width:44px;height:40px;padding:2px;border:1px solid var(--line);border-radius:8px;cursor:pointer"/>
+        </label>
       </div>
 
       <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center">
@@ -1890,11 +1897,10 @@ function openSettings(){
     </div>
     <div class="field"><label>Business name</label><input id="sName" value="${esc(s.bizName)}"/></div>
     <div class="field"><label>Founder name</label><input id="sFounder" value="${esc(s.founder||'')}"/></div>
-    <div class="field"><label>About us text</label><textarea id="sAbout" style="min-height:110px">${esc(s.aboutText||'')}</textarea></div>
     <div class="field"><label>Address</label><textarea id="sAddr">${esc(s.address||'')}</textarea></div>
     <div class="field"><label>WhatsApp / contact number (with country code, no +)</label><input id="sPhone" value="${esc(s.phone)}" placeholder="919876543210"/></div>
-    <div class="field"><label class="switch">Show offer banner at top <span class="toggle ${s.offerOn?'on':''}" id="sOfferOn" onclick="this.classList.toggle('on')"></span></label></div>
-    <div class="field"><label>Offer banner text</label><input id="sOffer" value="${esc(s.offerText||'')}" placeholder="e.g. 10% off bookings this week!"/></div>
+    <div class="field"><label class="switch">Show offer banner at top <span class="toggle ${s.offerOn?'on':''}" id="sOfferOn" onclick="this.classList.toggle('on')"></span></label>
+      <p class="hint" style="margin:6px 0 0">The <b>About us</b> paragraph and the <b>offer banner wording</b> are now in <b>🌐 Website text</b>, so you can write them in every language.</p></div>
     <button class="save" onclick="saveSettings()">Save settings</button>
     <p class="hint">Tip: the WhatsApp number is where customer booking lists are sent.</p>`;
   openModal();
@@ -1902,24 +1908,162 @@ function openSettings(){
 function saveSettings(){
   DB.settings.bizName=document.getElementById("sName").value.trim()||DB.settings.bizName;
   DB.settings.founder=document.getElementById("sFounder").value.trim();
-  DB.settings.aboutText=document.getElementById("sAbout").value.trim();
   DB.settings.address=document.getElementById("sAddr").value.trim();
   DB.settings.phone=document.getElementById("sPhone").value.replace(/\D/g,"")||DB.settings.phone;
   DB.settings.heroImg=settingsHeroImg||"";
   DB.settings.logoImg=settingsLogoImg||"";
   DB.settings.offerOn=document.getElementById("sOfferOn").classList.contains("on");
-  DB.settings.offerText=document.getElementById("sOffer").value.trim();
-  DB.settings.hero={
-    eyebrow:document.getElementById("sHeroEyebrow").value.trim(),
-    title:document.getElementById("sHeroTitle").value.trim(),
-    subtitle:document.getElementById("sHeroSub").value.trim(),
+  DB.settings.hero=Object.assign({}, DB.settings.hero, {
     eyebrowColor:document.getElementById("sHeroEyebrowColor").value,
     titleColor:document.getElementById("sHeroTitleColor").value,
     subColor:document.getElementById("sHeroSubColor").value,
     bgColor:document.getElementById("sHeroBg").value,
     overlay:Number(document.getElementById("sHeroOverlay").value)
-  };
-  saveDB(); applySettings(); renderHero(); applyHero(); renderOffer(); closeModal(); toast("Settings saved");
+  });
+  saveDB(); applySettings(); renderHero(); applyHero(); renderOffer(); applyLang(); closeModal(); toast("Settings saved");
+}
+
+/* ============================================================
+   WEBSITE TEXT EDITOR  —  edit every word, in all 3 languages
+   ============================================================ */
+const CONTENT_LANGS=[["en","English"],["hi","हिन्दी (Hindi)"],["ur","اردو (Urdu)"]];
+const CONTENT_GROUPS=[
+  ["Menu & top bar",[
+    ["logo_sub","Tagline under the name"],["nav_packages","Menu: Packages"],["nav_gallery","Menu: Gallery"],
+    ["nav_videos","Menu: Videos"],["nav_reviews","Menu: Reviews"],["nav_contact","Menu: Contact"],
+    ["nav_cart","Cart button"],["lang_label","“Language:” label"]
+  ]],
+  ["Offer banner (top strip)",[
+    ["offer_text","Offer banner text",1]
+  ]],
+  ["Hero banner (big top area)",[
+    ["hero_eyebrow","Small line above the headline"],["hero_h1","Big headline",1],["hero_p","Sentence under the headline",1],
+    ["hero_browse","“Browse items” button"],["hero_viewlist","“View my list” button"],
+    ["badge_years","Badge 1"],["badge_setup","Badge 2"],["badge_booking","Badge 3"]
+  ]],
+  ["Why choose us (4 points)",[
+    ["why_years_b","Point 1 — bold"],["why_years_s","Point 1 — small"],
+    ["why_ontime_b","Point 2 — bold"],["why_ontime_s","Point 2 — small"],
+    ["why_fair_b","Point 3 — bold"],["why_fair_s","Point 3 — small"],
+    ["why_free_b","Point 4 — bold"],["why_free_s","Point 4 — small"]
+  ]],
+  ["About us",[
+    ["about_h","Section title"],["about_body","About paragraph",1]
+  ]],
+  ["Packages",[
+    ["packages_h","Section title"],["packages_p","Intro line",1],["book_package","“Book this package” button"]
+  ]],
+  ["Rental items (catalog)",[
+    ["catalog_h","Section title"],["catalog_p","Intro line",1],["empty_cat","When a category is empty"],
+    ["date_gate_label","“Choose your event date first”"],["date_gate_hint","Hint under the date box"],
+    ["add_to_list","“Add to list” button"],["added","“Added” label"],["not_available","“Not available” label"],
+    ["out_of_stock","Out-of-stock message"],["only_left","“Only {n} left” — keep {n}"],
+    ["ask_wa","“Ask on WhatsApp” button"],["currently_na","“Currently not available”"]
+  ]],
+  ["Gallery",[
+    ["gallery_h","Section title"],["gallery_p","Intro line",1],
+    ["photos_view","“{n} photos” — keep {n}"],["photo_view","“{n} photo” — keep {n}"],["back_to","Back link — keep {name}"]
+  ]],
+  ["Videos",[ ["videos_h","Section title"],["videos_p","Intro line",1] ]],
+  ["Reviews",[ ["reviews_h","Section title"],["reviews_p","Intro line",1] ]],
+  ["Contact",[
+    ["contact_h","Section title"],["c_address","“Address” label"],["c_call","“Call” label"],
+    ["c_whatsapp","“WhatsApp” label"],["c_chat","“Chat with us” label"],["map_label","Map label"]
+  ]],
+  ["Callback box",[
+    ["cb_h","Heading"],["cb_p","Sentence",1],["ph_name","“Your name” box hint"],
+    ["ph_phone","“Phone number” box hint"],["cb_btn","Request-callback button"]
+  ]],
+  ["Your list / cart",[
+    ["cart_title_list","Drawer title — list"],["cart_title_details","Drawer title — details"],
+    ["cart_proceed","“Proceed to details” button"],["cart_proceed_hint","Hint under that button"],
+    ["cart_back","“Back to list” link"],["subtotal","“Estimated subtotal” label"],["subtotal_note","Note under subtotal"],
+    ["list_empty_line1","Empty list — line 1"],["list_empty_line2","Empty list — line 2"],["remove","“Remove” button"]
+  ]],
+  ["Booking form",[
+    ["f_name","“Your name” label"],["f_phone","“Phone number” label"],["f_date","“Event date” label"],
+    ["f_address","“Full address” label"],["ph_cName","Name box hint"],["ph_cPhone","Phone box hint"],
+    ["ph_cAddress","Address box hint"],["f_loc","Location label"],["loc_btn","“Use my location” button"],
+    ["send_wa","“Send list on WhatsApp” button"],["send_wa_hint","Hint under send button",1]
+  ]],
+  ["Footer",[
+    ["foot_tag","Footer description",1],["foot_explore","“Explore” heading"],["foot_about","Link: About"],
+    ["foot_packages","Link: Packages"],["foot_gallery","Link: Gallery"],["foot_reviews","Link: Reviews"],
+    ["foot_reach","“Reach us” heading"],["foot_callwa","“Call / WhatsApp” label"]
+  ]],
+  ["Pop-up messages",[
+    ["need_date","“Pick your event date above”"],["toast_pick_date","“Please choose your date first”"],
+    ["toast_list_empty","“Your list is empty”"],["toast_oos","“Out of stock for this date”"],
+    ["toast_only","“Only {n} available” — keep {n}"]
+  ]]
+];
+function _plain(s){ return String(s==null?"":s).replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim(); }
+function openContentEditor(){
+  document.getElementById("modalTitle").textContent="🌐 Website text";
+  const c=(DB.settings&&DB.settings.content)||{en:{},hi:{},ur:{}};
+  const tabs=CONTENT_LANGS.map((l,i)=>`<button type="button" class="ce-tab${i===0?' on':''}" id="ceTab_${l[0]}" onclick="contentTab('${l[0]}')">${l[1]}</button>`).join("");
+  let panes="";
+  CONTENT_LANGS.forEach((l,i)=>{
+    const code=l[0], rtl=code==="ur";
+    let inner="";
+    CONTENT_GROUPS.forEach(g=>{
+      inner+=`<div class="ce-group"><h4>${g[0]}</h4>`;
+      g[1].forEach(f=>{
+        const key=f[0], label=f[1], ml=f[2];
+        const val=(c[code]&&c[code][key]!=null)?c[code][key]:"";
+        const def=_plain((I18N[code]&&I18N[code][key])||I18N.en[key]||"");
+        const id=`ce_${code}_${key}`;
+        const ph=`Default: ${def}`;
+        inner+=`<div class="ce-field"><label for="${id}">${label}</label>`+
+          (ml?`<textarea id="${id}" ${rtl?'dir="rtl"':''} placeholder="${esc(ph)}">${esc(val)}</textarea>`
+             :`<input id="${id}" ${rtl?'dir="rtl"':''} value="${esc(val)}" placeholder="${esc(ph)}"/>`)+
+          `</div>`;
+      });
+      inner+=`</div>`;
+    });
+    panes+=`<div class="ce-pane" id="cePane_${code}" ${rtl?'dir="rtl"':''} style="display:${i===0?'block':'none'}">${inner}</div>`;
+  });
+  document.getElementById("modalBody").innerHTML=`
+    <style>
+      .ce-tabs{display:flex;gap:6px;position:sticky;top:0;background:var(--bg);padding-bottom:10px;z-index:2;flex-wrap:wrap}
+      .ce-tab{flex:1;min-width:90px;padding:9px 8px;border:1px solid var(--line);background:var(--surf);border-radius:9px;font:inherit;font-weight:700;font-size:14px;color:var(--muted);cursor:pointer}
+      .ce-tab.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+      .ce-group{margin:14px 0 6px}
+      .ce-group h4{margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:var(--brand-deep);border-bottom:1px solid var(--line);padding-bottom:5px}
+      .ce-field{margin-bottom:10px}
+      .ce-field label{display:block;font-size:12.5px;color:var(--muted);margin-bottom:3px}
+      .ce-field input,.ce-field textarea{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;font:inherit;font-size:14px;background:#fff}
+      .ce-field textarea{min-height:58px;resize:vertical}
+    </style>
+    <p class="hint" style="margin:0 0 12px">Pick a language tab and type the words for that language. Leave a box empty to keep the default wording shown as a grey hint. Business name, phone and photos are in <b>⚙ Settings</b>.</p>
+    <div class="ce-tabs">${tabs}</div>
+    ${panes}
+    <button class="save" style="position:sticky;bottom:0" onclick="saveContent()">Save website text</button>`;
+  openModal();
+}
+function contentTab(code){
+  CONTENT_LANGS.forEach(l=>{
+    document.getElementById("ceTab_"+l[0]).classList.toggle("on",l[0]===code);
+    document.getElementById("cePane_"+l[0]).style.display=(l[0]===code)?"block":"none";
+  });
+}
+function saveContent(){
+  const content={en:{},hi:{},ur:{}};
+  CONTENT_LANGS.forEach(l=>{
+    const code=l[0];
+    CONTENT_GROUPS.forEach(g=>g[1].forEach(f=>{
+      const el=document.getElementById(`ce_${code}_${f[0]}`);
+      if(!el) return;
+      const v=el.value.trim();
+      if(v!=="") content[code][f[0]]=v;
+    }));
+  });
+  DB.settings.content=content;
+  DB.settings._contentMigrated=true;
+  saveDB();
+  applySettings(); applyLang(); applyHero(); renderOffer();
+  renderGrid(); renderPackages(); renderGallery(); renderVideos(); renderCart();
+  closeModal(); toast("Website text saved");
 }
 
 /* ============================================================
@@ -2018,9 +2162,7 @@ function applyHero(){
   const eb=document.querySelector(".hero .eyebrow");
   const h1=document.querySelector(".hero h1");
   const p=document.querySelector(".hero p");
-  setHeroText(eb,"hero_eyebrow",h.eyebrow);
-  setHeroText(h1,"hero_h1",h.title);
-  setHeroText(p,"hero_p",h.subtitle);
+  /* hero wording now comes from the multilingual "Website text" editor via applyLang(); here we only apply colours & background */
   if(eb) eb.style.color=h.eyebrowColor||"";
   if(h1) h1.style.color=h.titleColor||"";
   if(p)  p.style.color=h.subColor||"";
@@ -2107,6 +2249,8 @@ const I18N={
     why_fair_b:"Fair pricing", why_fair_s:"no hidden charges",
     why_free_b:"Free delivery", why_free_s:"& setup nearby",
     about_h:"About us",
+    about_body:"Run by Md Mobin Ahmad, Corporative Tent House helps families in and around Tenda host beautiful weddings, functions and festivals. From tents and seating to lighting, decoration and catering — we provide everything under one roof, with reliable setup and friendly service you can count on.",
+    offer_text:"✨ Festive offer — 10% off all bookings confirmed this week. Limited dates available!",
     packages_h:"Popular packages",
     packages_p:"Not sure what you need? Pick a ready-made package and book in one tap — we'll fine-tune it with you.",
     catalog_h:"Our rental items",
@@ -2268,11 +2412,18 @@ const I18N={
     remove:"ہٹائیں"
   }
 };
-function t(key,vars){ let s=(I18N[LANG]&&I18N[LANG][key])||I18N.en[key]||key; if(vars) for(const k in vars) s=s.replace("{"+k+"}",vars[k]); return s; }
+/* look up a text string: admin's per-language override wins, else built-in default */
+function tRaw(key){
+  const ov=(typeof DB!=="undefined"&&DB&&DB.settings&&DB.settings.content&&DB.settings.content[LANG])||null;
+  if(ov && ov[key]!=null && String(ov[key]).trim()!=="") return String(ov[key]);
+  return (I18N[LANG]&&I18N[LANG][key])||I18N.en[key]||key;
+}
+function t(key,vars){ let s=tRaw(key); if(vars) for(const k in vars) s=s.replace("{"+k+"}",vars[k]); return s; }
 function applyLang(){
   document.querySelectorAll("[data-i18n]").forEach(el=>{ el.innerHTML=t(el.getAttribute("data-i18n")); });
   document.querySelectorAll("[data-i18n-ph]").forEach(el=>{ el.setAttribute("placeholder",t(el.getAttribute("data-i18n-ph"))); });
   const lbl=document.getElementById("curLang"); if(lbl) lbl.textContent=LANG_LABELS[LANG]||"EN";
+  const ab=document.getElementById("aboutText"); if(ab) ab.textContent=tRaw("about_body");
   document.documentElement.setAttribute("dir", LANG==="ur"?"rtl":"ltr");
   document.documentElement.setAttribute("lang", LANG);
 }
@@ -2285,6 +2436,7 @@ function setLang(code){
   document.getElementById("mobileMenu").classList.remove("show");
   applyLang();
   applyHero();
+  renderOffer();
   renderGrid(); renderPackages(); renderGallery(); renderVideos(); renderCart();
 }
 
