@@ -222,7 +222,11 @@
   .map-label{margin:0 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-weight:700}
   .contact-bottom{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:stretch;margin-top:24px}
   .map-block{display:flex;flex-direction:column}
-  .contact-map{display:block;width:100%;flex:1;min-height:300px;border:0;border-radius:var(--radius);box-shadow:var(--shadow)}
+  .map-wrap{position:relative;flex:1;display:flex}
+  .contact-map{display:block;width:100%;flex:1;min-height:300px;border:0;border-radius:var(--radius);box-shadow:var(--shadow);transition:filter .3s}
+  .contact-map.gate-blur{filter:blur(7px);pointer-events:none}
+  .map-gate{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:22px;border-radius:var(--radius);background:rgba(0,0,0,.32);color:#fff;font-weight:700;font-size:15px;line-height:1.5;cursor:pointer;z-index:2}
+  a.foot-phone.locked,#cPhoneLink.locked{cursor:pointer;letter-spacing:.5px}
   /* About */
   section.about-sec{padding:clamp(40px,6vw,64px) 0 clamp(20px,3vw,28px)}
   .about-inner{max-width:760px;margin:0 auto;text-align:center}
@@ -675,7 +679,10 @@
       <div class="contact-bottom">
         <div class="map-block reveal">
           <div class="map-label" data-i18n="map_label">📍 Find us here</div>
-          <iframe id="cMap" class="contact-map" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d224.30025752741963!2d85.6122669264052!3d25.90880904559838!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1781472912071!5m2!1sen!2sin" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Location map"></iframe>
+          <div class="map-wrap">
+            <iframe id="cMap" class="contact-map" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d224.30025752741963!2d85.6122669264052!3d25.90880904559838!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1781472912071!5m2!1sen!2sin" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Location map"></iframe>
+            <div class="map-gate" id="mapGate" style="display:none" onclick="revealHint()"></div>
+          </div>
         </div>
         <div class="callback-card reveal" id="callback">
           <div class="callback-text">
@@ -1048,6 +1055,8 @@ function migrate(d){
   // ---- show / hide sections (default: everything visible) ----
   if(!d.settings.sections || typeof d.settings.sections!=="object") d.settings.sections={};
   SECTION_KEYS.forEach(k=>{ if(!(k in d.settings.sections)) d.settings.sections[k]=true; });
+  // ---- hide phone/address/map until a customer sends an enquiry ----
+  if(!('gateContact' in d.settings)) d.settings.gateContact=true;
   return d;
 }
 
@@ -1122,6 +1131,50 @@ function applySettings(){
     ? `<img src="${DB.settings.logoImg}" alt="logo" style="width:100%;height:100%;object-fit:cover;border-radius:9px"/>`
     : defaultLogoSVG();
   applySections();
+  applyContactGate();
+}
+
+/* ---------- Reveal phone / address / map only after an enquiry ---------- */
+function contactGateOn(){ return !!(typeof DB!=="undefined" && DB.settings && DB.settings.gateContact); }
+function isContactUnlocked(){
+  if(!contactGateOn()) return true;
+  try{ return localStorage.getItem("tentHouseUnlocked")==="1"; }catch(e){ return false; }
+}
+function maskPhone(p){
+  p=String(p||"").replace(/\D/g,"");
+  if(p.length<4) return "•••••";
+  const cc=p.length>10?p.slice(0,p.length-10):"";
+  const num=p.length>10?p.slice(-10):p;
+  return "+"+(cc?cc+" ":"")+num.slice(0,2)+"••••••"+num.slice(-2);
+}
+function applyContactGate(){
+  if(typeof DB==="undefined"||!DB.settings) return;
+  const unlocked=isContactUnlocked();
+  const realPh="+"+DB.settings.phone;
+  ["cPhoneLink","footPhone"].forEach(id=>{
+    const el=document.getElementById(id); if(!el) return;
+    if(unlocked){ el.textContent=realPh; el.href="tel:"+realPh; el.classList.remove("locked"); el.onclick=null; }
+    else{ el.textContent=maskPhone(DB.settings.phone)+" 🔒"; el.removeAttribute("href"); el.classList.add("locked");
+      el.onclick=function(e){ if(e)e.preventDefault(); revealHint(); }; }
+  });
+  ["cAddr","footAddr"].forEach(id=>{
+    const el=document.getElementById(id); if(!el) return;
+    el.textContent = unlocked ? (DB.settings.address||"") : t("gate_addr");
+  });
+  const map=document.getElementById("cMap");
+  if(map) map.classList.toggle("gate-blur", !unlocked);
+  const gate=document.getElementById("mapGate");
+  if(gate){ gate.style.display=unlocked?"none":"flex"; gate.textContent=t("gate_map_hint"); }
+}
+function unlockContact(){
+  try{ localStorage.setItem("tentHouseUnlocked","1"); }catch(e){}
+  applyContactGate();
+}
+function revealHint(){
+  const cb=document.getElementById("callback");
+  if(cb) cb.scrollIntoView({behavior:"smooth",block:"center"});
+  const el=document.getElementById("cbPhone"); if(el) setTimeout(()=>el.focus(),400);
+  toast(t("gate_toast"));
 }
 function defaultLogoSVG(){
   // festive multi-colour palette
@@ -1706,6 +1759,11 @@ function requestCallback(){
   const phone=document.getElementById("cbPhone").value.trim();
   const date=document.getElementById("cbDate").value;
   if(!name||!phone){ toast("Please enter your name and phone"); return; }
+  // basic "is this a real Indian mobile?" check (also unlocks contact details)
+  const digits=phone.replace(/\D/g,"");
+  const local=digits.length>10 ? digits.slice(-10) : digits;
+  if(local.length!==10 || !/^[6-9]/.test(local)){ toast(t("cb_bad_phone")); return; }
+  unlockContact();
   const msg=`*Callback request — ${DB.settings.bizName}*%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Event date:* ${date||"to be confirmed"}%0A%0APlease call me back to help plan my event. Thank you!`;
   window.open(`https://wa.me/${DB.settings.phone}?text=${msg}`,"_blank");
 }
@@ -1937,6 +1995,8 @@ function openSettings(){
     <div class="field"><label>WhatsApp / contact number (with country code, no +)</label><input id="sPhone" value="${esc(s.phone)}" placeholder="919876543210"/></div>
     <div class="field"><label class="switch">Show offer banner at top <span class="toggle ${s.offerOn?'on':''}" id="sOfferOn" onclick="this.classList.toggle('on')"></span></label>
       <p class="hint" style="margin:6px 0 0">The <b>About us</b> paragraph and the <b>offer banner wording</b> are now in <b>🌐 Website text</b>, so you can write them in every language.</p></div>
+    <div class="field"><label class="switch">Hide phone, address &amp; map until a customer sends an enquiry <span class="toggle ${s.gateContact?'on':''}" id="sGateContact" onclick="this.classList.toggle('on')"></span></label>
+      <p class="hint" style="margin:6px 0 0">When <b>ON</b>, visitors see your number &amp; location blurred until they fill the “Request a callback” form with a valid 10-digit mobile number. Turn <b>OFF</b> to show everything to everyone.</p></div>
     <button class="save" onclick="saveSettings()">Save settings</button>
     <p class="hint">Tip: the WhatsApp number is where customer booking lists are sent.</p>`;
   openModal();
@@ -1949,6 +2009,7 @@ function saveSettings(){
   DB.settings.heroImg=settingsHeroImg||"";
   DB.settings.logoImg=settingsLogoImg||"";
   DB.settings.offerOn=document.getElementById("sOfferOn").classList.contains("on");
+  DB.settings.gateContact=document.getElementById("sGateContact").classList.contains("on");
   DB.settings.hero=Object.assign({}, DB.settings.hero, {
     eyebrowColor:document.getElementById("sHeroEyebrowColor").value,
     titleColor:document.getElementById("sHeroTitleColor").value,
@@ -1956,7 +2017,7 @@ function saveSettings(){
     bgColor:document.getElementById("sHeroBg").value,
     overlay:Number(document.getElementById("sHeroOverlay").value)
   });
-  saveDB(); applySettings(); renderHero(); applyHero(); renderOffer(); applyLang(); closeModal(); toast("Settings saved");
+  saveDB(); applySettings(); renderHero(); applyHero(); renderOffer(); applyLang(); applyContactGate(); closeModal(); toast("Settings saved");
 }
 
 /* ============================================================
@@ -2324,6 +2385,10 @@ const I18N={
     contact_h:"Visit or contact us",
     c_address:"Address", c_call:"Call", c_whatsapp:"WhatsApp", c_chat:"Chat with us",
     map_label:"📍 Find us here",
+    gate_addr:"🔒 Send an enquiry below to see our address",
+    gate_map_hint:"🔒 Fill the short form below and we'll show our exact location",
+    gate_toast:"Enter your phone number below and tap “Request a callback” to unlock",
+    cb_bad_phone:"Please enter a valid 10-digit mobile number",
     cb_h:"Not ready to pick items?",
     cb_p:"Leave your number and event date — we'll call you back and help you plan everything.",
     ph_name:"Your name", ph_phone:"Phone number",
@@ -2382,6 +2447,10 @@ const I18N={
     contact_h:"हमसे मिलें या संपर्क करें",
     c_address:"पता", c_call:"कॉल", c_whatsapp:"WhatsApp", c_chat:"हमसे चैट करें",
     map_label:"📍 हमें यहाँ खोजें",
+    gate_addr:"🔒 हमारा पता देखने के लिए नीचे पूछताछ भेजें",
+    gate_map_hint:"🔒 नीचे दिया गया छोटा फ़ॉर्म भरें, हम अपना सटीक स्थान दिखा देंगे",
+    gate_toast:"अनलॉक करने के लिए नीचे अपना फ़ोन नंबर डालें और “कॉलबैक का अनुरोध करें” दबाएँ",
+    cb_bad_phone:"कृपया सही 10 अंकों का मोबाइल नंबर डालें",
     cb_h:"आइटम चुनने के लिए तैयार नहीं?",
     cb_p:"अपना नंबर और आयोजन की तारीख छोड़ें — हम आपको वापस कॉल करेंगे और सब कुछ योजना बनाने में मदद करेंगे।",
     ph_name:"आपका नाम", ph_phone:"फोन नंबर",
@@ -2440,6 +2509,10 @@ const I18N={
     contact_h:"ہم سے ملیں یا رابطہ کریں",
     c_address:"پتہ", c_call:"کال", c_whatsapp:"WhatsApp", c_chat:"ہم سے چیٹ کریں",
     map_label:"📍 ہمیں یہاں تلاش کریں",
+    gate_addr:"🔒 ہمارا پتہ دیکھنے کے لیے نیچے انکوائری بھیجیں",
+    gate_map_hint:"🔒 نیچے دیا گیا مختصر فارم پُر کریں، ہم اپنی صحیح جگہ دکھا دیں گے",
+    gate_toast:"اَن لاک کرنے کے لیے نیچے اپنا فون نمبر درج کریں اور “کال بیک کی درخواست” دبائیں",
+    cb_bad_phone:"براہ کرم درست 10 ہندسوں کا موبائل نمبر درج کریں",
     cb_h:"آئٹمز منتخب کرنے کے لیے تیار نہیں؟",
     cb_p:"اپنا نمبر اور تقریب کی تاریخ چھوڑیں — ہم آپ کو واپس کال کریں گے اور سب کچھ منصوبہ بندی میں مدد کریں گے۔",
     ph_name:"آپ کا نام", ph_phone:"فون نمبر",
@@ -2485,6 +2558,7 @@ function applyLang(){
   const ab=document.getElementById("aboutText"); if(ab) ab.textContent=tRaw("about_body");
   document.documentElement.setAttribute("dir", LANG==="ur"?"rtl":"ltr");
   document.documentElement.setAttribute("lang", LANG);
+  if(typeof applyContactGate==="function") applyContactGate();
 }
 function toggleLangMenu(e){ if(e)e.stopPropagation(); document.getElementById("langMenu").classList.toggle("show"); }
 function closeLangMenu(){ const m=document.getElementById("langMenu"); if(m)m.classList.remove("show"); }
