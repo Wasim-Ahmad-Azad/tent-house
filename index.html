@@ -520,11 +520,11 @@
     </div>
     <div class="spacer"></div>
     <button class="navbtn" id="viewToggle" style="display:none" onclick="exitAdmin()">← Back to site</button>
-    <button class="navbtn sec-nav" data-i18n="nav_packages" onclick="document.getElementById('packages').scrollIntoView({behavior:'smooth'})">Packages</button>
-    <button class="navbtn sec-nav" data-i18n="nav_gallery" onclick="document.getElementById('gallery').scrollIntoView({behavior:'smooth'})">Gallery</button>
-    <button class="navbtn sec-nav" data-i18n="nav_videos" onclick="document.getElementById('videos').scrollIntoView({behavior:'smooth'})">Videos</button>
-    <button class="navbtn sec-nav" data-i18n="nav_reviews" onclick="document.getElementById('reviews').scrollIntoView({behavior:'smooth'})">Reviews</button>
-    <button class="navbtn sec-nav" id="contactBtn" data-i18n="nav_contact" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact</button>
+    <button class="navbtn sec-nav" data-navsec="packages" data-i18n="nav_packages" onclick="document.getElementById('packages').scrollIntoView({behavior:'smooth'})">Packages</button>
+    <button class="navbtn sec-nav" data-navsec="gallery" data-i18n="nav_gallery" onclick="document.getElementById('gallery').scrollIntoView({behavior:'smooth'})">Gallery</button>
+    <button class="navbtn sec-nav" data-navsec="videos" data-i18n="nav_videos" onclick="document.getElementById('videos').scrollIntoView({behavior:'smooth'})">Videos</button>
+    <button class="navbtn sec-nav" data-navsec="reviews" data-i18n="nav_reviews" onclick="document.getElementById('reviews').scrollIntoView({behavior:'smooth'})">Reviews</button>
+    <button class="navbtn sec-nav" id="contactBtn" data-navsec="contact" data-i18n="nav_contact" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact</button>
     <div class="lang-wrap">
       <button class="lang-btn" id="langBtn" onclick="toggleLangMenu(event)" aria-label="Change language">🌐 <span id="curLang">EN</span> ▾</button>
       <div class="lang-menu" id="langMenu">
@@ -537,11 +537,11 @@
     <button class="menu-btn" id="menuBtn" onclick="toggleMenu(event)" aria-label="Menu">☰</button>
   </div>
   <div class="mobile-menu" id="mobileMenu">
-    <a data-i18n="nav_packages" onclick="goSec('packages')">Packages</a>
-    <a data-i18n="nav_gallery" onclick="goSec('gallery')">Gallery</a>
-    <a data-i18n="nav_videos" onclick="goSec('videos')">Videos</a>
-    <a data-i18n="nav_reviews" onclick="goSec('reviews')">Reviews</a>
-    <a data-i18n="nav_contact" onclick="goSec('contact')">Contact</a>
+    <a data-navsec="packages" data-i18n="nav_packages" onclick="goSec('packages')">Packages</a>
+    <a data-navsec="gallery" data-i18n="nav_gallery" onclick="goSec('gallery')">Gallery</a>
+    <a data-navsec="videos" data-i18n="nav_videos" onclick="goSec('videos')">Videos</a>
+    <a data-navsec="reviews" data-i18n="nav_reviews" onclick="goSec('reviews')">Reviews</a>
+    <a data-navsec="contact" data-i18n="nav_contact" onclick="goSec('contact')">Contact</a>
     <div class="lang-mobile">
       <span data-i18n="lang_label">Language:</span>
       <button onclick="setLang('en')">EN</button>
@@ -573,7 +573,7 @@
     </div>
   </div>
 
-  <section class="why-strip">
+  <section class="why-strip" id="why">
     <div class="wrap why-grid">
       <div class="why-item reveal"><div class="why-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5l2.6 6.3 6.8.5-5.2 4.4 1.7 6.6L12 17l-5.9 3.8 1.7-6.6L2.6 9.8l6.8-.5z"/></svg></div><div><b data-i18n="why_years_b">12+ years</b><span data-i18n="why_years_s">of happy events</span></div></div>
       <div class="why-item reveal" style="transition-delay:80ms"><div class="why-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div><div><b data-i18n="why_ontime_b">On-time setup</b><span data-i18n="why_ontime_s">every single time</span></div></div>
@@ -720,6 +720,7 @@
           <a class="btn-ghost" style="padding:9px 16px;text-decoration:none;display:inline-flex;align-items:center" href="admin/booking.html" target="_blank" rel="noopener">📝 Take a booking</a>
           <a class="btn-ghost" style="padding:9px 16px;text-decoration:none;display:inline-flex;align-items:center" href="admin/analytics.html" target="_blank" rel="noopener">📊 Reports & bookings</a>
           <button class="btn-ghost" style="padding:9px 16px" onclick="openContentEditor()">🌐 Website text</button>
+          <button class="btn-ghost" style="padding:9px 16px" onclick="openSectionsEditor()">👁 Show / hide sections</button>
           <button class="btn-ghost" style="padding:9px 16px" onclick="openSettings()">⚙ Settings</button>
           <button class="btn-primary" style="padding:9px 16px" onclick="openItemForm()">+ Add item</button>
         </div>
@@ -972,6 +973,31 @@ const SEED = {
   ]
 };
 
+// sections the owner can show / hide from the admin panel (order = top→bottom on the page)
+const SECTION_DEFS=[
+  ["why","Why choose us (badges strip)"],
+  ["about","About us"],
+  ["packages","Popular packages"],
+  ["catalog","Our rental items"],
+  ["gallery","Gallery / recent work"],
+  ["videos","Videos"],
+  ["reviews","Customer reviews"],
+  ["contact","Contact & map"],
+  ["callback","\u201CRequest a callback\u201D box"]
+];
+const SECTION_KEYS=SECTION_DEFS.map(s=>s[0]);
+
+// show or hide each section (and its menu link) based on DB.settings.sections
+function applySections(){
+  const sec=(typeof DB!=="undefined"&&DB&&DB.settings&&DB.settings.sections)||{};
+  SECTION_DEFS.forEach(d=>{
+    const on=sec[d[0]]!==false;
+    const el=document.getElementById(d[0]);
+    if(el) el.style.display=on?"":"none";
+    document.querySelectorAll('[data-navsec="'+d[0]+'"]').forEach(n=>n.style.display=on?"":"none");
+  });
+}
+
 // bring older saved data up to the current shape/branding
 function migrate(d){
   if(d.settings.bizName==="Shri Balaji Tent House") d.settings.bizName="Corporative Tent House";
@@ -1019,6 +1045,9 @@ function migrate(d){
     if(d.settings.offerText && !ce.offer_text) ce.offer_text=d.settings.offerText;
     d.settings._contentMigrated=true;
   }
+  // ---- show / hide sections (default: everything visible) ----
+  if(!d.settings.sections || typeof d.settings.sections!=="object") d.settings.sections={};
+  SECTION_KEYS.forEach(k=>{ if(!(k in d.settings.sections)) d.settings.sections[k]=true; });
   return d;
 }
 
@@ -1092,6 +1121,7 @@ function applySettings(){
   if(fm) fm.innerHTML = DB.settings.logoImg
     ? `<img src="${DB.settings.logoImg}" alt="logo" style="width:100%;height:100%;object-fit:cover;border-radius:9px"/>`
     : defaultLogoSVG();
+  applySections();
 }
 function defaultLogoSVG(){
   // festive multi-colour palette
@@ -2070,6 +2100,29 @@ function saveContent(){
   applySettings(); applyLang(); applyHero(); renderOffer();
   renderGrid(); renderPackages(); renderGallery(); renderVideos(); renderCart();
   closeModal(); toast("Website text saved");
+}
+
+/* ---------- Show / hide sections ---------- */
+function openSectionsEditor(){
+  const sec=(DB.settings&&DB.settings.sections)||{};
+  document.getElementById("modalTitle").textContent="👁 Show / hide sections";
+  document.getElementById("modalBody").innerHTML=`
+    <p class="hint" style="text-align:left;margin:0 0 6px">Turn a section <b>ON</b> to show it on your website, or <b>OFF</b> to hide it from customers. Your content stays saved — hiding just removes it from the page. The top bar, hero banner and footer always stay.</p>
+    ${SECTION_DEFS.map(d=>`
+      <label class="switch" style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 2px;border-bottom:1px solid var(--line)">
+        <span style="font-weight:600;font-size:15px">${esc(d[1])}</span>
+        <span class="toggle ${sec[d[0]]!==false?'on':''}" id="sec_${d[0]}" onclick="this.classList.toggle('on')"></span>
+      </label>`).join("")}
+    <button class="save" style="margin-top:16px" onclick="saveSections()">Save</button>`;
+  openModal();
+}
+function saveSections(){
+  const sections={};
+  SECTION_DEFS.forEach(d=>{ const el=document.getElementById("sec_"+d[0]); sections[d[0]]=el?el.classList.contains("on"):true; });
+  DB.settings.sections=sections;
+  saveDB();
+  applySections();
+  closeModal(); toast("Sections updated");
 }
 
 /* ============================================================
