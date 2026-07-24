@@ -4,6 +4,20 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>[Luxury] Corporative Tent House — Tents, Decor & Catering on Rent</title>
+<meta name="description" content="Corporative Tent House — tents, decoration, lighting & catering on rent for weddings and events. Village Tenda, near Chiknauta Chawk NH-28. Book on WhatsApp." />
+<!-- Share preview (WhatsApp / Facebook / Twitter) -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Corporative Tent House" />
+<meta property="og:title" content="Corporative Tent House — Tents, Decor & Catering on Rent" />
+<meta property="og:description" content="Tents, decoration, lighting & catering on rent for weddings and events. Village Tenda, near Chiknauta Chawk NH-28. Book easily on WhatsApp." />
+<meta property="og:url" content="https://wasim-ahmad-azad.github.io/tent-house/" />
+<meta property="og:image" content="https://wasim-ahmad-azad.github.io/tent-house/app/icon-512.png" />
+<meta property="og:image:width" content="512" />
+<meta property="og:image:height" content="512" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Corporative Tent House — Tents, Decor & Catering on Rent" />
+<meta name="twitter:description" content="Tents, decoration, lighting & catering on rent for weddings and events. Book easily on WhatsApp." />
+<meta name="twitter:image" content="https://wasim-ahmad-azad.github.io/tent-house/app/icon-512.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Marcellus&family=Mulish:wght@400;500;600;700;800;900&family=Pinyon+Script&display=swap" rel="stylesheet">
@@ -170,6 +184,10 @@
   .loc-status{font-size:12px;color:var(--muted);margin-top:6px}
   .loc-status a{color:var(--brand);font-weight:600}
   .send-wa{background:#25D366;color:#fff;width:100%;padding:13px;font-size:15px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:8px}
+  .cart-actions{display:flex;flex-direction:column;gap:9px;margin-top:12px}
+  .cart-actions button{width:100%;padding:12px;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line)}
+  .pay-adv{background:linear-gradient(135deg,var(--gold),var(--gold-2));color:var(--brand-deep)}
+  .print-quote{background:#fff;color:var(--brand-deep)}
   .hint{font-size:12px;color:var(--muted);margin-top:10px;text-align:center}
 
   /* Modal (image view + admin) */
@@ -259,6 +277,7 @@
   .review-card .who{display:flex;align-items:center;gap:10px}
   .review-card .ava{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;display:grid;place-items:center;font-weight:700;font-family:var(--font-ui)}
   .review-card .who b{font-size:14px;font-family:var(--font-ui)}
+  .review-cta{display:inline-flex;align-items:center;gap:8px;text-decoration:none;background:linear-gradient(135deg,var(--gold),var(--gold-2));color:var(--brand-deep);font-weight:700;padding:12px 26px;border-radius:999px;font-size:15px;box-shadow:0 8px 22px rgba(var(--gold-rgb),.35);border:1px solid rgba(var(--gold-rgb),.5)}
   /* WhatsApp floating button */
   .wa-fab{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom));width:58px;height:58px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 8px 24px rgba(37,211,102,.45);z-index:45;transition:transform .2s, box-shadow .2s;animation:waPulse 2.6s ease-in-out infinite}
   .wa-fab:hover{transform:scale(1.08);box-shadow:0 12px 30px rgba(37,211,102,.6)}
@@ -456,6 +475,30 @@
   .date-gate-inner input[type=date]:focus{outline:none;box-shadow:0 0 0 3px rgba(var(--brand-rgb),.15)}
   .date-gate-hint{flex-basis:100%;font-size:13px;color:var(--muted)}
   .date-gate.chosen .date-gate-inner{background:rgba(var(--ok-rgb,142,116,75),.06)}
+  .cal-open-btn{flex-basis:100%;background:#fff;border:1px solid var(--brand);color:var(--brand-deep);font-weight:700;font-size:13.5px;padding:9px 16px;border-radius:999px}
+  /* availability calendar */
+  .cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+  .cal-nav b{font-size:17px;font-family:var(--font-head)}
+  .cal-nav button{width:38px;height:38px;border-radius:50%;background:var(--surf);color:var(--brand-deep);font-size:20px;line-height:1;border:1px solid var(--line)}
+  .cal-nav button[disabled]{opacity:.35;cursor:not-allowed}
+  #calHost{max-width:400px;margin:0 auto}
+  .cal-dow{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin-bottom:6px}
+  .cal-dow span{text-align:center;font-size:11px;font-weight:700;color:var(--muted);overflow:hidden;white-space:nowrap}
+  .cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+  .cal-cell{position:relative;aspect-ratio:1;border-radius:10px;display:grid;place-items:center;font-weight:700;font-size:14px;border:1px solid var(--line);cursor:pointer;transition:transform .12s}
+  .cal-cell.empty{border:0;background:transparent;cursor:default}
+  .cal-cell.past{background:#f4f4f4;color:#bbb;cursor:not-allowed;border-color:#eee}
+  .cal-cell.open{background:rgba(46,125,50,.10);color:#2e7d32;border-color:rgba(46,125,50,.25)}
+  .cal-cell.limited{background:rgba(201,161,90,.16);color:#a5791f;border-color:rgba(201,161,90,.4)}
+  .cal-cell.busy{background:rgba(198,40,40,.10);color:#c62828;border-color:rgba(198,40,40,.3)}
+  .cal-cell:not(.empty):not(.past):active{transform:scale(.92)}
+  .cal-cell.sel{outline:3px solid var(--brand);outline-offset:1px}
+  .cal-legend{display:flex;justify-content:center;gap:18px;margin-top:16px;font-size:12.5px;color:var(--ink);flex-wrap:wrap}
+  .cal-legend span{display:inline-flex;align-items:center;gap:6px}
+  .cal-legend .dot{width:13px;height:13px;border-radius:50%;display:inline-block}
+  .cal-legend .dot.open{background:#2e7d32}
+  .cal-legend .dot.limited{background:#c9a15a}
+  .cal-legend .dot.busy{background:#c62828}
   .add[disabled]{opacity:.5;cursor:not-allowed;filter:grayscale(.3)}
   .need-date{display:block;width:100%;font-size:12.5px;font-weight:700;color:var(--brand-deep);text-align:center;background:rgba(var(--brand-rgb),.05);border:1px dashed var(--brand);border-radius:6px;padding:8px 10px}
   /* ---------- Admin inventory table ---------- */
@@ -618,6 +661,7 @@
         <label for="eventDate" data-i18n="date_gate_label">Choose your event date first</label>
         <input id="eventDate" type="date" onchange="setEventDate(this.value)"/>
         <span class="date-gate-hint" id="dateGateHint" data-i18n="date_gate_hint">See exactly what's available on your day.</span>
+        <button type="button" class="cal-open-btn" onclick="openAvailCalendar()" data-i18n="cal_open">📅 View availability calendar</button>
       </div>
     </div>
     <div class="filters" id="filters"></div>
@@ -655,6 +699,9 @@
         <p data-i18n="reviews_p">A few kind words from families and organisers we've worked with.</p>
       </div>
       <div class="reviews-grid" id="reviewsGrid"></div>
+      <div id="reviewCtaWrap" style="text-align:center;margin-top:22px;display:none">
+        <a id="reviewCta" href="#" target="_blank" rel="noopener" class="review-cta" data-i18n="review_cta">⭐ Rate us on Google</a>
+      </div>
     </div>
   </section>
 
@@ -728,6 +775,7 @@
           <a class="btn-ghost" style="padding:9px 16px;text-decoration:none;display:inline-flex;align-items:center" href="admin/analytics.html" target="_blank" rel="noopener">📊 Reports & bookings</a>
           <button class="btn-ghost" style="padding:9px 16px" onclick="openContentEditor()">🌐 Website text</button>
           <button class="btn-ghost" style="padding:9px 16px" onclick="openSectionsEditor()">👁 Show / hide sections</button>
+          <button class="btn-ghost" style="padding:9px 16px" onclick="openQrPoster()">📱 QR poster</button>
           <button class="btn-ghost" style="padding:9px 16px" onclick="openSettings()">⚙ Settings</button>
           <button class="btn-primary" style="padding:9px 16px" onclick="openItemForm()">+ Add item</button>
         </div>
@@ -850,6 +898,7 @@
     </div>
     <button class="send-wa" data-i18n="send_wa" onclick="sendWhatsApp()">💬 Send list on WhatsApp</button>
     <p class="hint" data-i18n="send_wa_hint">This sends your selected items, address and location to us on WhatsApp. No payment is taken here.</p>
+    <div class="cart-actions" id="cartActions"></div>
   </div>
 </aside>
 
@@ -1059,6 +1108,10 @@ function migrate(d){
   const oldGate = ('gateContact' in d.settings) ? d.settings.gateContact : true;
   if(!('gatePhone' in d.settings)) d.settings.gatePhone=oldGate;   // lock the mobile number
   if(!('gateMap'   in d.settings)) d.settings.gateMap  =oldGate;   // lock the address + map
+  // ---- advance payment (UPI) + Google review link ----
+  if(!('upiId' in d.settings)) d.settings.upiId="";
+  if(!('advancePercent' in d.settings)) d.settings.advancePercent=20;
+  if(!('reviewLink' in d.settings)) d.settings.reviewLink="";
   return d;
 }
 
@@ -1106,6 +1159,71 @@ async function setEventDate(v){
   if(selectedDate) await loadAvailability([selectedDate]);
   renderGrid();
 }
+
+/* ---- Customer-facing availability calendar ---- */
+let calYear, calMonth; // month currently shown (0-11)
+async function openAvailCalendar(){
+  const now=new Date();
+  if(calYear==null){ calYear=now.getFullYear(); calMonth=now.getMonth(); }
+  document.getElementById("modalTitle").textContent=t("cal_title");
+  document.getElementById("modalBody").innerHTML=`<div id="calHost"><div class="empty" style="padding:30px">${t("cal_loading")}</div></div>`;
+  openModal();
+  await renderAvailCalendar();
+}
+function dayISO(y,m,d){ return y+"-"+String(m+1).padStart(2,"0")+"-"+String(d).padStart(2,"0"); }
+function dayStatus(date){
+  // tracked = available items with a stock number set
+  const tracked=DB.items.filter(i=>i.available && itemStock(i)!=null);
+  if(!tracked.length) return "open";
+  let anyBooked=false, allFull=true;
+  tracked.forEach(i=>{ const rem=itemRemaining(i,date); if(itemBooked(i,date)>0) anyBooked=true; if(rem>0) allFull=false; });
+  if(allFull) return "busy";
+  if(anyBooked) return "limited";
+  return "open";
+}
+async function renderAvailCalendar(){
+  const host=document.getElementById("calHost"); if(!host) return;
+  const first=new Date(calYear,calMonth,1);
+  const daysInMonth=new Date(calYear,calMonth+1,0).getDate();
+  const startDow=first.getDay(); // 0=Sun
+  // load availability for every day this month (one query)
+  const dates=[]; for(let d=1;d<=daysInMonth;d++) dates.push(dayISO(calYear,calMonth,d));
+  try{ await loadAvailability(dates); }catch(e){}
+  const monthName=first.toLocaleDateString(document.documentElement.lang||"en",{month:"long",year:"numeric"});
+  const todayStr=todayISO();
+  const dows=(t("cal_dows")||"S,M,T,W,T,F,S").split(",");
+  let cells="";
+  for(let i=0;i<startDow;i++) cells+=`<div class="cal-cell empty"></div>`;
+  for(let d=1;d<=daysInMonth;d++){
+    const iso=dayISO(calYear,calMonth,d);
+    const past=iso<todayStr;
+    const st=past?"past":dayStatus(iso);
+    const sel=iso===selectedDate?" sel":"";
+    const click=past?"":`onclick="pickCalDate('${iso}')"`;
+    cells+=`<div class="cal-cell ${st}${sel}" ${click}><span>${d}</span></div>`;
+  }
+  host.innerHTML=`
+    <div class="cal-nav">
+      <button type="button" onclick="calShift(-1)" ${calYear===new Date().getFullYear()&&calMonth<=new Date().getMonth()?'disabled':''}>‹</button>
+      <b>${monthName}</b>
+      <button type="button" onclick="calShift(1)">›</button>
+    </div>
+    <div class="cal-dow">${dows.map(x=>`<span>${x}</span>`).join("")}</div>
+    <div class="cal-grid">${cells}</div>
+    <div class="cal-legend">
+      <span><i class="dot open"></i>${t("cal_avail")}</span>
+      <span><i class="dot limited"></i>${t("cal_limited")}</span>
+      <span><i class="dot busy"></i>${t("cal_busy")}</span>
+    </div>
+    <p class="hint" style="margin-top:12px">${t("cal_hint")}</p>`;
+}
+function calShift(n){
+  calMonth+=n;
+  if(calMonth<0){ calMonth=11; calYear--; }
+  else if(calMonth>11){ calMonth=0; calYear++; }
+  renderAvailCalendar();
+}
+function pickCalDate(iso){ setEventDate(iso); closeModal(); const c=document.getElementById("catalog"); if(c) c.scrollIntoView({behavior:"smooth"}); toast(t("cal_picked",{d:iso})); }
 
 /* ============================================================
    CUSTOMER VIEW
@@ -1323,7 +1441,17 @@ function renderCart(){
       </div>
     </div>`).join("")
     + cartSubtotalHTML(items);
+  renderCartActions(items);
   updateCartStep();
+}
+function renderCartActions(items){
+  const box=document.getElementById("cartActions"); if(!box) return;
+  const total=cartSubtotal(items);
+  const upi=(DB&&DB.settings&&DB.settings.upiId)||"";
+  let h="";
+  if(upi && total){ h+=`<button type="button" class="pay-adv" onclick="payAdvance()">💳 ${t("pay_advance")}</button>`; }
+  if(total){ h+=`<button type="button" class="print-quote" onclick="printQuote()">🧾 ${t("print_quote")}</button>`; }
+  box.innerHTML=h;
 }
 function updateCartStep(){
   const items=Object.values(cart);
@@ -1352,11 +1480,20 @@ function backToList(){ cartStep=1; updateCartStep(); }
 function cartSubtotal(items){
   return items.reduce((s,c)=>{ const p=parseFloat(String(c.price).replace(/[^0-9.]/g,"")); return s+(isNaN(p)?0:p*c.qty); },0);
 }
+function advanceAmount(total){
+  const pct=(DB&&DB.settings&&Number(DB.settings.advancePercent))||0;
+  if(!pct||!total) return 0;
+  return Math.round(total*pct/100);
+}
 function cartSubtotalHTML(items){
   const total=cartSubtotal(items);
   if(!total) return "";
   const n=items.reduce((s,c)=>s+c.qty,0);
-  return `<div class="cart-sub"><span>${t("subtotal")}<small>${n} item${n>1?"s":""} · ${t("subtotal_note")}</small></span><b>₹${total.toLocaleString("en-IN")}</b></div>`;
+  const adv=advanceAmount(total);
+  const pct=(DB&&DB.settings&&Number(DB.settings.advancePercent))||0;
+  let html=`<div class="cart-sub"><span>${t("subtotal")}<small>${n} item${n>1?"s":""} · ${t("subtotal_note")}</small></span><b>₹${total.toLocaleString("en-IN")}</b></div>`;
+  if(adv){ html+=`<div class="cart-sub" style="border-top:1px dashed var(--line);margin-top:-2px"><span>${t("advance_label")}<small>${pct}% ${t("advance_note")}</small></span><b style="color:var(--brand)">₹${adv.toLocaleString("en-IN")}</b></div>`; }
+  return html;
 }
 
 function openCart(){cartStep=1;document.getElementById("overlay").classList.add("show");document.getElementById("drawer").classList.add("show");renderCart();}
@@ -1430,6 +1567,92 @@ function sendEmail(){
   const subject=encodeURIComponent(`Booking enquiry from ${d.name}`);
   const body=d.msg.replace(/%0A/g,"\n").replace(/\*/g,"");
   window.location.href=`mailto:${DB.settings.email}?subject=${subject}&body=${encodeURIComponent(body)}`;
+}
+/* ---- Advance payment via UPI (scan-to-pay QR) ---- */
+function payAdvance(){
+  const items=Object.values(cart);
+  const total=cartSubtotal(items);
+  const upi=(DB.settings.upiId||"").trim();
+  if(!upi||!total){ toast(t("toast_list_empty")); return; }
+  const pct=Number(DB.settings.advancePercent)||0;
+  const adv=advanceAmount(total);
+  const amt=adv||total;
+  const pn=encodeURIComponent(DB.settings.bizName||"Tent House");
+  const upiUrl=`upi://pay?pa=${encodeURIComponent(upi)}&pn=${pn}&am=${amt}&cu=INR&tn=${encodeURIComponent("Advance for tent booking")}`;
+  const qr=`https://api.qrserver.com/v1/create-qr-code/?size=260x260&margin=8&data=${encodeURIComponent(upiUrl)}`;
+  document.getElementById("modalTitle").textContent=t("pay_advance");
+  document.getElementById("modalBody").innerHTML=`
+    <div style="text-align:center">
+      <p style="margin:0 0 6px;color:var(--muted)">${pct?`${t("advance_label")} (${pct}%)`:t("subtotal")}</p>
+      <div style="font-size:30px;font-weight:800;color:var(--brand);margin-bottom:14px">₹${amt.toLocaleString("en-IN")}</div>
+      <img src="${qr}" alt="UPI QR" style="width:230px;height:230px;margin:0 auto;border:1px solid var(--line);border-radius:14px;padding:8px;background:#fff"/>
+      <p style="margin:12px 0 4px;font-weight:700">${t("scan_pay")}</p>
+      <p class="hint" style="margin:0 0 14px">${t("upi_id_label")}: <b>${esc(upi)}</b></p>
+      <a class="send-wa" style="display:block;text-decoration:none;text-align:center" href="${upiUrl}">📲 ${t("open_upi_app")}</a>
+      <p class="hint" style="margin:12px 0 0">${t("pay_advance_note")}</p>
+    </div>`;
+  openModal();
+}
+/* ---- Printable quotation / receipt ---- */
+function printQuote(){
+  const items=Object.values(cart);
+  if(!items.length){ toast(t("toast_list_empty")); return; }
+  const s=DB.settings;
+  const total=cartSubtotal(items);
+  const adv=advanceAmount(total);
+  const name=(document.getElementById("cName")||{}).value||"";
+  const phone=(document.getElementById("cPhone")||{}).value||"";
+  const date=(document.getElementById("cDate")||{}).value||"";
+  const address=(document.getElementById("cAddress")||{}).value||"";
+  const rows=items.map((c,i)=>{
+    const p=parseFloat(String(c.price).replace(/[^0-9.]/g,""));
+    const line=isNaN(p)?"—":"₹"+(p*c.qty).toLocaleString("en-IN");
+    return `<tr><td>${i+1}</td><td>${esc(c.name)}</td><td style="text-align:center">${c.qty}</td><td style="text-align:right">₹${esc(c.price)}</td><td style="text-align:right">${line}</td></tr>`;
+  }).join("");
+  const logo=s.logoImg?`<img src="${s.logoImg}" style="height:56px;width:56px;object-fit:cover;border-radius:10px"/>`:"";
+  const custBlock=(name||phone||date||address)?`
+    <div class="q-cust">
+      ${name?`<div><b>Customer:</b> ${esc(name)}</div>`:""}
+      ${phone?`<div><b>Phone:</b> ${esc(phone)}</div>`:""}
+      ${date?`<div><b>Event date:</b> ${esc(date)}</div>`:""}
+      ${address?`<div><b>Address:</b> ${esc(address)}</div>`:""}
+    </div>`:"";
+  const w=window.open("","_blank");
+  if(!w){ toast("Please allow pop-ups to print the quotation"); return; }
+  w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>Quotation — ${esc(s.bizName||"")}</title>
+    <style>
+      *{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+      body{margin:0;padding:28px;color:#222}
+      .q-head{display:flex;align-items:center;gap:14px;border-bottom:2px solid #b76e79;padding-bottom:14px;margin-bottom:6px}
+      .q-head h1{margin:0;font-size:22px;color:#9a545f}
+      .q-head p{margin:2px 0;font-size:12px;color:#666}
+      .q-title{font-size:15px;font-weight:700;margin:18px 0 8px}
+      .q-cust{font-size:13px;line-height:1.7;margin-bottom:14px}
+      table{width:100%;border-collapse:collapse;font-size:13px}
+      th,td{border:1px solid #ddd;padding:8px 10px}
+      th{background:#f6d9d4;text-align:left}
+      tfoot td{font-weight:700}
+      .q-note{font-size:11px;color:#888;margin-top:22px;border-top:1px solid #eee;padding-top:10px}
+      @media print{.q-print{display:none}}
+    </style></head><body>
+    <div class="q-head">${logo}<div><h1>${esc(s.bizName||"Tent House")}</h1>
+      ${s.founder?`<p>Prop: ${esc(s.founder)}</p>`:""}
+      ${s.address?`<p>${esc(s.address)}</p>`:""}
+      ${s.phone?`<p>📞 +${esc(s.phone)}</p>`:""}</div></div>
+    <div class="q-title">QUOTATION / ESTIMATE${date?` — ${esc(date)}`:""}</div>
+    ${custBlock}
+    <table>
+      <thead><tr><th style="width:34px">#</th><th>Item</th><th style="text-align:center;width:50px">Qty</th><th style="text-align:right;width:90px">Rate</th><th style="text-align:right;width:100px">Amount</th></tr></thead>
+      <tbody>${rows}</tbody>
+      <tfoot>
+        <tr><td colspan="4" style="text-align:right">Estimated total</td><td style="text-align:right">₹${total.toLocaleString("en-IN")}</td></tr>
+        ${adv?`<tr><td colspan="4" style="text-align:right">Advance (${Number(s.advancePercent)||0}%)</td><td style="text-align:right">₹${adv.toLocaleString("en-IN")}</td></tr>`:""}
+      </tfoot>
+    </table>
+    <p class="q-note">This is an estimate only. Final prices are confirmed at the time of booking. Prices may vary with dates, quantity and location. Generated on ${new Date().toLocaleDateString("en-IN")}.</p>
+    <p class="q-print" style="margin-top:20px"><button onclick="window.print()" style="padding:10px 22px;font-size:14px;background:#b76e79;color:#fff;border:none;border-radius:8px;cursor:pointer">🖨 Print / Save as PDF</button></p>
+    </body></html>`);
+  w.document.close();
 }
 
 /* ============================================================
@@ -1686,7 +1909,8 @@ function stars(n){ n=Math.max(0,Math.min(5,n|0)); return "★".repeat(n)+`<span 
 function renderTestimonials(){
   const sec=document.getElementById("reviews"), grid=document.getElementById("reviewsGrid");
   const items=DB.testimonials||[];
-  if(!items.length){ sec.style.display="none"; return; }
+  const link=(DB.settings&&DB.settings.reviewLink||"").trim();
+  if(!items.length && !link){ sec.style.display="none"; return; }
   sec.style.display="block";
   grid.innerHTML=items.map((t,idx)=>`
     <div class="review-card reveal" style="transition-delay:${Math.min(idx,8)*55}ms">
@@ -1694,6 +1918,8 @@ function renderTestimonials(){
       <p class="quote">“${esc(t.text)}”</p>
       <div class="who"><div class="ava">${esc((t.name||"?").trim().charAt(0).toUpperCase())}</div><b>${esc(t.name)}</b></div>
     </div>`).join("");
+  const wrap=document.getElementById("reviewCtaWrap"), cta=document.getElementById("reviewCta");
+  if(wrap&&cta){ if(link){ cta.href=link; wrap.style.display="block"; } else { wrap.style.display="none"; } }
   revealObserve();
 }
 function renderReviewsAdmin(){
@@ -2008,6 +2234,18 @@ function openSettings(){
         <span class="toggle ${s.gateMap?'on':''}" id="sGateMap" onclick="this.classList.toggle('on')"></span>
       </label>
     </div>
+    <div class="field" style="border:1px solid var(--line);border-radius:12px;padding:14px;background:rgba(var(--gold-rgb),.05)">
+      <label style="font-weight:700;margin-bottom:6px">💳 Advance payment (UPI)</label>
+      <p class="hint" style="text-align:left;margin:0 0 12px">Add your <b>UPI ID</b> (like <b>9876543210@ybl</b> or <b>name@okaxis</b>) to show a <b>“Pay advance”</b> button with a scan-to-pay QR in the booking list. Leave blank to hide it.</p>
+      <div class="form-row" style="margin-bottom:10px"><label style="font-size:13px">UPI ID</label><input id="sUpiId" value="${esc(s.upiId||'')}" placeholder="e.g. 9876543210@ybl"/></div>
+      <div class="form-row"><label style="font-size:13px">Advance to collect (% of estimate)</label><input id="sAdvancePct" type="number" min="0" max="100" value="${Number(s.advancePercent==null?20:s.advancePercent)}" placeholder="20"/></div>
+      <p class="hint" style="text-align:left;margin:8px 0 0">Set to <b>0</b> to let customers pay any amount. This is only a request to pay — money goes straight to your UPI, not through this website.</p>
+    </div>
+    <div class="field" style="border:1px solid var(--line);border-radius:12px;padding:14px;background:rgba(var(--brand-rgb),.03)">
+      <label style="font-weight:700;margin-bottom:6px">⭐ Google review link</label>
+      <p class="hint" style="text-align:left;margin:0 0 12px">Paste your <b>Google review link</b> to show an <b>“Rate us on Google”</b> button. To get it: Google Maps → your business → <b>Ask for reviews</b> / Share → copy the short link.</p>
+      <div class="form-row"><label style="font-size:13px">Review link</label><input id="sReviewLink" value="${esc(s.reviewLink||'')}" placeholder="https://g.page/r/..."/></div>
+    </div>
     <button class="save" onclick="saveSettings()">Save settings</button>
     <p class="hint">Tip: the WhatsApp number is where customer booking lists are sent.</p>`;
   openModal();
@@ -2022,6 +2260,9 @@ function saveSettings(){
   DB.settings.offerOn=document.getElementById("sOfferOn").classList.contains("on");
   DB.settings.gatePhone=document.getElementById("sGatePhone").classList.contains("on");
   DB.settings.gateMap=document.getElementById("sGateMap").classList.contains("on");
+  DB.settings.upiId=document.getElementById("sUpiId").value.trim();
+  DB.settings.advancePercent=Math.max(0,Math.min(100,Number(document.getElementById("sAdvancePct").value)||0));
+  DB.settings.reviewLink=document.getElementById("sReviewLink").value.trim();
   DB.settings.hero=Object.assign({}, DB.settings.hero, {
     eyebrowColor:document.getElementById("sHeroEyebrowColor").value,
     titleColor:document.getElementById("sHeroTitleColor").value,
@@ -2030,6 +2271,43 @@ function saveSettings(){
     overlay:Number(document.getElementById("sHeroOverlay").value)
   });
   saveDB(); applySettings(); renderHero(); applyHero(); renderOffer(); applyLang(); applyContactGate(); closeModal(); toast("Settings saved");
+}
+/* ---- Printable QR poster (put up at the shop / share on WhatsApp) ---- */
+function openQrPoster(){
+  const s=DB.settings;
+  const siteUrl="https://wasim-ahmad-azad.github.io/tent-house/";
+  const qr=`https://api.qrserver.com/v1/create-qr-code/?size=520x520&margin=12&data=${encodeURIComponent(siteUrl)}`;
+  const w=window.open("","_blank");
+  if(!w){ toast("Please allow pop-ups to open the QR poster"); return; }
+  w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>QR poster — ${esc(s.bizName||"")}</title>
+    <style>
+      *{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+      body{margin:0;background:#fff;color:#3d2a2a}
+      .poster{width:800px;max-width:100%;margin:0 auto;padding:48px 40px;text-align:center}
+      .logo{height:90px;width:90px;object-fit:cover;border-radius:18px;margin:0 auto 14px;display:block}
+      h1{font-size:40px;margin:0 0 4px;color:#9a545f}
+      .sub{font-size:18px;color:#8a6f6b;margin:0 0 26px}
+      .rule{width:90px;height:4px;background:linear-gradient(90deg,#c9a15a,#e6cd94);border:0;border-radius:4px;margin:0 auto 28px}
+      .scan{font-size:26px;font-weight:800;margin:0 0 18px}
+      .qr{width:360px;height:360px;border:3px solid #f2e2df;border-radius:22px;padding:14px;background:#fff}
+      .url{font-size:16px;color:#9a545f;margin:18px 0 6px;word-break:break-all;font-weight:700}
+      .phone{font-size:22px;font-weight:800;margin:22px 0 0}
+      .tag{font-size:15px;color:#8a6f6b;margin:6px 0 0}
+      @media print{.no-print{display:none}}
+    </style></head><body>
+    <div class="poster">
+      ${s.logoImg?`<img class="logo" src="${s.logoImg}"/>`:""}
+      <h1>${esc(s.bizName||"Corporative Tent House")}</h1>
+      <p class="sub">${esc(s.founder?("Prop: "+s.founder):"Tents · Decor · Lighting · Catering on rent")}</p>
+      <hr class="rule"/>
+      <p class="scan">📱 Scan to see our catalogue &amp; book</p>
+      <img class="qr" src="${qr}" alt="Website QR"/>
+      <p class="url">${siteUrl}</p>
+      ${s.phone?`<p class="phone">📞 +${esc(s.phone)}</p>`:""}
+      <p class="tag">Book easily on WhatsApp — tents, decoration, lighting &amp; catering</p>
+      <p class="no-print" style="margin-top:26px"><button onclick="window.print()" style="padding:12px 28px;font-size:15px;background:#b76e79;color:#fff;border:none;border-radius:10px;cursor:pointer">🖨 Print / Save as PDF</button></p>
+    </div></body></html>`);
+  w.document.close();
 }
 
 /* ============================================================
@@ -2394,6 +2672,7 @@ const I18N={
     videos_p:"Watch a few of our events come together — from setup to the final decorated look.",
     reviews_h:"What our customers say",
     reviews_p:"A few kind words from families and organisers we've worked with.",
+    review_cta:"⭐ Rate us on Google",
     contact_h:"Visit or contact us",
     c_address:"Address", c_call:"Call", c_whatsapp:"WhatsApp", c_chat:"Chat with us",
     map_label:"📍 Find us here",
@@ -2421,12 +2700,20 @@ const I18N={
     out_of_stock:"📅 Out of stock for this date — please check another day",
     only_left:"Only {n} left for your date",
     date_gate_label:"Choose your event date first", date_gate_hint:"See exactly what's available on your day.",
+    cal_open:"📅 View availability calendar", cal_title:"Availability calendar", cal_loading:"Loading availability…",
+    cal_dows:"S,M,T,W,T,F,S", cal_avail:"Available", cal_limited:"Limited", cal_busy:"Fully booked",
+    cal_hint:"Green days are wide open. Tap any day to see exactly what's available and start your list.",
+    cal_picked:"Date set to {d} — availability updated",
     need_date:"Pick your event date above", toast_pick_date:"Please choose your event date first",
     ask_wa:"💬 Ask on WhatsApp", currently_na:"Currently not available",
     book_package:"Book this package",
     photos_view:"{n} photos — tap to view", photo_view:"{n} photo — tap to view",
     back_to:"← Back to {name}",
     subtotal:"Estimated subtotal", subtotal_note:"final price confirmed on WhatsApp",
+    advance_label:"Advance to book", advance_note:"of estimate",
+    pay_advance:"Pay advance", print_quote:"Print quotation",
+    scan_pay:"Scan with any UPI app to pay", upi_id_label:"UPI ID", open_upi_app:"Open my UPI app",
+    pay_advance_note:"This opens your UPI app (GPay, PhonePe, Paytm). Money goes straight to us. Please share the payment screenshot on WhatsApp.",
     list_empty_line1:"Your list is empty.", list_empty_line2:"Add items from the catalog.",
     toast_list_empty:"Your list is empty", toast_oos:"Out of stock for this date", toast_only:"Only {n} available for this date",
     remove:"Remove"
@@ -2456,6 +2743,7 @@ const I18N={
     videos_p:"हमारे कुछ आयोजनों को बनते देखें — सेटअप से लेकर अंतिम सजावट तक।",
     reviews_h:"हमारे ग्राहक क्या कहते हैं",
     reviews_p:"जिन परिवारों और आयोजकों के साथ हमने काम किया, उनके कुछ प्यारे शब्द।",
+    review_cta:"⭐ Google पर हमें रेटिंग दें",
     contact_h:"हमसे मिलें या संपर्क करें",
     c_address:"पता", c_call:"कॉल", c_whatsapp:"WhatsApp", c_chat:"हमसे चैट करें",
     map_label:"📍 हमें यहाँ खोजें",
@@ -2483,12 +2771,20 @@ const I18N={
     out_of_stock:"📅 इस तारीख के लिए स्टॉक खत्म — कृपया कोई और दिन देखें",
     only_left:"इस तारीख के लिए केवल {n} बचे हैं",
     date_gate_label:"पहले अपनी आयोजन की तारीख चुनें", date_gate_hint:"देखें कि आपके दिन क्या-क्या उपलब्ध है।",
+    cal_open:"📅 उपलब्धता कैलेंडर देखें", cal_title:"उपलब्धता कैलेंडर", cal_loading:"उपलब्धता लोड हो रही है…",
+    cal_dows:"रवि,सोम,मंगल,बुध,गुरु,शुक्र,शनि", cal_avail:"उपलब्ध", cal_limited:"सीमित", cal_busy:"पूरी तरह बुक",
+    cal_hint:"हरे दिन पूरी तरह खाली हैं। किसी भी दिन पर टैप करके देखें क्या उपलब्ध है और अपनी सूची बनाएं।",
+    cal_picked:"तारीख {d} चुनी गई — उपलब्धता अपडेट हुई",
     need_date:"ऊपर अपनी तारीख चुनें", toast_pick_date:"कृपया पहले आयोजन की तारीख चुनें",
     ask_wa:"💬 WhatsApp पर पूछें", currently_na:"अभी उपलब्ध नहीं",
     book_package:"यह पैकेज बुक करें",
     photos_view:"{n} फोटो — देखने के लिए टैप करें", photo_view:"{n} फोटो — देखने के लिए टैप करें",
     back_to:"← {name} पर वापस",
     subtotal:"अनुमानित उप-योग", subtotal_note:"अंतिम कीमत WhatsApp पर तय होगी",
+    advance_label:"बुकिंग के लिए अग्रिम", advance_note:"अनुमान का",
+    pay_advance:"अग्रिम भुगतान करें", print_quote:"कोटेशन प्रिंट करें",
+    scan_pay:"भुगतान के लिए किसी भी UPI ऐप से स्कैन करें", upi_id_label:"UPI आईडी", open_upi_app:"मेरा UPI ऐप खोलें",
+    pay_advance_note:"यह आपका UPI ऐप (GPay, PhonePe, Paytm) खोलेगा। पैसा सीधे हमें आता है। कृपया भुगतान का स्क्रीनशॉट WhatsApp पर भेजें।",
     list_empty_line1:"आपकी सूची खाली है।", list_empty_line2:"कैटलॉग से आइटम जोड़ें।",
     toast_list_empty:"आपकी सूची खाली है", toast_oos:"इस तारीख के लिए स्टॉक खत्म", toast_only:"इस तारीख के लिए केवल {n} उपलब्ध",
     remove:"हटाएँ"
@@ -2518,6 +2814,7 @@ const I18N={
     videos_p:"ہماری چند تقریبات کو بنتے دیکھیں — سیٹ اپ سے آخری سجاوٹ تک۔",
     reviews_h:"ہمارے گاہک کیا کہتے ہیں",
     reviews_p:"جن خاندانوں اور منتظمین کے ساتھ ہم نے کام کیا، ان کے چند پیارے الفاظ۔",
+    review_cta:"⭐ Google پر ہمیں ریٹنگ دیں",
     contact_h:"ہم سے ملیں یا رابطہ کریں",
     c_address:"پتہ", c_call:"کال", c_whatsapp:"WhatsApp", c_chat:"ہم سے چیٹ کریں",
     map_label:"📍 ہمیں یہاں تلاش کریں",
@@ -2545,12 +2842,20 @@ const I18N={
     out_of_stock:"📅 اس تاریخ کے لیے اسٹاک ختم — براہ کرم کوئی اور دن دیکھیں",
     only_left:"اس تاریخ کے لیے صرف {n} باقی ہیں",
     date_gate_label:"پہلے اپنی تقریب کی تاریخ منتخب کریں", date_gate_hint:"دیکھیں کہ آپ کے دن کیا دستیاب ہے۔",
+    cal_open:"📅 دستیابی کیلنڈر دیکھیں", cal_title:"دستیابی کیلنڈر", cal_loading:"دستیابی لوڈ ہو رہی ہے…",
+    cal_dows:"اتوار,پیر,منگل,بدھ,جمعرات,جمعہ,ہفتہ", cal_avail:"دستیاب", cal_limited:"محدود", cal_busy:"مکمل بک",
+    cal_hint:"سبز دن مکمل خالی ہیں۔ کسی بھی دن پر ٹیپ کر کے دیکھیں کیا دستیاب ہے اور اپنی فہرست بنائیں۔",
+    cal_picked:"تاریخ {d} منتخب ہوئی — دستیابی اپ ڈیٹ ہوگئی",
     need_date:"اوپر اپنی تاریخ منتخب کریں", toast_pick_date:"براہ کرم پہلے تقریب کی تاریخ منتخب کریں",
     ask_wa:"💬 WhatsApp پر پوچھیں", currently_na:"فی الحال دستیاب نہیں",
     book_package:"یہ پیکج بک کریں",
     photos_view:"{n} تصاویر — دیکھنے کے لیے ٹیپ کریں", photo_view:"{n} تصویر — دیکھنے کے لیے ٹیپ کریں",
     back_to:"← {name} پر واپس",
     subtotal:"تخمینی ذیلی رقم", subtotal_note:"حتمی قیمت WhatsApp پر طے ہوگی",
+    advance_label:"بکنگ کے لیے پیشگی", advance_note:"تخمینے کا",
+    pay_advance:"پیشگی ادائیگی کریں", print_quote:"کوٹیشن پرنٹ کریں",
+    scan_pay:"ادائیگی کے لیے کسی بھی UPI ایپ سے اسکین کریں", upi_id_label:"UPI آئی ڈی", open_upi_app:"میرا UPI ایپ کھولیں",
+    pay_advance_note:"یہ آپ کا UPI ایپ (GPay, PhonePe, Paytm) کھولے گا۔ رقم براہِ راست ہمیں آتی ہے۔ براہ کرم ادائیگی کا اسکرین شاٹ WhatsApp پر بھیجیں۔",
     list_empty_line1:"آپ کی فہرست خالی ہے۔", list_empty_line2:"کیٹلاگ سے آئٹمز شامل کریں۔",
     toast_list_empty:"آپ کی فہرست خالی ہے", toast_oos:"اس تاریخ کے لیے اسٹاک ختم", toast_only:"اس تاریخ کے لیے صرف {n} دستیاب",
     remove:"ہٹائیں"
