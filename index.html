@@ -764,6 +764,7 @@
           <input type="file" id="heroSlideFile" accept="image/*" multiple style="display:none" onchange="addHeroSlides(event)"/>
         </div>
       </div>
+      <p class="hint" style="text-align:left;margin:6px 0 0">📐 <b>Best photo:</b> wide/landscape, ratio <b>16:9</b> — about <b>1920 × 1080 px</b> (at least 1600 px wide). Use <b>JPG</b> (or PNG). Shoot/crop landscape so nothing important is near the edges — the banner may trim a little top &amp; bottom on small screens.</p>
       <div class="gallery-admin-grid" id="adminHero"></div>
 
       <div class="toolbar" style="margin-top:34px">
@@ -776,6 +777,7 @@
           <input type="file" id="folderPhotoFile" accept="image/*" multiple style="display:none" onchange="onFolderPhotoPick(event)"/>
         </div>
       </div>
+      <p class="hint" style="text-align:left;margin:6px 0 0">📐 <b>Best photo:</b> landscape, ratio <b>4:3</b> — about <b>1200 × 900 px</b>. Use <b>JPG</b>. Phone photos taken sideways (landscape) fit perfectly; portrait/tall photos will be trimmed on the sides.</p>
       <div id="adminGallery"></div>
 
       <div class="toolbar" style="margin-top:34px">
@@ -1727,6 +1729,7 @@ function openPackageForm(id){
     <div class="field"><label>Photo</label>
       <div class="img-preview" id="pkgPrev" onclick="document.getElementById('pkgFile').click()">${pkgFormImg?`<img src="${esc(pkgFormImg)}"/>`:"📷 Click to upload an image"}</div>
       <input type="file" id="pkgFile" accept="image/*" style="display:none" onchange="pickPkgImage(event)"/>
+      <p class="hint" style="text-align:left;margin:6px 0 0">📐 Landscape, ratio <b>4:3</b> — about <b>1000 × 750 px</b>. Use <b>JPG</b>. Keep the main subject centred so nothing gets cropped.</p>
     </div>
     <div class="field"><label>Package name</label><input id="pkName" value="${p?esc(p.name):''}" placeholder="e.g. Wedding Package"/></div>
     <div class="field two">
@@ -1792,6 +1795,7 @@ function openItemForm(id){
         ${formImg?`<img src="${formImg}"/>`:"📷 Click to upload an image"}
       </div>
       <input type="file" id="imgFile" accept="image/*" style="display:none" onchange="pickImage(event)"/>
+      <p class="hint" style="text-align:left;margin:6px 0 0">📐 Landscape, ratio <b>4:3</b> — about <b>1200 × 900 px</b>. Use <b>JPG</b>. Keep the item centred so nothing gets cropped.</p>
     </div>
     <div class="field"><label>Item name</label><input id="fName" value="${it?esc(it.name):''}" placeholder="e.g. Shamiana Tent"/></div>
     <div class="field"><label>Category</label>
@@ -1859,6 +1863,7 @@ function openSettings(){
         ${s.logoImg?`<img src="${esc(s.logoImg)}"/>`:"🏷️ Click to upload a logo (optional)"}
       </div>
       <input type="file" id="logoFile" accept="image/*" style="display:none" onchange="pickSettingsLogo(event)"/>
+      <p class="hint" style="text-align:left;margin:6px 0 0">📐 <b>Square</b>, ratio <b>1:1</b> — about <b>500 × 500 px</b>. Use a <b>PNG with a transparent background</b> for the cleanest look (JPG is fine too). It shows as a small square in the top bar.</p>
       <button class="mini del" id="logoRemove" style="margin-top:8px;display:${s.logoImg?'inline-block':'none'}" onclick="clearLogoImg()">Remove logo (use tent icon)</button>
     </div>
     <div class="field">
@@ -1867,6 +1872,7 @@ function openSettings(){
         ${s.heroImg?`<img src="${esc(s.heroImg)}"/>`:"📷 Click to upload a hero photo (optional)"}
       </div>
       <input type="file" id="heroFile" accept="image/*" style="display:none" onchange="pickSettingsHero(event)"/>
+      <p class="hint" style="text-align:left;margin:6px 0 0">📐 Wide/landscape, ratio <b>16:9</b> — about <b>1920 × 1080 px</b> (at least 1600 px wide). Use <b>JPG</b>. This is the big top banner photo.</p>
       <button class="mini del" id="heroRemove" style="margin-top:8px;display:${s.heroImg?'inline-block':'none'}" onclick="clearHeroImg()">Remove photo (use illustration)</button>
     </div>
     <div class="field" style="border:1px solid var(--line);border-radius:12px;padding:14px;background:rgba(var(--brand-rgb),.03)">
